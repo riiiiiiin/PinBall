@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>cat_cool.png</file>
+    </qresource>
+    <qresource prefix="/backgrounds">
+        <file>border.png</file>
+    </qresource>
+</RCC>
