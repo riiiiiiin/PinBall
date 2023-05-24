@@ -10,6 +10,7 @@
 #include <vector>
 
 #include "exitconfirm.h"
+#include "mcheckbutton.h"
 
 namespace Ui {
 class PauseMenu;
@@ -22,12 +23,12 @@ class PauseMenu : public QDialog
 public:
     explicit PauseMenu(std::vector<QSoundEffect*> se,QWidget *parent = nullptr,QApplication* app = nullptr,QSoundEffect* msc=nullptr);
     ~PauseMenu();
-    void paintEvent(QPaintEvent *e) override;
 private:
     Ui::PauseMenu *ui;
     QApplication* _app;
     QSoundEffect* _music;
     std::vector<QSoundEffect*> _sound_effects;
+    MCheckButton* m;
 signals:
     void closed();
 protected:

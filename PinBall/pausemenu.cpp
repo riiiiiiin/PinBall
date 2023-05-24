@@ -26,6 +26,9 @@ PauseMenu::PauseMenu(std::vector<QSoundEffect*> se,QWidget *parent,QApplication*
 
     ui->seMuteButton->setCheckable(true);
     ui->musicMuteButton->setCheckable(true);
+
+    m = new MCheckButton(150,"A",this);
+    m->setParent(this);
 }
 
 PauseMenu::~PauseMenu()
@@ -50,15 +53,6 @@ void PauseMenu::keyPressEvent(QKeyEvent *event){
     }
 }
 
-void PauseMenu::paintEvent(QPaintEvent *e){
-    QPixmap* bder = new QPixmap;
-    bder->load(":/backgrounds/border.png");
-    resize(bder->size());
-    QPainter painter(this);
-    painter.drawPixmap(0,0,*bder);
-    QWidget::paintEvent(e);
-}
-
 void PauseMenu::on_resumeButton_clicked()
 {
     close();
@@ -73,13 +67,13 @@ void PauseMenu::on_exitButton_clicked()
 void PauseMenu::on_seMuteButton_clicked(bool checked)
 {
     if(checked){
-        ui->seMuteButton->setText("seMuted!");
+        ui->seMuteButton->setText("SE : Silent");
         for(auto ptr:_sound_effects){
             ptr->setMuted(true);
         }
     }
     else{
-        ui->seMuteButton->setText(("seMute"));
+        ui->seMuteButton->setText(("SE : Voluable"));
         for(auto ptr:_sound_effects){
             ptr->setMuted(false);
         }
@@ -90,11 +84,11 @@ void PauseMenu::on_seMuteButton_clicked(bool checked)
 void PauseMenu::on_musicMuteButton_clicked(bool checked)
 {
     if(checked){
-        ui->musicMuteButton->setText("musicMuted!");
+        ui->musicMuteButton->setText("Music : Silent");
         _music->setMuted(true);
     }
     else{
-        ui->musicMuteButton->setText("musicMute");
+        ui->musicMuteButton->setText("Music : Voluable");
         _music->setMuted(false);
     }
 }

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>960</width>
+    <height>540</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,11 +16,20 @@
   <widget class="QPushButton" name="exitButton">
    <property name="geometry">
     <rect>
-     <x>40</x>
-     <y>20</y>
-     <width>80</width>
-     <height>24</height>
+     <x>70</x>
+     <y>290</y>
+     <width>601</width>
+     <height>41</height>
     </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Segoe Fluent Icons</family>
+     <pointsize>20</pointsize>
+    </font>
+   </property>
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
    </property>
    <property name="text">
     <string>Exit</string>
@@ -29,8 +38,8 @@
   <widget class="QPushButton" name="resumeButton">
    <property name="geometry">
     <rect>
-     <x>60</x>
-     <y>100</y>
+     <x>200</x>
+     <y>440</y>
      <width>31</width>
      <height>31</height>
     </rect>
@@ -52,27 +61,44 @@
   <widget class="QPushButton" name="seMuteButton">
    <property name="geometry">
     <rect>
-     <x>160</x>
-     <y>20</y>
-     <width>80</width>
-     <height>24</height>
+     <x>70</x>
+     <y>340</y>
+     <width>601</width>
+     <height>41</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI Variable Display Semib</family>
+     <pointsize>20</pointsize>
+     <bold>true</bold>
+    </font>
+   </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
    <property name="text">
-    <string>SEMute</string>
+    <string>SE : Voluable</string>
    </property>
   </widget>
   <widget class="QPushButton" name="musicMuteButton">
    <property name="geometry">
     <rect>
-     <x>160</x>
-     <y>110</y>
-     <width>80</width>
-     <height>24</height>
+     <x>70</x>
+     <y>390</y>
+     <width>601</width>
+     <height>41</height>
     </rect>
    </property>
+   <property name="font">
+    <font>
+     <family>Segoe UI Variable Small Semibol</family>
+     <pointsize>20</pointsize>
+     <bold>true</bold>
+    </font>
+   </property>
    <property name="text">
-    <string>MusicMute</string>
+    <string>Music : Voluable</string>
    </property>
   </widget>
  </widget>

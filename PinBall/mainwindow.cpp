@@ -28,6 +28,13 @@ MainWindow::MainWindow(QWidget *parent,QApplication* app)
     //Setup PauseMenu
     pmenu = new PauseMenu(sound_effects,this,app,music);
     connect(pmenu,&PauseMenu::closed,this,&MainWindow::on_pauseMenu_closed);
+    //Setup Mask
+    m_pMask = new QWidget(this);
+    m_pMask->setWindowFlags(Qt::Window|Qt::FramelessWindowHint |Qt::WindowSystemMenuHint|Qt::WindowMinimizeButtonHint|Qt::WindowMaximizeButtonHint);
+    m_pMask->hide();
+    m_pMask->setWindowOpacity(0.7);
+    m_pMask->setStyleSheet("background-color:black");
+    m_pMask->setFixedSize(this->width(),this->height());
 }
 
 MainWindow::~MainWindow()
@@ -44,13 +51,25 @@ MainWindow::~MainWindow()
     delete blure;
 }
 
+void MainWindow::paintEvent(QPaintEvent *e){
+
+    QPixmap* bg = new QPixmap;
+    bg->load(":/backgrounds/Nebula.png");
+
+    QPainter painter(this);
+    painter.drawPixmap(0,0,*bg);
+    QMainWindow::paintEvent(e);
+}
+
 //enables blure while paused
 void MainWindow::on_pauseButton_clicked()
 {
+    m_pMask->show();
     pmenu->show();
     blure->setEnabled(true);
 }
 
 void MainWindow::on_pauseMenu_closed(){
+    m_pMask->close();
     blure->setEnabled(false);
 }

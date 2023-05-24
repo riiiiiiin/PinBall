@@ -12,11 +12,13 @@ SOURCES += \
     exitconfirm.cpp \
     main.cpp \
     mainwindow.cpp \
+    mcheckbutton.cpp \
     pausemenu.cpp
 
 HEADERS += \
     exitconfirm.h \
     mainwindow.h \
+    mcheckbutton.h \
     pausemenu.h
 
 FORMS += \

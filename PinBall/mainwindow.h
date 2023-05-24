@@ -24,7 +24,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr,QApplication* app = nullptr);
     ~MainWindow();
-
+    void paintEvent(QPaintEvent *e) override;
 
 private slots:
     void on_pauseButton_clicked();
@@ -37,6 +37,7 @@ private:
     QGraphicsBlurEffect *blure;
     std::vector<QSoundEffect*> sound_effects;
     QSoundEffect* music;
+    QWidget* m_pMask;
 };
 
 #endif // MAINWINDOW_H
