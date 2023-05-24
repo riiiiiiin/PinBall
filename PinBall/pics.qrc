@@ -1,14 +1,11 @@
 <RCC>
     <qresource prefix="/icons">
-        <file>cat_cool.png</file>
         <file>Box_Black_Checked.png</file>
         <file>Box_Black_unChecked.png</file>
         <file>Box_White_Checked.png</file>
         <file>Box_White_unChecked.png</file>
     </qresource>
     <qresource prefix="/backgrounds">
-        <file>border.png</file>
-        <file>BlackHole.png</file>
         <file>Nebula.png</file>
     </qresource>
 </RCC>

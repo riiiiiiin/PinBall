@@ -11,6 +11,7 @@
 
 #include "exitconfirm.h"
 #include "mcheckbutton.h"
+#include "mpushbutton.h"
 
 namespace Ui {
 class PauseMenu;
@@ -28,17 +29,18 @@ private:
     QApplication* _app;
     QSoundEffect* _music;
     std::vector<QSoundEffect*> _sound_effects;
-    MCheckButton* m;
+    std::vector<MCheckButton*> _check_buttons;
+    std::vector<MPushButton*> _push_buttons;
 signals:
     void closed();
 protected:
     void closeEvent(QCloseEvent *event) override;
     void keyPressEvent(QKeyEvent *event) override;
 private slots:
-    void on_resumeButton_clicked();
-    void on_exitButton_clicked();
-    void on_seMuteButton_clicked(bool checked);
-    void on_musicMuteButton_clicked(bool checked);
+    void on_resumeButtonClicked();
+    void on_exitButtonClicked();
+    void on_seMuteButtonClicked(bool checked);
+    void on_musicMuteButtonClicked(bool checked);
 };
 
 #endif // PAUSEMENU_H

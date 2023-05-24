@@ -28,7 +28,7 @@ public:
 
 private slots:
     void on_pauseButton_clicked();
-    void on_pauseMenu_closed();
+    void on_pauseMenuClosed();
 
 private:
     Ui::MainWindow *ui;

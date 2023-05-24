@@ -27,7 +27,7 @@ MainWindow::MainWindow(QWidget *parent,QApplication* app)
     sound_effects.push_back(sound_effect);
     //Setup PauseMenu
     pmenu = new PauseMenu(sound_effects,this,app,music);
-    connect(pmenu,&PauseMenu::closed,this,&MainWindow::on_pauseMenu_closed);
+    connect(pmenu,&PauseMenu::closed,this,&MainWindow::on_pauseMenuClosed);
     //Setup Mask
     m_pMask = new QWidget(this);
     m_pMask->setWindowFlags(Qt::Window|Qt::FramelessWindowHint |Qt::WindowSystemMenuHint|Qt::WindowMinimizeButtonHint|Qt::WindowMaximizeButtonHint);
@@ -69,7 +69,7 @@ void MainWindow::on_pauseButton_clicked()
     blure->setEnabled(true);
 }
 
-void MainWindow::on_pauseMenu_closed(){
+void MainWindow::on_pauseMenuClosed(){
     m_pMask->close();
     blure->setEnabled(false);
 }

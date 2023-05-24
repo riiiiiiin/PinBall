@@ -15,25 +15,36 @@ PauseMenu::PauseMenu(std::vector<QSoundEffect*> se,QWidget *parent,QApplication*
     setWindowFlags(Qt::FramelessWindowHint|windowFlags());
     setAttribute(Qt::WA_TranslucentBackground);
 
-    //setup one button(example)
-    QPixmap* pix = new QPixmap;
-    pix->load(":/icons/cat_cool.png");
-    *pix = pix->scaled(32,32);
+    //setup mute buttons
+    _check_buttons.resize(2);
+    _check_buttons[0] = new MCheckButton(150,"Mute_Music","Mute Music:",this);
+    _check_buttons[0]->setParent(this);
+    _check_buttons[1] = new MCheckButton(200,"Mute_SE","Mute SE:",this);
+    _check_buttons[1]->setParent(this);
+    QObject::connect(_check_buttons[0],SIGNAL(checked(bool)),this,SLOT(on_musicMuteButtonClicked(bool)));
+    QObject::connect(_check_buttons[1],SIGNAL(checked(bool)),this,SLOT(on_seMuteButtonClicked(bool)));
 
-    ui->resumeButton->setIconSize(pix->size());
-    ui->resumeButton->setMask(pix->mask());
-    ui->resumeButton->setStyleSheet("background-image: url(:/icons/cat_cool.png)");
-
-    ui->seMuteButton->setCheckable(true);
-    ui->musicMuteButton->setCheckable(true);
-
-    m = new MCheckButton(150,"A",this);
-    m->setParent(this);
+    //setup exit buttons
+    _push_buttons.resize(2);
+    _push_buttons[0] = new MPushButton(250,"Resume","Back To Game",this);
+    _push_buttons[0]->setParent(this);
+    _push_buttons[1] = new MPushButton(300,"Exit","Exit",this);
+    _push_buttons[1]->setParent(this);
+    connect(_push_buttons[0],SIGNAL(pushed()),this,SLOT(on_resumeButtonClicked()));
+    connect(_push_buttons[1],SIGNAL(pushed()),this,SLOT(on_exitButtonClicked()));
 }
 
 PauseMenu::~PauseMenu()
 {
     delete ui;
+    for(auto ptr:_sound_effects){
+        delete ptr;
+    }
+    _sound_effects.clear();
+    for(auto ptr:_push_buttons){
+        delete ptr;
+    }
+    _push_buttons.clear();
 }
 
 void PauseMenu::closeEvent(QCloseEvent* event){
@@ -53,27 +64,25 @@ void PauseMenu::keyPressEvent(QKeyEvent *event){
     }
 }
 
-void PauseMenu::on_resumeButton_clicked()
+void PauseMenu::on_resumeButtonClicked()
 {
     close();
 }
 
-void PauseMenu::on_exitButton_clicked()
+void PauseMenu::on_exitButtonClicked()
 {
     ExitConfirm* exitc = new ExitConfirm(this,_app);
     exitc->show();
 }
 
-void PauseMenu::on_seMuteButton_clicked(bool checked)
+void PauseMenu::on_seMuteButtonClicked(bool checked)
 {
     if(checked){
-        ui->seMuteButton->setText("SE : Silent");
         for(auto ptr:_sound_effects){
             ptr->setMuted(true);
         }
     }
     else{
-        ui->seMuteButton->setText(("SE : Voluable"));
         for(auto ptr:_sound_effects){
             ptr->setMuted(false);
         }
@@ -81,14 +90,12 @@ void PauseMenu::on_seMuteButton_clicked(bool checked)
 }
 
 
-void PauseMenu::on_musicMuteButton_clicked(bool checked)
+void PauseMenu::on_musicMuteButtonClicked(bool checked)
 {
     if(checked){
-        ui->musicMuteButton->setText("Music : Silent");
         _music->setMuted(true);
     }
     else{
-        ui->musicMuteButton->setText("Music : Voluable");
         _music->setMuted(false);
     }
 }

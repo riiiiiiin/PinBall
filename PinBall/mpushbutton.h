@@ -1,35 +1,30 @@
 
-#ifndef MCHECKBUTTON_H
-#define MCHECKBUTTON_H
+#ifndef MPUSHBUTTON_H
+#define MPUSHBUTTON_H
 
 #include <QFrame>
 #include <QLabel>
 #include <QDialog>
 #include <QGraphicsDropShadowEffect>
-#include <QObject>
 
-class MCheckButton : public QFrame
+
+class MPushButton : public QFrame
 {
     Q_OBJECT
 
 public:
-    MCheckButton(int height,QString objname,QString text,QDialog* parent = nullptr);
-    ~MCheckButton();
+    MPushButton(int height,QString name,QString text,QDialog* parent = nullptr);
+    ~MPushButton();
 private:
     int _height;
-    bool _checked;
     QString _name;
     QString _text;
     QLabel* _txtLabel;
-    QLabel* _iconLabel;
     QGraphicsDropShadowEffect* _shadow;
-    QPixmap* _ico_black;
-    QPixmap* _ico_white;
-    QPixmap* _ico_black_checked;
-    QPixmap* _ico_white_checked;
 
 signals:
-    void checked(bool);
+    void pushed();
+
 protected:
     void mousePressEvent(QMouseEvent* event) override;
 
@@ -38,4 +33,4 @@ private slots:
     void leaveEvent(QEvent *event) override;
 };
 
-#endif // MCHECKBUTTON_H
+#endif // MPUSHBUTTON_H

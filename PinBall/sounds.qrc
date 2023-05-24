@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/music">
-        <file>Amazing_Future.mp3</file>
         <file>a.wav</file>
     </qresource>
     <qresource prefix="/se">

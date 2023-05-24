@@ -13,12 +13,14 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     mcheckbutton.cpp \
+    mpushbutton.cpp \
     pausemenu.cpp
 
 HEADERS += \
     exitconfirm.h \
     mainwindow.h \
     mcheckbutton.h \
+    mpushbutton.h \
     pausemenu.h
 
 FORMS += \
