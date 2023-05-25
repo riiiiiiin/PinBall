@@ -1,5 +1,5 @@
 
-#include "mcheckbutton.h"
+#include "Headers/mcheckbutton.h"
 
 MCheckButton::MCheckButton(int height,QString name,QString text,QDialog* parent)
     :_height(height),_checked(false),_name(name),_text(text)

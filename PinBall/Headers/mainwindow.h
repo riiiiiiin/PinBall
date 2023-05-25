@@ -3,7 +3,6 @@
 #define MAINWINDOW_H
 
 #include <vector>
-
 #include <QMainWindow>
 #include <QApplication>
 #include <QGraphicsBlurEffect>
@@ -22,18 +21,18 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    MainWindow(QWidget *parent = nullptr,QApplication* app = nullptr);
+    MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void paintEvent(QPaintEvent *e) override;
 
 private slots:
     void on_pauseButton_clicked();
     void on_pauseMenuClosed();
+    void on_exitRequested();
 
 private:
     Ui::MainWindow *ui;
     PauseMenu *pmenu;
-    QApplication* main_app;
     QGraphicsBlurEffect *blure;
     std::vector<QSoundEffect*> sound_effects;
     QSoundEffect* music;

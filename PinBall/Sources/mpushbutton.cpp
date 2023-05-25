@@ -1,5 +1,5 @@
 
-#include "mpushbutton.h"
+#include "Headers/mpushbutton.h"
 
 MPushButton::MPushButton(int height,QString name,QString text,QDialog* parent)
     :_height(height),_name(name),_text(text)

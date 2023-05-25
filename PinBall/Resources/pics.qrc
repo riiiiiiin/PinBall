@@ -7,5 +7,9 @@
     </qresource>
     <qresource prefix="/backgrounds">
         <file>Nebula.png</file>
+        <file>Dialog_Exit_Orange.png</file>
+    </qresource>
+    <qresource prefix="/others">
+        <file>White_140_2.png</file>
     </qresource>
 </RCC>
