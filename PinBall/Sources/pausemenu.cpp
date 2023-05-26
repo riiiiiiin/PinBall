@@ -30,7 +30,7 @@ PauseMenu::PauseMenu(std::vector<QSoundEffect *> se, QSoundEffect *msc, QWidget 
 
     // setup subdialog
     _exc = new ExitConfirm(this);
-    connect(_exc, &ExitConfirm::exitReq, this, &PauseMenu::on_exitRequested);
+    connect(_exc, &ExitConfirm::accepted, this, &PauseMenu::on_exitRequested);
 
     // setup title
     _title = new QLabel(this);
