@@ -6,6 +6,7 @@ PauseMenu::PauseMenu(std::vector<QSoundEffect *> se, QSoundEffect *msc, QWidget 
       _sound_effects(se)
 {
     // setup translucent menu
+    setGeometry(0, 0, 960, 540);
     setModal(true);
     setWindowFlags(Qt::FramelessWindowHint | windowFlags());
     setAttribute(Qt::WA_TranslucentBackground);

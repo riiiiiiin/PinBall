@@ -1,6 +1,6 @@
 #include "Headers/mconfirmation.h"
 
-MConfirmation::MConfirmation(QWidget *parent)
+MConfirmation::MConfirmation(QWidget *parent):QDialog(parent)
 {
     // setup background
     setGeometry(0, 0, 960, 540);
