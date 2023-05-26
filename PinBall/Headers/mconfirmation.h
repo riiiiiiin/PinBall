@@ -6,16 +6,19 @@
 #include <QPushButton>
 #include <QKeyEvent>
 
-class MConfirmation : public QDialog{
+class MConfirmation : public QDialog
+{
     Q_OBJECT
 private:
-    QLabel* _background;
+    QLabel *_background;
+
 protected:
-    QLabel* _title;
-    QPushButton* _acc_button;
-    QPushButton* _rej_button;
+    QLabel *_title;
+    QPushButton *_acc_button;
+    QPushButton *_rej_button;
+
 protected:
-    void closeEvent(QCloseEvent* event) override;
+    void closeEvent(QCloseEvent *event) override;
     void keyPressEvent(QKeyEvent *event) override;
 protected slots:
     virtual void on_Rejected();
@@ -23,6 +26,7 @@ protected slots:
 signals:
     void accepted();
     void rejected();
+
 public:
     explicit MConfirmation(QWidget *parent = nullptr);
     virtual ~MConfirmation();

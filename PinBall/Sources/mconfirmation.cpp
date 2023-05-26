@@ -1,6 +1,6 @@
 #include "Headers/mconfirmation.h"
 
-MConfirmation::MConfirmation(QWidget *parent):QDialog(parent)
+MConfirmation::MConfirmation(QWidget *parent) : QDialog(parent)
 {
     // setup background
     setGeometry(0, 0, 960, 540);
@@ -16,7 +16,7 @@ MConfirmation::MConfirmation(QWidget *parent):QDialog(parent)
 
     // setup title
     _title = new QLabel(this);
-    _title->setStyleSheet("color:white;font-family: \"Segoe UI Variable Small Semibol\"; font-size: 40px;");
+    _title->setStyleSheet("color:white;font-family: \"Segoe UI Variable Small Semibol\"; font-size: 40px;font-weight: bold;");
     _title->setParent(this);
 
     // setup accept button
@@ -36,23 +36,27 @@ MConfirmation::MConfirmation(QWidget *parent):QDialog(parent)
     Q_UNUSED(parent);
 }
 
-MConfirmation::~MConfirmation(){
+MConfirmation::~MConfirmation()
+{
     delete _background;
     delete _title;
     delete _acc_button;
     delete _rej_button;
 }
 
-void MConfirmation::closeEvent(QCloseEvent* event){
+void MConfirmation::closeEvent(QCloseEvent *event)
+{
     emit rejected();
     QDialog::closeEvent(event);
 }
 
-void MConfirmation::on_Rejected(){
+void MConfirmation::on_Rejected()
+{
     close();
 }
 
-void MConfirmation::on_Accepted(){
+void MConfirmation::on_Accepted()
+{
     emit accepted();
 }
 
@@ -65,7 +69,8 @@ void MConfirmation::keyPressEvent(QKeyEvent *event)
         close();
         break;
     }
-    case Qt::Key_Enter:{
+    case Qt::Key_Enter:
+    {
         emit accepted();
         break;
     }

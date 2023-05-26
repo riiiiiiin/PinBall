@@ -1,41 +1,23 @@
 #ifndef PAUSEMENU_H
 #define PAUSEMENU_H
 
-#include <QDialog>
-#include <QLabel>
-#include <QPixmap>
-#include <QPainter>
-#include <QStyleOption>
-#include <QtMultimedia>
-#include <QKeyEvent>
-#include <vector>
+#include "mtab.h"
 
-#include "exitconfirm.h"
-#include "mcheckbutton.h"
-#include "mpushbutton.h"
-
-
-class PauseMenu : public QDialog
+class PauseMenu : public MTab
 {
     Q_OBJECT
 
 public:
-    explicit PauseMenu(std::vector<QSoundEffect*> se,QSoundEffect* msc,QWidget *parent = nullptr);
+    explicit PauseMenu(std::vector<QSoundEffect *> se, QSoundEffect *msc, QWidget *parent = nullptr);
     ~PauseMenu();
+
 private:
-    QSoundEffect* _music;
-    ExitConfirm* _exc;
-    QLabel* _title;
-    QLabel* _white_bar;
-    std::vector<QSoundEffect*> _sound_effects;
-    std::vector<MCheckButton*> _check_buttons;
-    std::vector<MPushButton*> _push_buttons;
+    QSoundEffect *_music;
+    ExitConfirm *_exc;
+    std::vector<QSoundEffect *> _sound_effects;
 signals:
-    void closed();
-    void exitRequest();
+
 protected:
-    void closeEvent(QCloseEvent *event) override;
-    void keyPressEvent(QKeyEvent *event) override;
 private slots:
     void on_resumeButtonClicked();
     void on_exitButtonClicked();

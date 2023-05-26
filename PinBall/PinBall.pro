@@ -16,7 +16,8 @@ SOURCES += \
     Sources/mpushbutton.cpp \
     Sources/pausemenu.cpp \
     Sources/mbutton.cpp \
-    Sources/mconfirmation.cpp
+    Sources/mconfirmation.cpp \
+    Sources/mtab.cpp
 
 HEADERS += \
     Headers/exitconfirm.h \
@@ -25,7 +26,8 @@ HEADERS += \
     Headers/mpushbutton.h \
     Headers/pausemenu.h \
     Headers/mbutton.h \
-    Headers/mconfirmation.h
+    Headers/mconfirmation.h \
+    Headers/mtab.h
 
 FORMS += \
     Forms/mainwindow.ui

@@ -8,6 +8,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    setWindowFlags(windowFlags() & ~Qt::WindowMaximizeButtonHint);
+    setFixedSize(960,540);
     //Setup blure effect
     blure = new QGraphicsBlurEffect;
     blure->setBlurRadius(5.0);

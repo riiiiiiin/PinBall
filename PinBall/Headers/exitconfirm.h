@@ -12,14 +12,9 @@ public:
     ~ExitConfirm();
 
 signals:
-
-
 protected slots:
-
 protected:
-    
 private:
-    
 };
 
 #endif // EXITCOMFIRM_H
