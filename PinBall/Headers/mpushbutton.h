@@ -7,20 +7,16 @@
 #include <QDialog>
 #include <QGraphicsDropShadowEffect>
 
+#include "Headers/mbutton.h"
 
-class MPushButton : public QFrame
-{
+class MPushButton : public MButton{
     Q_OBJECT
+
+private:
 
 public:
     MPushButton(int height,QString name,QString text,QDialog* parent = nullptr);
     ~MPushButton();
-private:
-    int _height;
-    QString _name;
-    QString _text;
-    QLabel* _txtLabel;
-    QGraphicsDropShadowEffect* _shadow;
 
 signals:
     void pushed();
@@ -28,9 +24,8 @@ signals:
 protected:
     void mousePressEvent(QMouseEvent* event) override;
 
-private slots:
-    void enterEvent(QEnterEvent *event) override;
-    void leaveEvent(QEvent *event) override;
+protected slots:
+    
 };
 
 #endif // MPUSHBUTTON_H

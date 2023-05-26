@@ -34,23 +34,22 @@ PauseMenu::PauseMenu(std::vector<QSoundEffect *> se, QSoundEffect *msc, QWidget 
 
     // setup title
     _title = new QLabel(this);
-    _title->setGeometry(412,40,200,40);
+    _title->setGeometry(412, 40, 200, 40);
     _title->setText("Settings");
-    
+
     QFont font;
     font.setFamily("Segoe UI Variable Small Semibol");
     font.setBold(true);
     font.setPixelSize(30);
     _title->setFont(font);
     QPalette plt = _title->palette();
-    plt.setColor(QPalette::WindowText,QColor("#ffffff"));
+    plt.setColor(QPalette::WindowText, QColor("#ffffff"));
     _title->setPalette(plt);
 
     _white_bar = new QLabel(this);
-    _white_bar->setGeometry(398,85,140,2);
+    _white_bar->setGeometry(398, 85, 140, 2);
     _white_bar->setText("");
     _white_bar->setPixmap(QPixmap(":/others/White_140_2.png"));
-
 }
 
 PauseMenu::~PauseMenu()
@@ -68,7 +67,6 @@ PauseMenu::~PauseMenu()
     delete _exc;
     delete _title;
     delete _white_bar;
-
 }
 
 void PauseMenu::closeEvent(QCloseEvent *event)
@@ -104,8 +102,8 @@ void PauseMenu::on_exitButtonClicked()
     _exc->exec();
 }
 
-void PauseMenu::on_ExitConfirmClosed(){
-
+void PauseMenu::on_ExitConfirmClosed()
+{
 }
 
 void PauseMenu::on_exitRequested()
@@ -142,5 +140,3 @@ void PauseMenu::on_musicMuteButtonClicked(bool checked)
         _music->setMuted(false);
     }
 }
-
-

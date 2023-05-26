@@ -14,14 +14,16 @@ SOURCES += \
     Sources/mainwindow.cpp \
     Sources/mcheckbutton.cpp \
     Sources/mpushbutton.cpp \
-    Sources/pausemenu.cpp
+    Sources/pausemenu.cpp \
+    Sources/mbutton.cpp
 
 HEADERS += \
     Headers/exitconfirm.h \
     Headers/mainwindow.h \
     Headers/mcheckbutton.h \
     Headers/mpushbutton.h \
-    Headers/pausemenu.h
+    Headers/pausemenu.h \
+    Headers/mbutton.h
 
 FORMS += \
     Forms/mainwindow.ui
