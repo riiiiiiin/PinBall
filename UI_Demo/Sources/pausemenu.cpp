@@ -29,12 +29,12 @@ PauseMenu::PauseMenu(std::vector<QSoundEffect *> se, QSoundEffect *msc, QWidget 
 
     // setup title
     _title = new QLabel(this);
-    _title->setGeometry(412, 40, 200, 40);
-    _title->setText("Settings");
+    _title->setGeometry(375, 40, 200, 40);
+    _title->setText("Game Paused");
     _title->setStyleSheet("color:white;font-family: \"Segoe UI Variable Small Semibol\";font-size:30px;font-weight: bold;");
 
     _white_bar = new QLabel(this);
-    _white_bar->setGeometry(398, 85, 140, 2);
+    _white_bar->setGeometry(400, 85, 140, 2);
     _white_bar->setText("");
     _white_bar->setStyleSheet("background-color:white;");
 }

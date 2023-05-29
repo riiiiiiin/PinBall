@@ -17,6 +17,7 @@ MCheckButton::MCheckButton(int height, QString name, QString text, QDialog *pare
     _iconLabel->setPixmap(*_ico_white);
     _iconLabel->setMask(_ico_white->mask());
 
+    _checked = false;
     Q_UNUSED(parent);
 }
 
