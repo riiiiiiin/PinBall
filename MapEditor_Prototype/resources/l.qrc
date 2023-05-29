@@ -7,5 +7,11 @@
         <file>static_2.png</file>
         <file>dragged_valid_2.png</file>
         <file>dragged_invalid_2.png</file>
+        <file>static_3.png</file>
+        <file>dragged_valid_3.png</file>
+        <file>dragged_invalid_3.png</file>
+        <file>static_4.png</file>
+        <file>dragged_valid_4.png</file>
+        <file>dragged_invalid_4.png</file>
     </qresource>
 </RCC>

@@ -10,7 +10,9 @@
 
 enum e_MDraggables{
     kidney = 1,
-    drum = 2
+    drum = 2,
+    award =3,
+    cirwall=4
 };
 
 class MDraggable : public QWidget

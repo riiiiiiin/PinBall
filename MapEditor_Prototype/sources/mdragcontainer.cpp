@@ -10,13 +10,24 @@ MDragContainer::MDragContainer(QWidget *parent) : QObject(parent), _parent(paren
     _static_pic_2 = new QPixmap(":/new/prefix2/static_2.png");
     _dragged_valid_2 = new QPixmap(":/new/prefix2/dragged_valid_2.png");
     _dragged_invalid_2 = new QPixmap(":/new/prefix2/dragged_invalid_2.png");
+    _static_pic_3 = new QPixmap(":/new/prefix2/static_3.png");
+    _dragged_valid_3 = new QPixmap(":/new/prefix2/dragged_valid_3.png");
+    _dragged_invalid_3 = new QPixmap(":/new/prefix2/dragged_invalid_3.png");
+    _static_pic_4 = new QPixmap(":/new/prefix2/static_4.png");
+    _dragged_valid_4 = new QPixmap(":/new/prefix2/dragged_valid_4.png");
+    _dragged_invalid_4 = new QPixmap(":/new/prefix2/dragged_invalid_4.png");
 
     _dragKidney_home = new MDragKidney(kidney, _static_pic, _dragged_valid, _dragged_invalid, _location_kidney, parent);
     _dragDrum_home = new MDragDrum(drum, _static_pic_2, _dragged_valid_2, _dragged_invalid_2, _location_drum, parent);
+    _dragAward_home = new MDragAward(award,_static_pic_3,_dragged_valid_3,_dragged_invalid_3,_location_award,parent);
+    _dragCirWall_home = new MDragCirWall(cirwall,_static_pic_4,_dragged_valid_4,_dragged_invalid_4,_location_cirWall,parent);
+
     _draggable_buffer = nullptr;
 
     connect(_dragKidney_home, &MDraggable::be_moved, this, &MDragContainer::create_new_kidney);
     connect(_dragDrum_home, &MDraggable::be_moved, this, &MDragContainer::create_new_drum);
+    connect(_dragAward_home,&MDraggable::be_moved, this, &MDragContainer::create_new_award);
+    connect(_dragCirWall_home,&MDraggable::be_moved, this, &MDragContainer::create_new_cirWall);
     _elements.clear();
 }
 
@@ -25,6 +36,8 @@ MDragContainer::~MDragContainer()
     disconnect(this);
     delete _dragKidney_home;
     delete _dragDrum_home;
+    delete _dragAward_home;
+    delete _dragCirWall_home;
     if (_draggable_buffer != nullptr)
     {
         delete _draggable_buffer;
@@ -40,6 +53,12 @@ MDragContainer::~MDragContainer()
     delete _static_pic_2 ;
     delete _dragged_valid_2 ;
     delete _dragged_invalid_2;
+    delete _static_pic_3 ;
+    delete _dragged_valid_3 ;
+    delete _dragged_invalid_3 ;
+    delete _static_pic_4 ;
+    delete _dragged_valid_4 ;
+    delete _dragged_invalid_4;
 }
 
 void MDragContainer::create_new_kidney()
@@ -61,8 +80,32 @@ void MDragContainer::create_new_drum()
     connect(_draggable_buffer, &MDraggable::be_released_invalidly, this, &MDragContainer::trash_old);
     connect(_draggable_buffer, &MDraggable::be_released_validly, this, &MDragContainer::move_old);
     _dragDrum_home = nullptr;
-    _dragDrum_home = new MDragDrum(drum, _static_pic_2, _dragged_valid_2, _dragged_invalid_2, _location_drum, _parent);
+    _dragDrum_home = new MDragDrum(drum,_static_pic_2,_dragged_valid_2,_dragged_invalid_2,_location_drum,_parent);
     connect(_dragDrum_home, &MDraggable::be_moved, this, &MDragContainer::create_new_drum);
+    _draggable_buffer->raise();
+}
+
+void MDragContainer::create_new_award()
+{
+    _draggable_buffer = _dragAward_home;
+    disconnect(_draggable_buffer, &MDraggable::be_moved, this, &MDragContainer::create_new_award);
+    connect(_draggable_buffer, &MDraggable::be_released_invalidly, this, &MDragContainer::trash_old);
+    connect(_draggable_buffer, &MDraggable::be_released_validly, this, &MDragContainer::move_old);
+    _dragAward_home = nullptr;
+    _dragAward_home = new MDragAward(award, _static_pic_3, _dragged_valid_3, _dragged_invalid_3, _location_award, _parent);
+    connect(_dragAward_home, &MDraggable::be_moved, this, &MDragContainer::create_new_award);
+    _draggable_buffer->raise();
+}
+
+void MDragContainer::create_new_cirWall()
+{
+    _draggable_buffer = _dragCirWall_home;
+    disconnect(_draggable_buffer, &MDraggable::be_moved, this, &MDragContainer::create_new_cirWall);
+    connect(_draggable_buffer, &MDraggable::be_released_invalidly, this, &MDragContainer::trash_old);
+    connect(_draggable_buffer, &MDraggable::be_released_validly, this, &MDragContainer::move_old);
+    _dragCirWall_home = nullptr;
+    _dragCirWall_home = new MDragCirWall(cirwall, _static_pic_4, _dragged_valid_4, _dragged_invalid_4, _location_cirWall, _parent);
+    connect(_dragCirWall_home, &MDraggable::be_moved, this, &MDragContainer::create_new_cirWall);
     _draggable_buffer->raise();
 }
 
