@@ -2,12 +2,6 @@
 #ifndef MCHECKBUTTON_H
 #define MCHECKBUTTON_H
 
-#include <QFrame>
-#include <QLabel>
-#include <QDialog>
-#include <QGraphicsDropShadowEffect>
-#include <QObject>
-
 #include "Headers/mbutton.h"
 
 class MCheckButton : public MButton

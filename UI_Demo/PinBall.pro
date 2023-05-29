@@ -17,7 +17,8 @@ SOURCES += \
     Sources/pausemenu.cpp \
     Sources/mbutton.cpp \
     Sources/mconfirmation.cpp \
-    Sources/mtab.cpp
+    Sources/mtab.cpp \
+    Sources/mslider.cpp
 
 HEADERS += \
     Headers/exitconfirm.h \
@@ -27,7 +28,8 @@ HEADERS += \
     Headers/pausemenu.h \
     Headers/mbutton.h \
     Headers/mconfirmation.h \
-    Headers/mtab.h
+    Headers/mtab.h \
+    Headers/mslider.h
 
 FORMS += \
     Forms/mainwindow.ui

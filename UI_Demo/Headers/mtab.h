@@ -13,6 +13,7 @@
 #include "exitconfirm.h"
 #include "mcheckbutton.h"
 #include "mpushbutton.h"
+#include "mslider.h"
 
 class MTab : public QDialog
 {

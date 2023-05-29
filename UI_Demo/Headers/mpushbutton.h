@@ -2,11 +2,6 @@
 #ifndef MPUSHBUTTON_H
 #define MPUSHBUTTON_H
 
-#include <QFrame>
-#include <QLabel>
-#include <QDialog>
-#include <QGraphicsDropShadowEffect>
-
 #include "Headers/mbutton.h"
 
 class MPushButton : public MButton

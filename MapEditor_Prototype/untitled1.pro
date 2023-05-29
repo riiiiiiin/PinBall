@@ -12,12 +12,14 @@ SOURCES += \
     sources/main.cpp \
     sources/mainwindow.cpp \
     sources/mdraggable.cpp \
-    sources/mdragcontainers.cpp
+    sources/mdragcontainer.cpp \
+    sources/mdraggables.cpp
 
 HEADERS += \
     headers/mainwindow.h \
     headers/mdraggable.h \
-    headers/mdragcontainers.h
+    headers/mdragcontainer.h \
+    headers/mdraggables.h
     
 
 

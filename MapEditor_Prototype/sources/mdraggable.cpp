@@ -3,18 +3,12 @@
 MDraggable::MDraggable(QPoint location_source, QWidget *parent)
     : QWidget(parent),_is_set_properly(false)
 {
-    _static_pic = new QPixmap(":/new/prefix2/static.png");
-    _dragged_valid = new QPixmap(":/new/prefix2/dragged_valid.png");
-    _dragged_invalid = new QPixmap(":/new/prefix2/dragged_invalid.png");
-
+    qDebug()<<this;
     _label = new QLabel(this);
     setMouseTracking(true);
     setGeometry(600, 300, 100, 100);
     move(location_source);
     _label->setText("");
-    _label->setPixmap(*_static_pic);
-    _label->setMask(_static_pic->mask());
-    setVisible(true);
 }
 
 MDraggable::~MDraggable()
@@ -22,9 +16,6 @@ MDraggable::~MDraggable()
 
     disconnect(this);
     delete _label;
-    delete _static_pic;
-    delete _dragged_valid;
-    delete _dragged_invalid;
 }
 
 bool MDraggable::IsPosValid()
@@ -80,7 +71,6 @@ void MDraggable::mouseMoveEvent(QMouseEvent *event)
 
 void MDraggable::mouseReleaseEvent(QMouseEvent *event)
 {
-    //setGeometry(600, 300, 100, 100);
     _label->setPixmap(*_static_pic);
     Q_UNUSED(event);
     if (IsPosValid())

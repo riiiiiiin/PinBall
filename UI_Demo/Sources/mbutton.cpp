@@ -6,7 +6,7 @@ MButton::MButton(int height, QString objName, QString text, QWidget *parent)
     // setup Frame
     QFrame::setObjectName(_name + "_Frame");
     QFrame::setMouseTracking(true);
-    QFrame::setStyleSheet("#" + QFrame::objectName() + "{ background-color: rgba(255,255,255,0.01);border-radius:3px; }");
+    QFrame::setStyleSheet("#" + QFrame::objectName() + "{ background-color: rgba(255,255,255,0.01);border-radius:2px; }");
     QFrame::setGeometry(175, height, 610, 30);
     QFrame::setWindowFlags(Qt::FramelessWindowHint | windowFlags());
     // setup ShadowEffect

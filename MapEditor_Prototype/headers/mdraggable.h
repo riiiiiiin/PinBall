@@ -8,21 +8,29 @@
 #include <QApplication>
 #include <QObject>
 
+enum e_MDraggables{
+    kidney = 1,
+    drum = 2
+};
+
 class MDraggable : public QWidget
 {
     Q_OBJECT
 private:
-    QLabel *_label;
+    
     QPoint _dragStartPos;
     QPoint _dragLabelPos;
+    bool _banned_to_drag;
+    bool _is_set_properly;
+protected:
+    QLabel *_label;
+    e_MDraggables _type;
     QPixmap* _static_pic;
     QPixmap* _dragged_valid;
     QPixmap* _dragged_invalid;
-    bool _banned_to_drag;
-    bool _is_set_properly;
 public:
     MDraggable(QPoint location_source,QWidget *parent = nullptr);
-    ~MDraggable();
+    virtual ~MDraggable();
 
 protected:
     inline bool IsPosValid();

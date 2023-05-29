@@ -4,5 +4,8 @@
         <file>static.png</file>
         <file>dragged_valid.png</file>
         <file>dragged_invalid.png</file>
+        <file>static_2.png</file>
+        <file>dragged_valid_2.png</file>
+        <file>dragged_invalid_2.png</file>
     </qresource>
 </RCC>
