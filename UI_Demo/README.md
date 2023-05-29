@@ -10,6 +10,7 @@
 + "MButton"是暂停页面上按钮的基类。实现按钮大体绘制。  
  "MPushButton"是暂停页面上的单次点击按钮。只具备鼠标悬浮效果和点击事件。  
  "MCheckButton"是暂停页面上的0/1按钮。额外绘制一个图标表现0/1。  
+ "MSlider"是暂停界面上的滑块，额外绘制QSlider
  如何继承MButton：构造函数传入参数:(int)高度,(QString)按钮名称,(QString)左侧Label显示文字,(QWidget*)parent  
  MButton没有实现点击或其他触发信号，需要自己实现
 
