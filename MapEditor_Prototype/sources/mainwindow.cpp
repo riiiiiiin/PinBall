@@ -10,12 +10,22 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     MDragContainer* d = new MDragContainer(this);
-    setStyleSheet("background-color:black");
+    //setStyleSheet("background-color:black");
 }
 
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::paintEvent(QPaintEvent *e){
+
+    QPixmap* bg = new QPixmap;
+    bg->load(":/new/prefix1/Nebula.png");
+
+    QPainter painter(this);
+    painter.drawPixmap(0,0,*bg);
+    QMainWindow::paintEvent(e);
 }
 
 

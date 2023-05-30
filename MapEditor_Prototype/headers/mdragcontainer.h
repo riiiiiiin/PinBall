@@ -4,6 +4,8 @@
 #include "headers/mdraggables.h"
 
 #include <QList>
+#include <QGraphicsBlurEffect>
+#include <QGraphicsDropShadowEffect>
 
 class MDragContainer : public QWidget{
     Q_OBJECT
