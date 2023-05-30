@@ -8,7 +8,6 @@ MDraggable(location_source,parent)
     _static_pic = staitc_pic;
     _dragged_valid = dragged_valid;
     _dragged_invalid = dragged_invalid;
-
     _label->setPixmap(*_static_pic);
     _label->setMask(_static_pic->mask());
     setVisible(true);

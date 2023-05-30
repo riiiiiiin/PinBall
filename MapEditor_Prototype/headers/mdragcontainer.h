@@ -5,7 +5,7 @@
 
 #include <QList>
 
-class MDragContainer : public QObject{
+class MDragContainer : public QWidget{
     Q_OBJECT
 private:
     QPixmap* _static_pic;
@@ -28,11 +28,13 @@ private:
     MDraggable* _draggable_buffer;
 
     QList<MDraggable*> _elements;
-    QWidget* _parent;
-    QPoint _location_kidney{QPoint(600,400)};
-    QPoint _location_drum{QPoint(600,100)};
-    QPoint _location_award{QPoint(800,400)};
-    QPoint _location_cirWall{QPoint(800,100)};
+    QPoint _location_kidney{QPoint(650,240)};
+    QPoint _location_drum{QPoint(650,100)};
+    QPoint _location_award{QPoint(790,240)};
+    QPoint _location_cirWall{QPoint(790,100)};
+
+    QLabel* _big_back;
+    QVector<QLabel*> _small_backs;
 public:
     explicit MDragContainer(QWidget* parent = nullptr);
     ~MDragContainer();
@@ -42,7 +44,7 @@ public slots:
     void create_new_award();
     void create_new_cirWall();
     void trash_old();
-    void move_old();
+    void push_old();
     void handle_remove_element(MDraggable*);
 };
 

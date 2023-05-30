@@ -10,7 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     MDragContainer* d = new MDragContainer(this);
-    setStyleSheet("background-color:green");
+    setStyleSheet("background-color:black");
 }
 
 MainWindow::~MainWindow()

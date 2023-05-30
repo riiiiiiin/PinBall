@@ -3,12 +3,13 @@
 MDraggable::MDraggable(QPoint location_source, QWidget *parent)
     : QWidget(parent),_is_set_properly(false)
 {
-    qDebug()<<this;
     _label = new QLabel(this);
     setMouseTracking(true);
-    setGeometry(600, 300, 100, 100);
+    _label->setMinimumSize(100,100);
     move(location_source);
     _label->setText("");
+    setVisible(true);
+    raise();
 }
 
 MDraggable::~MDraggable()
