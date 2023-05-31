@@ -8,26 +8,28 @@ MDragContainer::MDragContainer(QWidget *parent) : QWidget(parent)
 
     _big_back = new QLabel(this);
     _big_back->setText("");
-    _big_back->setGeometry(630, 80, 300, 300);
+    _big_back->setGeometry(650, 40, 260, 380);
     _big_back->setAutoFillBackground(true);
-    _big_back->setFixedSize(300, 300);
-    _big_back->setStyleSheet("background-color:rgba(255,255,255,128);border-radius:15px;border: 2px solid rgba(255,255,255,128);");
+    _big_back->setFixedSize(260, 380);
+    _big_back->setStyleSheet("background-color:rgba(255,255,255,128);border-radius:15px;border: 1px solid silver;");
 
-    _small_backs.resize(4);
-    for (int i = 0; i < 4; ++i)
+    _small_backs.resize(6);
+    for (int i = 0; i < 6; ++i)
     {
         _small_backs[i] = new QLabel(this);
-        _small_backs[i]->setFixedSize(120, 120);
-        _small_backs[i]->setContentsMargins(10,10,10,10);
+        _small_backs[i]->setFixedSize(110, 110);
+        // _small_backs[i]->setContentsMargins(10,10,10,10);
         _small_backs[i]->setText("");
-        _small_backs[i]->setStyleSheet("background-color:rgba(255,255,255,154);border-radius: 10px;border: 2px solid #ff6600;");
+        _small_backs[i]->setStyleSheet("background-color:rgba(255,255,255,154);border-radius: 10px;border: 1px solid royalblue;");
         _small_backs[i]->setAutoFillBackground(true);
     }
 
-    _small_backs[0]->setGeometry(650, 100, 120, 120);
-    _small_backs[1]->setGeometry(650, 240, 120, 120);
-    _small_backs[2]->setGeometry(790, 100, 120, 120);
-    _small_backs[3]->setGeometry(790, 240, 120, 120);
+    _small_backs[0]->setGeometry(670-5, 60-5, 110, 110);
+    _small_backs[1]->setGeometry(670-5, 180-5, 110, 110);
+    _small_backs[2]->setGeometry(790-5, 60-5, 110, 110);
+    _small_backs[3]->setGeometry(790-5, 180-5, 110, 110);
+    _small_backs[4]->setGeometry(670-5,300-5,110,110);
+    _small_backs[5]->setGeometry(790-5,300-5,110,110);
 
     // open pixmap
     _static_pic = new QPixmap(":/new/prefix2/static.png");

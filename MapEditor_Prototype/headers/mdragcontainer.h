@@ -30,10 +30,10 @@ private:
     MDraggable* _draggable_buffer;
 
     QList<MDraggable*> _elements;
-    QPoint _location_kidney{QPoint(650,240)};
-    QPoint _location_drum{QPoint(650,100)};
-    QPoint _location_award{QPoint(790,240)};
-    QPoint _location_cirWall{QPoint(790,100)};
+    QPoint _location_kidney{QPoint(670,180)};
+    QPoint _location_drum{QPoint(670,60)};
+    QPoint _location_award{QPoint(790,180)};
+    QPoint _location_cirWall{QPoint(790,60)};
 
     QLabel* _big_back;
     QVector<QLabel*> _small_backs;
