@@ -4,10 +4,8 @@
 #include "headers/mdraggables.h"
 
 #include <QList>
-#include <QGraphicsBlurEffect>
-#include <QGraphicsDropShadowEffect>
 
-class MDragContainer : public QWidget{
+class MDragContainer : public QObject{
     Q_OBJECT
 private:
     QPixmap* _static_pic;
@@ -35,8 +33,7 @@ private:
     QPoint _location_award{QPoint(790,180)};
     QPoint _location_cirWall{QPoint(790,60)};
 
-    QLabel* _big_back;
-    QVector<QLabel*> _small_backs;
+    QWidget* _parent;
 public:
     explicit MDragContainer(QWidget* parent = nullptr);
     ~MDragContainer();

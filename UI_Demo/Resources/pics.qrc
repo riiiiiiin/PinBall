@@ -9,7 +9,7 @@
         <file>Nebula.png</file>
         <file>Dialog_Exit_Orange.png</file>
     </qresource>
-    <qresource prefix="/others">
-        <file>White_140_2.png</file>
+    <qresource prefix="/button_icons">
+        <file>menu.png</file>
     </qresource>
 </RCC>

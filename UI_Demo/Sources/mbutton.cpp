@@ -55,3 +55,7 @@ void MButton::leaveEvent(QEvent *event)
 
     Q_UNUSED(event);
 }
+
+void MButton::setText(QString const& text){
+    _txtLabel->setText(text);
+}

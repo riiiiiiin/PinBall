@@ -1,6 +1,6 @@
 
 #include "headers/mainwindow.h"
-#include "headers/mdragcontainer.h"
+#include "headers/mmapeditor.h"
 #include "ui_mainwindow.h"
 
 
@@ -9,7 +9,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    MDragContainer* d = new MDragContainer(this);
+    MMapEditor* d = new MMapEditor(this);
     //setStyleSheet("background-color:black");
 }
 

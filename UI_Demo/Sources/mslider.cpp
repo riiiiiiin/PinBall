@@ -1,7 +1,7 @@
 #include "Headers/mslider.h"
 
 MSlider::MSlider(int height, QString name, QString text, QDialog *parent)
-    : MButton(height, name, text, parent)
+    : MButton(height, name, text, parent),_text(text)
 {
     _slider = new QSlider(Qt::Horizontal, this);
     _slider->setGeometry(400, 5, 200, 30);
@@ -26,6 +26,7 @@ MSlider::~MSlider()
 void MSlider::handle_number_change()
 {
     emit number_changed(_slider->value());
+    setText(_text+":"+QString::number(_slider->value())+"%");
     qDebug() << "s";
 }
 
@@ -47,4 +48,23 @@ void MSlider::leaveEvent(QEvent *event)
                            "QSlider::groove:horizontal:hover{height:5px;background-color:white;border:0px;left: 10px;right:10px;}"
                            "QSlider::handle:horizontal:hover{ margin:-4px;height:20px ; width:20px;background-color:white;border:0px; }");
     MButton::leaveEvent(event);
+}
+
+void MSlider::setMinimum(int n){
+    _slider->setMinimum(n);
+}
+
+void MSlider::setMaximum(int n){
+    _slider->setMaximum(n);
+}
+
+bool MSlider::setDefault(int n){
+    if(n<=_slider->maximum()&&n>=_slider->minimum()){
+        _slider->setValue(n);
+        setText(_text+QString::number(_slider->value())+"%");
+        return true;
+    }
+    else{
+        return false;
+    }
 }

@@ -16,4 +16,12 @@
         <file>dragged_valid_4.png</file>
         <file>dragged_invalid_4.png</file>
     </qresource>
+    <qresource prefix="/new/prefix3">
+        <file>editor_button_inactive.png</file>
+        <file>editor_button_active.png</file>
+        <file>menu_button_inactive.png</file>
+        <file>menu_button_active.png</file>
+        <file>play_button_inactive.png</file>
+        <file>play_button_active.png</file>
+    </qresource>
 </RCC>

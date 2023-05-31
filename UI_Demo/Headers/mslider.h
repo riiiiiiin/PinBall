@@ -9,9 +9,13 @@ class MSlider : public MButton{
     Q_OBJECT
 private:
     QSlider* _slider;
+    QString _text;
 public:
     MSlider(int height,QString name,QString text,QDialog* parent = nullptr);
     ~MSlider();
+    void setMinimum(int n);
+    void setMaximum(int n);
+    bool setDefault(int n);
 signals:
     void number_changed(int);
 protected slots:

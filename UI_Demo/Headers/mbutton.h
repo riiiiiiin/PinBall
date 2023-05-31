@@ -19,6 +19,7 @@ private:
     QGraphicsDropShadowEffect *_shadow;
 
 protected:
+    void setText(QString const&);
 signals:
 
 protected slots:
