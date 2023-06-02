@@ -1,0 +1,20 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>Box_Black_Checked.png</file>
+        <file>Box_Black_unChecked.png</file>
+        <file>Box_White_Checked.png</file>
+        <file>Box_White_unChecked.png</file>
+    </qresource>
+    <qresource prefix="/backgrounds">
+        <file>Nebula.png</file>
+    </qresource>
+    <qresource prefix="/button_icons">
+        <file>editor_button_inactive.png</file>
+        <file>editor_button_active.png</file>
+        <file>menu_button_inactive.png</file>
+        <file>menu_button_active.png</file>
+        <file>play_button_inactive.png</file>
+        <file>play_button_active.png</file>
+        <file>coming_soon.png</file>
+    </qresource>
+</RCC>
