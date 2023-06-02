@@ -4,6 +4,7 @@
 #include "headers/mdraggables.h"
 
 #include <QList>
+#include <QGraphicsScene>
 
 class MDragContainer : public QObject{
     Q_OBJECT
@@ -34,6 +35,7 @@ private:
     QPoint _location_cirWall{QPoint(790,60)};
 
     QWidget* _parent;
+    QGraphicsScene* _scene;
 public:
     explicit MDragContainer(QWidget* parent = nullptr);
     ~MDragContainer();

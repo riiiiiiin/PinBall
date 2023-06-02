@@ -16,10 +16,17 @@ MDragContainer::MDragContainer(QWidget *parent) : QObject(parent), _parent(paren
     _dragged_valid_4 = new QPixmap(":/new/prefix2/dragged_valid_4.png");
     _dragged_invalid_4 = new QPixmap(":/new/prefix2/dragged_invalid_4.png");
 
+    _scene = new QGraphicsScene();
+    _scene->setSceneRect(0, 0, 960, 540);
+
     _dragKidney_home = new MDragKidney(kidney, _static_pic, _dragged_valid, _dragged_invalid, _location_kidney, _parent);
     _dragDrum_home = new MDragDrum(drum, _static_pic_2, _dragged_valid_2, _dragged_invalid_2, _location_drum, _parent);
     _dragAward_home = new MDragAward(award, _static_pic_3, _dragged_valid_3, _dragged_invalid_3, _location_award, _parent);
     _dragCirWall_home = new MDragCirWall(cirwall, _static_pic_4, _dragged_valid_4, _dragged_invalid_4, _location_cirWall, _parent);
+    _scene->addItem(_dragKidney_home->shadow());
+    _scene->addItem(_dragDrum_home->shadow());
+    _scene->addItem(_dragAward_home->shadow());
+    _scene->addItem(_dragCirWall_home->shadow());
 
     _draggable_buffer = nullptr;
 
@@ -41,6 +48,11 @@ MDragContainer::~MDragContainer()
     {
         delete _draggable_buffer;
     }
+    auto items = _scene->items();
+    for (QGraphicsItem* item : items) {
+        _scene->removeItem(item);
+    }
+    delete _scene;
     for (auto ptr : _elements)
     {
         delete ptr;
@@ -58,6 +70,7 @@ MDragContainer::~MDragContainer()
     delete _static_pic_4;
     delete _dragged_valid_4;
     delete _dragged_invalid_4;
+    
 }
 
 void MDragContainer::create_new_kidney()
@@ -70,6 +83,7 @@ void MDragContainer::create_new_kidney()
     _dragKidney_home = new MDragKidney(kidney, _static_pic, _dragged_valid, _dragged_invalid, _location_kidney, _parent);
     connect(_dragKidney_home, &MDraggable::be_moved, this, &MDragContainer::create_new_kidney);
     _draggable_buffer->raise();
+    _scene->addItem(_dragKidney_home->shadow());
 }
 
 void MDragContainer::create_new_drum()
@@ -82,6 +96,7 @@ void MDragContainer::create_new_drum()
     _dragDrum_home = new MDragDrum(drum, _static_pic_2, _dragged_valid_2, _dragged_invalid_2, _location_drum, _parent);
     connect(_dragDrum_home, &MDraggable::be_moved, this, &MDragContainer::create_new_drum);
     _draggable_buffer->raise();
+    _scene->addItem(_dragDrum_home->shadow());
 }
 
 void MDragContainer::create_new_award()
@@ -94,6 +109,7 @@ void MDragContainer::create_new_award()
     _dragAward_home = new MDragAward(award, _static_pic_3, _dragged_valid_3, _dragged_invalid_3, _location_award, _parent);
     connect(_dragAward_home, &MDraggable::be_moved, this, &MDragContainer::create_new_award);
     _draggable_buffer->raise();
+    _scene->addItem(_dragAward_home->shadow());
 }
 
 void MDragContainer::create_new_cirWall()
@@ -106,6 +122,7 @@ void MDragContainer::create_new_cirWall()
     _dragCirWall_home = new MDragCirWall(cirwall, _static_pic_4, _dragged_valid_4, _dragged_invalid_4, _location_cirWall, _parent);
     connect(_dragCirWall_home, &MDraggable::be_moved, this, &MDragContainer::create_new_cirWall);
     _draggable_buffer->raise();
+    _scene->addItem(_dragCirWall_home->shadow());
 }
 
 void MDragContainer::trash_old()
@@ -114,6 +131,7 @@ void MDragContainer::trash_old()
     {
         delete _draggable_buffer;
     }
+    _scene->removeItem(_draggable_buffer->shadow());
     _draggable_buffer = nullptr;
 }
 
@@ -136,6 +154,7 @@ void MDragContainer::handle_remove_element(MDraggable *element_to_remove)
     if (element_to_remove != nullptr)
     {
         _elements.removeOne(element_to_remove);
+        _scene->removeItem(element_to_remove->shadow());
         delete element_to_remove;
     }
 }

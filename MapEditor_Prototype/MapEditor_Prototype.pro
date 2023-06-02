@@ -14,14 +14,16 @@ SOURCES += \
     sources/mdraggable.cpp \
     sources/mdragcontainer.cpp \
     sources/mdraggables.cpp \
-    sources/mmapeditor.cpp
+    sources/mmapeditor.cpp \
+    sources/mdraggableshadow.cpp
 
 HEADERS += \
     headers/mainwindow.h \
     headers/mdraggable.h \
     headers/mdragcontainer.h \
     headers/mdraggables.h \
-    headers/mmapeditor.h
+    headers/mmapeditor.h \
+    headers/mdraggableshadow.h
     
 
 

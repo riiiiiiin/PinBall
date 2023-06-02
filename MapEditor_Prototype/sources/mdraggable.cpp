@@ -1,7 +1,7 @@
 #include "headers/mdraggable.h"
 
-MDraggable::MDraggable(QPoint location_source, QWidget *parent)
-    : QWidget(parent),_is_set_properly(false)
+MDraggable::MDraggable(QPixmap* static_pic,QPoint location_source, QWidget *parent)
+    : _static_pic(static_pic),QWidget(parent),_is_set_properly(false)
 {
     _label = new QLabel(this);
     setMouseTracking(true);
@@ -9,6 +9,9 @@ MDraggable::MDraggable(QPoint location_source, QWidget *parent)
     move(location_source);
     _label->setText("");
     setVisible(true);
+
+    _shadow = new MDraggableShadow(static_pic);
+    _shadow->setPos(location_source);
     raise();
 }
 
@@ -17,6 +20,11 @@ MDraggable::~MDraggable()
 
     disconnect(this);
     delete _label;
+    delete _shadow;
+}
+
+MDraggableShadow * MDraggable::shadow(){
+    return _shadow;
 }
 
 bool MDraggable::IsPosValid()
@@ -25,7 +33,11 @@ bool MDraggable::IsPosValid()
     int cur_x = pos().x();
     // note:relative postion to parent widget
     int cur_y = pos().y();
-    return (cur_x >= 50 && cur_x <= 550 && cur_y >= 40 && cur_y <= 500);
+    bool pos_valid = (cur_x >= 50 && cur_x <= 550 && cur_y >= 40 && cur_y <= 500);
+    if(pos_valid && _shadow->collidingItems().empty()){
+        return true;
+    }
+    return false;
 }
 
 void MDraggable::mousePressEvent(QMouseEvent *event)
@@ -53,6 +65,7 @@ void MDraggable::mouseMoveEvent(QMouseEvent *event)
         emit be_moved();
         QPoint delta = event->globalPosition().toPoint() - _dragStartPos;
         move(_dragLabelPos + delta);
+        _shadow->setPos(_dragLabelPos+delta);
         if (IsPosValid())
         {
             _label->setPixmap(*_dragged_valid);

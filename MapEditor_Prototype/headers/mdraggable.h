@@ -8,6 +8,8 @@
 #include <QApplication>
 #include <QObject>
 
+#include "mdraggableshadow.h"
+
 enum e_MDraggables{
     kidney = 1,
     drum = 2,
@@ -19,7 +21,6 @@ class MDraggable : public QWidget
 {
     Q_OBJECT
 private:
-    
     QPoint _dragStartPos;
     QPoint _dragLabelPos;
     bool _banned_to_drag;
@@ -30,10 +31,11 @@ protected:
     QPixmap* _static_pic;
     QPixmap* _dragged_valid;
     QPixmap* _dragged_invalid;
+    MDraggableShadow* _shadow;
 public:
-    MDraggable(QPoint location_source,QWidget *parent = nullptr);
+    MDraggable(QPixmap* static_pic,QPoint location_source,QWidget *parent = nullptr);
     virtual ~MDraggable();
-
+    MDraggableShadow * shadow();
 protected:
     inline bool IsPosValid();
     void mousePressEvent(QMouseEvent *event) override;
