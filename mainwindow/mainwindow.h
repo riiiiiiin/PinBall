@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <object.h>
+#include <map.h>
+#include <iostream>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -14,16 +16,16 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void playnow();
+
+    void stoptime();
+    void starttime();
+
 
 private:
-    object* cob[50];
-    int num;
-    double t;
-    object* pb;
+    QTimer *tim,*atim;
     Ui::MainWindow *ui;
-
-protected:
+    map *leftmap;
+//protected:
 //void mousePressEvent(QMouseEvent *);
 };
 #endif // MAINWINDOW_H
