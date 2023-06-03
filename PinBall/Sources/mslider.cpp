@@ -26,8 +26,7 @@ MSlider::~MSlider()
 void MSlider::handle_number_change()
 {
     emit number_changed(_slider->value());
-    setText(_text+":"+QString::number(_slider->value())+"%");
-    qDebug() << "s";
+    setText(_text+" : "+QString::number(_slider->value())+"%");
 }
 
 void MSlider::enterEvent(QEnterEvent *event)
@@ -61,7 +60,7 @@ void MSlider::setMaximum(int n){
 bool MSlider::setDefault(int n){
     if(n<=_slider->maximum()&&n>=_slider->minimum()){
         _slider->setValue(n);
-        setText(_text+':'+QString::number(_slider->value())+"%");
+        setText(_text+" : "+QString::number(_slider->value())+"%");
         return true;
     }
     else{

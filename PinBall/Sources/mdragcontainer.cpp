@@ -135,7 +135,10 @@ void MDragContainer::trash_old()
     {
         delete _draggable_buffer;
     }
-    _scene->removeItem(_draggable_buffer->shadow());
+    if(_scene->items().contains(_draggable_buffer->shadow())){
+        _scene->removeItem(_draggable_buffer->shadow());
+    }
+    
     _draggable_buffer = nullptr;
 }
 

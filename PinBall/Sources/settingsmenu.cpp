@@ -26,7 +26,7 @@ SettingsMenu::SettingsMenu(int gravity,QList<QSoundEffect *> se, QSoundEffect *m
     _buttons[3]->setParent(this);
     connect(_buttons[3], SIGNAL(checked(bool)), this, SLOT(on_seMuteButtonClicked(bool)));
 
-    _buttons[4] = new MPushButton(325, "Resume", "Back To Game", this);
+    _buttons[4] = new MPushButton(325, "Resume", "Back To Map Editor", this);
     _buttons[4]->setParent(this);
     connect(_buttons[4], SIGNAL(pushed()), this, SLOT(on_resumeButtonClicked()));
 
@@ -40,7 +40,7 @@ SettingsMenu::SettingsMenu(int gravity,QList<QSoundEffect *> se, QSoundEffect *m
 
     // setup title
     _title = new QLabel(this);
-    _title->setGeometry(375, 40, 200, 40);
+    _title->setGeometry(392, 40, 200, 40);
     _title->setText("Map Editor");
     _title->setStyleSheet("color:white;font-family: \"Segoe UI Variable Small Semibol\";font-size:30px;font-weight: bold;");
 

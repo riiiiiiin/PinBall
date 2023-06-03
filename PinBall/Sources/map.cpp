@@ -110,6 +110,8 @@ void Map::on_exitRequested()
 }
 
 void Map::on_switchButtonClicked(){
+    _pMask->show();
+    _blure->setEnabled(true);
     _switch_confirm->move(mapToGlobal(geometry().topLeft()));
     _switch_confirm->raise();
     _switch_confirm->exec();
@@ -117,10 +119,13 @@ void Map::on_switchButtonClicked(){
 }
 
 void Map::on_switchConfirmClosed(){
+    _pMask->close();
+    _blure->setEnabled(false);
     //resume
 }
 
 void Map::on_switchRequested(){
-    qDebug()<<'b';
+    _pMask->close();
+    _blure->setEnabled(false);
     emit switchRequest();
 }

@@ -1,8 +1,0 @@
-<RCC>
-    <qresource prefix="/music">
-        <file>a.wav</file>
-    </qresource>
-    <qresource prefix="/se">
-        <file>APPLAUSE.WAV</file>
-    </qresource>
-</RCC>

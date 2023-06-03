@@ -158,15 +158,22 @@ void MapEditor::on_gravityChanged(int gravity)
 }
 
 void MapEditor::on_switchButtonClicked(){
+    _pMask->show();
+    _blure->setEnabled(true);
     _switch_confirm->move(mapToGlobal(geometry().topLeft()));
     _switch_confirm->raise();
     _switch_confirm->exec();
+    
 }
 
 void MapEditor::on_switchConfirmClosed(){
+    _pMask->close();
+    _blure->setEnabled(false);
 }
 
 void MapEditor::on_switchRequested(){
+    _pMask->close();
+    _blure->setEnabled(false);
     //convert map elements to map
     //TODO:Decide the parameters of the signal below
     emit switchRequest();

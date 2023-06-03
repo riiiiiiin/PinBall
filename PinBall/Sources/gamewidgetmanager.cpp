@@ -43,7 +43,6 @@ void GameWidgetManager::switch_to_map(){
 }
 
 void GameWidgetManager::switch_to_mapEditor(){
-    qDebug()<<'a';
     _stacked_widget->setCurrentWidget(_map_editor);
 }
 
