@@ -29,6 +29,7 @@ protected slots:
 public:
     MCheckButton(int height, QString objname, QString text, QDialog *parent = nullptr);
     ~MCheckButton();
+    void setChecked(bool);
 };
 
 #endif // MCHECKBUTTON_H

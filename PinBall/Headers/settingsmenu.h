@@ -15,6 +15,7 @@ public:
     explicit SettingsMenu(int gravity,QList<QSoundEffect*> se,QSoundEffect *msc,QWidget*parent=nullptr);
     ~SettingsMenu();
     void setSounds(QSoundEffect*,QList<QSoundEffect*>);
+    void setButtons();
 signals:
     void resetMapRequest();
     void gravityChange(int);

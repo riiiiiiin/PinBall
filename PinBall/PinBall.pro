@@ -12,7 +12,7 @@ SOURCES += \
     Sources/confirmations.cpp \
     Sources/gamewidgetmanager.cpp \
     Sources/mainwindow.cpp \
-    Sources/map.cpp \
+    Sources/gamemap.cpp \
     Sources/mapeditor.cpp \
     Sources/mbutton.cpp \
     Sources/mcheckbutton.cpp \
@@ -32,7 +32,7 @@ HEADERS += \
     Headers/confirmations.h \
     Headers/gamewidgetmanager.h \
     Headers/mainwindow.h \
-    Headers/map.h \
+    Headers/gamemap.h \
     Headers/mapeditor.h \
     Headers/mbutton.h \
     Headers/mcheckbutton.h \

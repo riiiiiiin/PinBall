@@ -11,6 +11,7 @@ public:
     explicit PauseMenu(QList<QSoundEffect *> se, QSoundEffect *msc, QWidget *parent = nullptr);
     ~PauseMenu();
     void setSounds(QSoundEffect*,QList<QSoundEffect*>);
+    void setButtons();
 private:
     QSoundEffect *_music;
     ExitConfirm *_exc;

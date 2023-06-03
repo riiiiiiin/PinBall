@@ -13,11 +13,19 @@ MCheckButton::MCheckButton(int height, QString name, QString text, QDialog *pare
     _ico_white = new QPixmap(":/icons/Box_White_unChecked.png");
     _ico_black_checked = new QPixmap(":/icons/Box_Black_Checked.png");
     _ico_white_checked = new QPixmap(":/icons/Box_White_Checked.png");
-
-    _iconLabel->setPixmap(*_ico_white);
-    _iconLabel->setMask(_ico_white->mask());
-
     _checked = false;
+    if (_checked)
+    {
+        _iconLabel->setPixmap(*_ico_white_checked);
+        _iconLabel->setMask(_ico_white_checked->mask());
+    }
+    else
+    {
+        _iconLabel->setPixmap(*_ico_white);
+        _iconLabel->setMask(_ico_white->mask());
+    }
+
+    
     Q_UNUSED(parent);
 }
 
@@ -28,6 +36,21 @@ MCheckButton::~MCheckButton()
     delete _ico_white;
     delete _ico_black_checked;
     delete _ico_white_checked;
+}
+
+void MCheckButton::setChecked(bool checked){
+    _checked = checked;
+    if (_checked)
+    {
+        _iconLabel->setPixmap(*_ico_white_checked);
+        _iconLabel->setMask(_ico_white_checked->mask());
+    }
+    else
+    {
+        _iconLabel->setPixmap(*_ico_white);
+        _iconLabel->setMask(_ico_white->mask());
+    }
+
 }
 
 void MCheckButton::enterEvent(QEnterEvent *event)

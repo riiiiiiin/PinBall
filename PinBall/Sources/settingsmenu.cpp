@@ -58,6 +58,15 @@ void SettingsMenu::setSounds(QSoundEffect *music, QList<QSoundEffect *> se)
 {
     _music = music;
     _sound_effects = se;
+    auto _music_button = dynamic_cast<MCheckButton*>(_buttons[2]);
+    _music_button->setChecked(_music->isMuted());
+}
+
+void SettingsMenu::setButtons(){
+    auto _music_button = dynamic_cast<MCheckButton*>(_buttons[2]);
+    _music_button->setChecked(_music->isMuted());
+    auto _se_button = dynamic_cast<MCheckButton*>(_buttons[3]);
+    _se_button->setChecked(_sound_effects[0]->isMuted());
 }
 
 void SettingsMenu::on_exitButtonClicked(){

@@ -131,6 +131,7 @@ void MapEditor::setSounds(QSoundEffect *music, QList<QSoundEffect *> se)
 void MapEditor::on_pauseButtonClicked()
 {
     _pMask->show();
+    _settings_menu->setButtons();
     _settings_menu->show();
     _settings_menu->move(mapToGlobal(geometry().topLeft()));
     _blure->setEnabled(true);

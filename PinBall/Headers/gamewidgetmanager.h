@@ -5,14 +5,14 @@
 #include <QtMultimedia>
 #include <QApplication>
 
-#include "Headers/map.h"
+#include "Headers/gamemap.h"
 #include "Headers/mapeditor.h"
 
 class GameWidgetManager : public QObject{
     Q_OBJECT
 private:
     QStackedWidget* _stacked_widget;
-    Map* _map;
+    GameMap* _map;
     MapEditor* _map_editor;
     QSoundEffect* _music;
     QList<QSoundEffect*> _sound_effects;
