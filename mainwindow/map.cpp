@@ -2,11 +2,11 @@
 #include "map.h"
 #include "mydialog.h"
 #include <QObject>
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
-map::map(Ui::MainWindow *mainwindow,QObject *parent):m_mainwindow(mainwindow),QObject{parent}
+//#include "mainwindow.h"
+//#include "ui_mainwindow.h"
+map::map(QObject *parent):QObject{parent}
 {
-
+    score=0;
     t=0.01;
     pb=new ball(300,540,2,0,-30,5);//小球指针
     pa=new stwall(210,234.3,459,464.9,1);
@@ -136,21 +136,20 @@ map::map(Ui::MainWindow *mainwindow,QObject *parent):m_mainwindow(mainwindow),QO
 void map::onestep(){
 
     pb->jump(t);//小球斜抛运动
-    for(int i=0;i<4;i++){
-        cob[i]->pset(theleft,1);
-    }
+
     for(int i=0;i<n;i++){
         if(cob[i]->bounce(pb)){//发生碰撞
             cob[i]->ef=true;
-            score+=cob[i]->bonus;
-            //m_mainwindow->
+
+            if(cob[i]->bonus!=0){
+                score+=cob[i]->bonus;
+                emit scorechange();
+            }
             break;
         }
     }
     if(!pb->isalive()) {
-        m_mainwindow->stoptime();
-        mydialog con(score);
-        con.show();
+        emit dead();
     }
 }
 
@@ -159,7 +158,6 @@ void map::oneeffect(){
         if(cob[i]->ef){//发生碰撞
             cob[i]->effect();//画面&声音特效+分数变化
             cob[i]->ef=false;
-
         }
     }
 }

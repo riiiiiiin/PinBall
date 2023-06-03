@@ -13,3 +13,10 @@ mydialog::~mydialog()
 {
     delete ui;
 }
+
+void mydialog::on_pushButton_clicked()
+{
+
+    emit new_game();
+}
+

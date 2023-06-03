@@ -3,24 +3,27 @@
 #include <QObject>
 #include <QVector>
 #include "object.h"
-#include "ui_mainwindow.h"
+
 
 class map : public QObject
 {
     Q_OBJECT
 
 public:
-    map(Ui::MainWindow * mainwindow,QObject *parent=nullptr);
+    map(QObject *parent=nullptr);
     ~map();
-    int score,highest,n;
+    int score;//游戏中分数
+    int n;//vector的size
 
 public slots:
-
     void onestep();
     void oneeffect();
 
+signals:
+    void dead();
+    void scorechange();
+
 private:
-    Ui::MainWindow* m_mainwindow;
     double wup,wdo;//上行下行角速度
     double theleft,theright;//左右flipper的theta
     QVector<object*> cob;

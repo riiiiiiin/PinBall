@@ -44,6 +44,7 @@ bool obcircle::judge(ball* a){
 }
 void obcircle::pset(double theta,bool left){}
 
+obline::obline(double _x1, double _x2, double _y1, double _y2):x1(_x1),x2(_x2),y1(_y1),y2(_y2){}
 bool obline::judge(ball* a){
     double x=a->getx(),y=a->gety(),min,max;
     min=sqrt((x-x1)*(x-x1)+(y-y1)*(y-y1));

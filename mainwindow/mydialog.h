@@ -15,6 +15,12 @@ public:
     explicit mydialog( int _score,QWidget *parent = nullptr);
     ~mydialog();
 
+
+signals:
+    void new_game();
+private slots:
+    void on_pushButton_clicked();
+
 private:
     Ui::mydialog *ui;
     int score;
