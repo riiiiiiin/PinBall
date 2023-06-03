@@ -6,6 +6,7 @@
 #include <map.h>
 #include <iostream>
 #include <mydialog.h>
+#include <QKeyEvent>
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -25,7 +26,14 @@ public slots:
     void newgame();//恭喜分数窗口click之后开始新游戏
     void youaredead();//死亡后弹出恭喜分数窗口
     void showscore();//游戏中每次分数变动后的重新显示
-
+signals:
+    void pressZ();
+    void pressM();
+    void releaseZ();
+    void releaseM();
+protected:
+    void keyPressEvent(QKeyEvent* event) override;
+    void keyReleaseEvent(QKeyEvent* event) override;
 private:
     QTimer *tim,*atim;
     Ui::MainWindow *ui;

@@ -16,13 +16,7 @@ public:
     virtual void jump(double t);
     virtual bool bounce(ball* a);
     virtual void effect();
-    virtual double& getvx();
-    virtual double& getvy();
-    virtual double& getx();
-    virtual double& gety();
-    virtual double& getr();
-    virtual bool isalive();
-    virtual void pset(double theta,bool left);
+    virtual void change(double _x1,double _x2,double _y1,double _y2,int _nocoef);
 };
 
 class obline:public object{
@@ -33,7 +27,7 @@ public:
     bool judge(ball* a);//判断是否碰撞
     virtual bool bounce(ball* a);//虚
     virtual void effect();
-    virtual void pset(double theta,bool left);
+    virtual void change(double _x1,double _x2,double _y1,double _y2,int _nocoef);
 };
 
 class obcircle:public object{
@@ -47,13 +41,7 @@ public:
     virtual void jump(double t);//虚
     virtual bool bounce(ball* a);//虚
     virtual void effect();
-    virtual double& getvx();
-    virtual double& getvy();
-    virtual double& getx();
-    virtual double& gety();
-    virtual double& getr();
-    virtual bool isalive();
-    virtual void pset(double theta,bool left);
+    virtual void change(double _x1,double _x2,double _y1,double _y2,int _nocoef);
 };
 
 class ball:public obcircle
@@ -65,12 +53,12 @@ public:
     virtual void jump(double t);//计算球的自由落体
     virtual bool bounce(ball* a);//虚
     virtual void effect();
-    virtual double& getvx();
-    virtual double& getvy();
-    virtual double& getx();
-    virtual double& gety();
-    virtual double& getr();
-    virtual bool isalive();
+    double& getvx();
+    double& getvy();
+    double& getx();
+    double& gety();
+    double& getr();
+    bool isalive();
 };
 
 class stwall:public obline{//直线墙
@@ -80,7 +68,7 @@ public:
     stwall(double _x1,double _x2,double _y1,double _y2,double _coef);
     virtual bool bounce(ball* a);
     virtual void effect();
-    void pset(double theta,bool left);
+    virtual void change(double _x1,double _x2,double _y1,double _y2,int _nocoef);
 };
 
 class cirwall:public obcircle{
@@ -91,7 +79,7 @@ public:
     cirwall(double _x,double _y,double _r,double _coef);
     virtual bool bounce(ball* a);
     virtual void effect();
-    void pset(double theta,bool left);
+    virtual void change(double _x1,double _x2,double _y1,double _y2,int _nocoef);
 };
 
 class drum:public obcircle{

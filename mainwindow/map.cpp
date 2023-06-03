@@ -2,12 +2,22 @@
 #include "map.h"
 #include "mydialog.h"
 #include <QObject>
+#include <cmath>
 //#include "mainwindow.h"
 //#include "ui_mainwindow.h"
 map::map(QObject *parent):QObject{parent}
 {
     score=0;
     t=0.01;
+    upleft=false;//Z按键状态
+    upright=false;//M按键状态
+    theleft=0.24;
+    theright=0.24;//初始角
+    wup=3;//上升角速度
+    wdo=1;//下降角速度
+    y=459;
+    leftx=210;
+    rightx=390;
     pb=new ball(300,540,2,0,-30,5);//小球指针
     pa=new stwall(210,234.3,459,464.9,1);
     cob.push_back(pa);//0
@@ -134,9 +144,47 @@ map::map(QObject *parent):QObject{parent}
 
 
 void map::onestep(){
-
+    int lc=0,rc=0;
+    double rx,ry;
     pb->jump(t);//小球斜抛运动
-
+    if(theleft>-0.78&&upleft==true){
+        theleft-=t*wup;
+        if(theleft<-0.78) theleft=-0.78;
+        lc=1;
+    }
+    else if(theleft<0.24&&upleft==false){
+        theleft+=t*wdo;
+        if(theleft>0.24) theleft=0.24;
+        lc=1;
+    }
+    if(theright>-0.78&&upright==true){
+        theright-=t*wup;
+        if(theright<-0.78) theright=-0.78;
+        rc=1;
+    }
+    else if(theright<0.24&&upright==false){
+        theright+=t*wdo;
+        if(theright>0.24) theright=0.24;
+        rc=1;
+    }
+    if(lc){
+        rx=25*cos(theleft);
+        ry=25*sin(theleft);
+        cob[0]->change(leftx,leftx+rx,y,y+ry,upleft);
+        cob[1]->change(leftx+rx,leftx+2*rx,y+ry,y+2*ry,upleft*2);
+        cob[2]->change(leftx+2*rx,leftx+3*rx,y+2*ry,y+3*ry,upleft*3);
+        cob[4]->change(leftx+3*rx-2,y+3*ry+7.5,0,0,upleft*2);
+        cob[5]->change(leftx-4,leftx+3*rx-4,y+20,y+3*ry+15,0);
+    }
+    if(rc){
+        rx=25*cos(theright);
+        ry=25*sin(theright);
+        cob[6]->change(rightx,rightx-rx,y,y+ry,upright);
+        cob[7]->change(rightx-rx,rightx-2*rx,y+ry,y+2*ry,upright*2);
+        cob[8]->change(rightx-2*rx,rightx-3*rx,y+2*ry,y+3*ry,upright*3);
+        cob[10]->change(rightx-3*rx+2,y-3*ry+7.5,0,0,upright*2);
+        cob[11]->change(rightx+4,rightx-3*rx+4,y+20,y+3*ry+15,0);
+    }
     for(int i=0;i<n;i++){
         if(cob[i]->bounce(pb)){//发生碰撞
             cob[i]->ef=true;
@@ -169,3 +217,18 @@ map::~map(){
     if(pb) delete pb;
 }
 
+void map::leftup(){
+    upleft=true;
+}
+
+void map::leftdown(){
+    upleft=false;
+}
+
+void map::rightdown(){
+    upright=false;
+}
+
+void map::rightup(){
+    upright=true;
+}

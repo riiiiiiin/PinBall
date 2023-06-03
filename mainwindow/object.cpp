@@ -6,26 +6,13 @@ object::object():coushu(0),ef(false){}
 void object::jump(double t){}
 bool object::bounce(ball* a){return true;}
 void object::effect(){}
-double& object::getvx(){return coushu;}
-double& object::getvy(){return coushu;}
-double& object::getx(){return coushu;}
-double& object::gety(){return coushu;}
-double& object::getr(){return coushu;}
-bool object::isalive(){return true;}
-void object::pset(double theta,bool left){}
-
+void object::change(double _x1,double _x2,double _y1,double _y2,int _nocoef){}
 
 obcircle::obcircle(double _x,double _y,double _r,bool _full,double _x1,double _x2,double _y1,double _y2):
     x(_x),y(_y),r(_r),full(_full),x1(_x1),x2(_x2),y1(_y1),y2(_y2){}
 void obcircle::jump(double t){}
 bool obcircle::bounce(ball* a){return true;}
 void obcircle::effect(){}
-double& obcircle::getvx(){return coushu;}
-double& obcircle::getvy(){return coushu;}
-double& obcircle::getx(){return coushu;}
-double& obcircle::gety(){return coushu;}
-double& obcircle::getr(){return coushu;}
-bool obcircle::isalive(){return coushu;}
 bool obcircle::judge(ball* a){
     double xx=a->getx();
     double yy=a->gety();
@@ -42,8 +29,7 @@ bool obcircle::judge(ball* a){
     }
     return false;
 }
-void obcircle::pset(double theta,bool left){}
-
+void obcircle::change(double _x1,double _x2,double _y1,double _y2,int _nocoef){}
 obline::obline(double _x1, double _x2, double _y1, double _y2):x1(_x1),x2(_x2),y1(_y1),y2(_y2){}
 bool obline::judge(ball* a){
     double x=a->getx(),y=a->gety(),min,max;
@@ -60,10 +46,9 @@ bool obline::judge(ball* a){
     if(sqrt(1-cos*cos)*min<a->getr()) return true;
     else return false;
 }
-
+void obline::change(double _x1,double _x2,double _y1,double _y2,int _nocoef){}
 bool obline::bounce(ball* a){return true;}
 void obline::effect(){}
-void obline::pset(double theta,bool left){}
 
 ball::ball(double _x, double _y, double _r, double _vx, double _vy, double _g):obcircle(_x,_y,_r, true),vx(_vx),vy(_vy),g(_g),t(0.05),alive(1){}
 bool ball::bounce(ball* a){}
@@ -76,7 +61,7 @@ double& ball::getr(){return r;}
 void ball::jump(double t){
     x=x+vx*t;
     y=y+vy*t+0.5*g*t*t;
-    vy=vy-g*t;
+    vy=vy+g*t;
     if(y>540) alive=0;
 }
 bool ball::isalive(){
@@ -101,8 +86,10 @@ bool stwall::bounce(ball* a){
     return false;
 }
 void stwall::effect(){}
-void stwall::pset(double theta,bool left){
-
+void stwall::change(double _x1,double _x2,double _y1,double _y2,int _nocoef){
+    x1=_x1;x2=_x2;y1=_y1;y2=_y2;
+    if(_nocoef) coef=_nocoef+0.3;
+    else coef=1;
 }
 
 cirwall::cirwall(double _x,double _y,double _r,double _x1,double _x2,double _y1,double _y2,double _coef):obcircle(_x,_y,_r,0,_x1,_x2,_y1,_y2),coef(_coef){object::bonus=0;}
@@ -121,8 +108,10 @@ bool cirwall::bounce(ball* a){
     }
     return false;
 }
-void cirwall::pset(double theta,bool left){
-
+void cirwall::change(double _x1,double _x2,double _y1,double _y2,int _nocoef){
+    x=_x1;y=_y1;
+    if(_nocoef) coef=_nocoef+0.3;
+    else coef=1;
 }
 
 

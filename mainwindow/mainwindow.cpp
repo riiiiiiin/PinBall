@@ -5,7 +5,7 @@
 #include "mydialog.h"
 #include "ui_mydialog.h"
 #include "map.h"
-//#include <QMouseEvent>
+#include <QKeyEvent>
 
 //void MainWindow::mousePressEvent(QMouseEvent *e)
 //{
@@ -26,9 +26,29 @@ MainWindow::MainWindow(QWidget *parent)
     connect(atim,SIGNAL(timeout()),leftmap,SLOT(oneeffect()));
     connect(leftmap,SIGNAL(dead()),this,SLOT(youaredead()));
     connect(died,SIGNAL(new_game()),this,SLOT(newgame()));
+    connect(this,SIGNAL(pressZ()),leftmap,SLOT(leftup()));
+    connect(this,SIGNAL(pressM()),leftmap,SLOT(rightup()));
+    connect(this,SIGNAL(releaseZ()),leftmap,SLOT(leftdown()));
+    connect(this,SIGNAL(releaseM()),leftmap,SLOT(rightdown()));
     ui->setupUi(this);
-
+    starttime();
 }
+
+
+void MainWindow::keyPressEvent(QKeyEvent* event)
+{
+    if(event->key()==Qt::Key_Z)  emit pressZ();
+    if(event->key()==Qt::Key_M)  emit pressM();
+    QWidget::keyPressEvent(event);
+    // 发送按下信号
+}
+
+void MainWindow::keyReleaseEvent(QKeyEvent* event) {
+    if(event->key()==Qt::Key_Z)  emit releaseZ();
+    if(event->key()==Qt::Key_M)  emit releaseM();
+    QWidget::keyReleaseEvent(event);
+}
+
 void MainWindow::starttime(){
     tim->start();
     atim->start();
