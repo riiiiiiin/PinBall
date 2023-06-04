@@ -29,6 +29,7 @@ public:
     ~MapEditor();
     void paintEvent(QPaintEvent* event)override;
     void setSounds(QSoundEffect*,QList<QSoundEffect*>);
+    void setUpMap(QList<EncodedMapElement>);
 private slots:
     void on_pauseButtonClicked();
     void on_pauseMenuClosed();
@@ -42,7 +43,7 @@ private slots:
     void on_switchRequested();
 signals:
     void exitRequest();
-    void switchRequest();
+    void switchRequest(QList<EncodedMapElement>);
 };
 
 #endif

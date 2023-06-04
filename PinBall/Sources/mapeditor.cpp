@@ -177,5 +177,10 @@ void MapEditor::on_switchRequested(){
     _blure->setEnabled(false);
     //convert map elements to map
     //TODO:Decide the parameters of the signal below
-    emit switchRequest();
+    emit switchRequest(_container->encodeMap());
+}
+
+void MapEditor::setUpMap(QList<EncodedMapElement> encoded_map){
+    _container->clear();
+    _container->decodeMap(encoded_map);
 }

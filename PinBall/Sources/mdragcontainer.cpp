@@ -74,13 +74,68 @@ MDragContainer::~MDragContainer()
 }
 
 QList<EncodedMapElement> MDragContainer::encodeMap(){
-    QList<EncodedMapElement> _encoded_elements;
+    QList<EncodedMapElement> _encoded_map;
     for(auto ptr:_map_elements){
-        _encoded_elements.push_back({})
+        _encoded_map.push_back(EncodedMapElement{ptr->type(),(double)ptr->locatingPoint().x(),(double)ptr->locatingPoint().y()});
     } 
+    return _encoded_map;
+}
 
+void MDragContainer::decodeMap(QList<EncodedMapElement> encoded_map){
+    MDraggable* temp_ele;
+    for(auto ele:encoded_map){
+        temp_ele = nullptr;
+        switch(ele._element_type){
+            case e_MapElements::LKidney:{
+                //offset to be determined
+                temp_ele = new MDragLKidney(LKidney, _static_pic, _dragged_valid, _dragged_invalid, QPoint(int(ele._x),(int)(ele._y)), _parent);
+                _map_elements.push_back(temp_ele);
+                _scene->addItem(temp_ele->shadow());
+                connect(temp_ele, &MDraggable::be_removed, this, &MDragContainer::handle_remove_element);
+                break;
+            }
+            case e_MapElements::RKidney:{
+                //offset to be determined
+                temp_ele = new MDragRKidney(RKidney, _static_pic_2, _dragged_valid_2, _dragged_invalid_2, QPoint(int(ele._x),(int)(ele._y)), _parent);
+                _map_elements.push_back(temp_ele);
+                _scene->addItem(temp_ele->shadow());
+                connect(temp_ele, &MDraggable::be_removed, this, &MDragContainer::handle_remove_element);
+                break;
+            }
+            case e_MapElements::Drum:{
+                //offset to be determined
+                temp_ele = new MDragDrum(Drum, _static_pic_3, _dragged_valid_3, _dragged_invalid_3, QPoint(int(ele._x),(int)(ele._y)), _parent);
+                _map_elements.push_back(temp_ele);
+                _scene->addItem(temp_ele->shadow());
+                connect(temp_ele, &MDraggable::be_removed, this, &MDragContainer::handle_remove_element);
+                break;
+            }
+            case e_MapElements::BonusPoint:{
+                //offset to be determined
+                temp_ele = new MDragBonusPoint(BonusPoint, _static_pic_4, _dragged_valid_4, _dragged_invalid_4, QPoint(int(ele._x),(int)(ele._y)), _parent);
+                _map_elements.push_back(temp_ele);
+                _scene->addItem(temp_ele->shadow());
+                connect(temp_ele, &MDraggable::be_removed, this, &MDragContainer::handle_remove_element);
+                break;
+            }
+        }
+    }
+}
 
-
+void MDragContainer::clear(){
+    if (_draggable_buffer != nullptr)
+    {
+        delete _draggable_buffer;
+    }
+    auto items = _scene->items();
+    for (QGraphicsItem* item : items) {
+        _scene->removeItem(item);
+    }
+    for (auto ptr : _map_elements)
+    {
+        delete ptr;
+    }
+    _map_elements.clear();
 }
 
 void MDragContainer::create_new_lKidney()

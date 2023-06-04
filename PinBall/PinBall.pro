@@ -26,7 +26,8 @@ SOURCES += \
     Sources/mtab.cpp \
     Sources/pausemenu.cpp \
     Sources/settingsmenu.cpp \
-    main.cpp
+    main.cpp \
+    Sources/madaptablelabel.cpp
 
 HEADERS += \
     Headers/confirmations.h \
@@ -45,7 +46,9 @@ HEADERS += \
     Headers/mslider.h \
     Headers/mtab.h \
     Headers/pausemenu.h \
-    Headers/settingsmenu.h
+    Headers/settingsmenu.h \
+    Headers/encodedmap.h \
+    Headers/madaptablelabel.h
 
 FORMS += 
     

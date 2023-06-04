@@ -42,7 +42,8 @@ void GameWidgetManager::on_exit_requested(){
     QCoreApplication::quit();
 }
 
-void GameWidgetManager::switch_to_map(){
+void GameWidgetManager::switch_to_map(QList<EncodedMapElement>){
+    //set up map
     _stacked_widget->setCurrentWidget(_map);
 }
 

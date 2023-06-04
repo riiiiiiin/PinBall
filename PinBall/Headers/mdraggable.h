@@ -9,7 +9,8 @@
 #include <QObject>
 
 #include "mdraggableshadow.h"
-#include "Headers/encodedmap.h"
+#include "encodedmap.h"
+#include "madaptablelabel.h"
 
 class MDraggable : public QWidget
 {
@@ -20,17 +21,18 @@ private:
     bool _banned_to_drag;
     bool _is_set_properly;
 protected:
-    QLabel *_label;
+    MAdaptableLabel *_label;
     e_MapElements _type;
     QPixmap* _static_pic;
     QPixmap* _dragged_valid;
     QPixmap* _dragged_invalid;
     MDraggableShadow* _shadow;
 public:
-    MDraggable(QPixmap* static_pic,QPoint location_source,QWidget *parent = nullptr);
+    MDraggable(QPixmap* static_pic,QPoint location_source,QWidget *parent = nullptr,bool is_set_properly=false);
     virtual ~MDraggable();
     MDraggableShadow * shadow();
-    
+    e_MapElements type()const;
+    virtual QPoint locatingPoint()const =0;
 protected:
     inline bool IsPosValid();
     void mousePressEvent(QMouseEvent *event) override;

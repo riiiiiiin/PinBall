@@ -1,11 +1,12 @@
 #include "headers/mdraggable.h"
 
-MDraggable::MDraggable(QPixmap* static_pic,QPoint location_source, QWidget *parent)
-    : _static_pic(static_pic),QWidget(parent),_is_set_properly(false)
+MDraggable::MDraggable(QPixmap* static_pic,QPoint location_source, QWidget *parent,bool is_set_properly)
+    : _static_pic(static_pic),QWidget(parent),_is_set_properly(is_set_properly)
 {
-    _label = new QLabel(this);
+    _label = new MAdaptableLabel(this);
+    resize(100,100);
     setMouseTracking(true);
-    _label->setMinimumSize(100,100);
+    _label->resize(100,100);
     move(location_source);
     _label->setText("");
     setVisible(true);
@@ -24,6 +25,10 @@ MDraggable::~MDraggable()
 
 MDraggableShadow * MDraggable::shadow(){
     return _shadow;
+}
+
+e_MapElements MDraggable::type()const{
+    return _type;
 }
 
 bool MDraggable::IsPosValid()
@@ -65,13 +70,16 @@ void MDraggable::mouseMoveEvent(QMouseEvent *event)
         QPoint delta = event->globalPosition().toPoint() - _dragStartPos;
         move(_dragLabelPos + delta);
         _shadow->setPos(_dragLabelPos+delta);
+        resize(_dragged_valid->size());
+        _label->resize(_dragged_valid->size());
         if (IsPosValid())
         {
-            _label->setPixmap(*_dragged_valid);
+            _label->setPixMap(*_dragged_valid);
+            qDebug()<<_label->size();
         }
         else
         {
-            _label->setPixmap(*_dragged_invalid);
+            _label->setPixMap(*_dragged_invalid);
         }
     }
     else
@@ -84,7 +92,7 @@ void MDraggable::mouseMoveEvent(QMouseEvent *event)
 
 void MDraggable::mouseReleaseEvent(QMouseEvent *event)
 {
-    _label->setPixmap(*_static_pic);
+    _label->setPixMap(*_static_pic);
     Q_UNUSED(event);
     if (IsPosValid())
     {

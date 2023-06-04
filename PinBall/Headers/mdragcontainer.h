@@ -41,6 +41,8 @@ public:
     explicit MDragContainer(QWidget* parent = nullptr);
     ~MDragContainer();
     QList<EncodedMapElement> encodeMap();
+    void decodeMap(QList<EncodedMapElement>);
+    void clear();
 public slots:
     void create_new_lKidney();
     void create_new_rKidney();

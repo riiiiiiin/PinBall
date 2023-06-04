@@ -22,7 +22,7 @@ public:
     QStackedWidget* StackedWidget();
 signals:
 private slots:
-    void switch_to_map();
+    void switch_to_map(QList<EncodedMapElement>);
     void switch_to_mapEditor();
     void on_exit_requested();
 };
