@@ -6,6 +6,17 @@ GameMap::GameMap(QWidget *parent) : QWidget(parent)
     setWindowFlags(Qt::FramelessWindowHint | windowFlags());
     setFixedSize(960, 540);
 
+    _game_window = new GameWindow(this);
+    _game_window->setParent(this);
+    _game_window->setVisible(true);
+
+    connect(this,&GameMap::pauseRequest,_game_window,&GameWindow::pause);
+    connect(this,&GameMap::resumeRequest,_game_window,&GameWindow::resume);
+    connect(this,&GameMap::newGameRequest,_game_window,&GameWindow::newgame);
+    connect(_game_window,&GameWindow::gameOverRequest,this,&GameMap::on_gameOver);
+    connect(_game_window,&GameWindow::scoreChange,this,&GameMap::handle_setScore);
+    connect(this,&GameMap::setMap,_game_window,&GameWindow::on_mapSet);
+
     // Setup blure effect
     _blure = new QGraphicsBlurEffect;
     _blure->setBlurRadius(5.0);
@@ -41,7 +52,7 @@ GameMap::GameMap(QWidget *parent) : QWidget(parent)
                                "QPushButton:hover{background-image: url(:/button_icons/editor_button_active.png);background-origin: content;background-position: left;background-repeat: no-repeat;}"
                                "QPushButton:hover{font-size:30px;color:#fefefe;font-family: \"Segoe UI\";}"
                                "QPushButton:hover{background-color:transparent;}");
-    connect(_buttons[0], &QPushButton::clicked, this, GameMap::on_switchButtonClicked);
+    connect(_buttons[0], &QPushButton::clicked, this, &GameMap::on_switchButtonClicked);
 
     _buttons[1]->setGeometry(790, 442, 130, 50);
     _buttons[1]->setText("Menu");
@@ -53,16 +64,16 @@ GameMap::GameMap(QWidget *parent) : QWidget(parent)
                                "QPushButton:hover{background-image: url(:/button_icons/menu_button_active.png);background-origin: content;background-position: left;background-repeat: no-repeat;}"
                                "QPushButton:hover{font-size:30px;color:#fefefe;font-family: \"Segoe UI\";}"
                                "QPushButton:hover{background-color:transparent;}");
-    connect(_buttons[1], &QPushButton::clicked, this, GameMap::on_pauseButtonClicked);
+    connect(_buttons[1], &QPushButton::clicked, this, &GameMap::on_pauseButtonClicked);
 
     // setup confirm dialog
     _switch_confirm = new SwitchToMapEditorConfirm(this);
-    connect(_switch_confirm, &MConfirmation::accepted, this, GameMap::on_switchRequested);
-    connect(_switch_confirm, &MConfirmation::rejected, this, GameMap::on_switchConfirmClosed);
+    connect(_switch_confirm, &MConfirmation::accepted, this, &GameMap::on_switchRequested);
+    connect(_switch_confirm, &MConfirmation::rejected, this, &GameMap::on_switchConfirmClosed);
 
     _new_game_confirm = new NewGameConfirm(this);
-    connect(_new_game_confirm,&MConfirmation::accepted,this,GameMap::on_newGameRequested);
-    connect(_new_game_confirm,&MConfirmation::accepted,this,GameMap::on_exitRequested);
+    connect(_new_game_confirm,&MConfirmation::accepted,this,&GameMap::on_newGameRequested);
+    connect(_new_game_confirm,&MConfirmation::rejected,this,&GameMap::on_exitRequested);
     // setup score
     _score_display.resize(3);
     for (auto &label : _score_display)
@@ -136,6 +147,7 @@ void GameMap::on_pauseMenuClosed()
 {
     _pMask->close();
     _blure->setEnabled(false);
+    emit resumeRequest();
 }
 
 void GameMap::on_exitRequested()
@@ -159,6 +171,7 @@ void GameMap::on_switchConfirmClosed()
     _pMask->close();
     _blure->setEnabled(false);
     // resume
+    qDebug()<<'a';
     emit resumeRequest();
 }
 
@@ -167,6 +180,7 @@ void GameMap::on_switchRequested()
     _pMask->close();
     _blure->setEnabled(false);
     emit switchRequest();
+    emit pauseRequest();
 }
 
 void GameMap::on_gameOver(){
@@ -185,6 +199,11 @@ void GameMap::on_newGameRequested(){
 }
 
 void GameMap::handle_setScore(int current_score,int maximum_score){
+    _score = current_score;
     _score_display[1]->setText("🎉"+QString::number(current_score)+"🎉");
     _score_display[2]->setText("🎉"+QString::number(maximum_score)+"🎉");
+}
+
+void GameMap::on_newMapSet(QList<EncodedMapElement> newmap,int gravity){
+    emit setMap(newmap,gravity);
 }

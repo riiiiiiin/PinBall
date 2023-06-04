@@ -26,6 +26,7 @@ GameWidgetManager::GameWidgetManager(QWidget* parent)
     connect(_map_editor,&MapEditor::switchRequest,this,&GameWidgetManager::switch_to_map);
     connect(_map,&GameMap::exitRequest,this,&GameWidgetManager::on_exit_requested);
     connect(_map_editor,&MapEditor::exitRequest,this,&GameWidgetManager::on_exit_requested);
+    connect(this,&GameWidgetManager::setMap,_map,&GameMap::on_newMapSet);
 }
 
 GameWidgetManager::~GameWidgetManager(){
@@ -42,11 +43,12 @@ void GameWidgetManager::on_exit_requested(){
     QCoreApplication::quit();
 }
 
-void GameWidgetManager::switch_to_map(QList<EncodedMapElement> encoded_map){
+void GameWidgetManager::switch_to_map(QList<EncodedMapElement> encoded_map,int gravity){
     for(auto ele:encoded_map){
         qDebug()<<ele._element_type<<' '<<ele._x<<' '<<ele._y;
     }
     //set up map
+    emit setMap(encoded_map,gravity);
     _stacked_widget->setCurrentWidget(_map);
 }
 

@@ -125,5 +125,5 @@ void SettingsMenu::on_resetMapRequested(){
 
 void SettingsMenu::on_sliderNumberChange(int value){
     _gravity = value;
-    emit gravityChange(_gravity);
+    emit gravityChange(2*_gravity);
 }

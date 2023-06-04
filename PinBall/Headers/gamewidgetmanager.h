@@ -21,8 +21,9 @@ public:
     ~GameWidgetManager();
     QStackedWidget* StackedWidget();
 signals:
+    void setMap(QList<EncodedMapElement> newmap,int);
 private slots:
-    void switch_to_map(QList<EncodedMapElement>);
+    void switch_to_map(QList<EncodedMapElement>,int gravity);
     void switch_to_mapEditor();
     void on_exit_requested();
 };

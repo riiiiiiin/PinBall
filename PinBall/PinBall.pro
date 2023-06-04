@@ -11,7 +11,7 @@ CONFIG += c++17
 SOURCES += \
     Sources/confirmations.cpp \
     Sources/gamewidgetmanager.cpp \
-    Sources/mainwindow.cpp \
+    Sources/mmainwindow.cpp \
     Sources/gamemap.cpp \
     Sources/mapeditor.cpp \
     Sources/mbutton.cpp \
@@ -27,12 +27,15 @@ SOURCES += \
     Sources/pausemenu.cpp \
     Sources/settingsmenu.cpp \
     main.cpp \
-    Sources/madaptablelabel.cpp
+    Sources/madaptablelabel.cpp \
+    Natsume/mainwindow.cpp \
+    Natsume/map.cpp \
+    Natsume/object.cpp
 
 HEADERS += \
     Headers/confirmations.h \
     Headers/gamewidgetmanager.h \
-    Headers/mainwindow.h \
+    Headers/mmainwindow.h \
     Headers/gamemap.h \
     Headers/mapeditor.h \
     Headers/mbutton.h \
@@ -48,7 +51,10 @@ HEADERS += \
     Headers/pausemenu.h \
     Headers/settingsmenu.h \
     Headers/encodedmap.h \
-    Headers/madaptablelabel.h
+    Headers/madaptablelabel.h \
+    Natsume/mainwindow.h \
+    Natsume/map.h \
+    Natsume/object.h
 
 FORMS += 
     
@@ -61,4 +67,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     Resources/game_pics.qrc \
     Resources/pics.qrc \
-    Resources/sounds.qrc
+    Resources/sounds.qrc \
+    Natsume/ball_image.qrc
