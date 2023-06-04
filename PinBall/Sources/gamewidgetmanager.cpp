@@ -12,7 +12,7 @@ GameWidgetManager::GameWidgetManager(QWidget* parent)
     _sound_effects.push_back(_se);
     //setup music
     _music = new QSoundEffect();
-    _music->setSource(QUrl::fromLocalFile(":/music/a.wav"));
+    _music->setSource(QUrl::fromLocalFile(":/music/The_Unexplored.wav"));
     _music->setLoopCount(QSoundEffect::Infinite);
     _music->setVolume(0.25f);
     _music->play();
@@ -42,7 +42,7 @@ void GameWidgetManager::on_exit_requested(){
     QCoreApplication::quit();
 }
 
-void GameWidgetManager::switch_to_map(QList<EncodedMapElement>){
+void GameWidgetManager::switch_to_map(QList<EncodedMapElement> encoded_map){
     //set up map
     _stacked_widget->setCurrentWidget(_map);
 }

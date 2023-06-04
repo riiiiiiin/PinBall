@@ -26,9 +26,9 @@ GameMap::GameMap(QWidget *parent) : QWidget(parent)
     _pMask->setFixedSize(this->width(), this->height());
 
     _buttons.resize(2);
-    for (int i = 0; i < 2; ++i)
+    for (auto &button : _buttons)
     {
-        _buttons[i] = new QPushButton(this);
+        button = new QPushButton(this);
     }
 
     _buttons[0]->setGeometry(675, 440, 110, 50);
@@ -41,7 +41,7 @@ GameMap::GameMap(QWidget *parent) : QWidget(parent)
                                "QPushButton:hover{background-image: url(:/button_icons/editor_button_active.png);background-origin: content;background-position: left;background-repeat: no-repeat;}"
                                "QPushButton:hover{font-size:30px;color:#fefefe;font-family: \"Segoe UI\";}"
                                "QPushButton:hover{background-color:transparent;}");
-    connect(_buttons[0],&QPushButton::clicked,this,GameMap::on_switchButtonClicked);                           
+    connect(_buttons[0], &QPushButton::clicked, this, GameMap::on_switchButtonClicked);
 
     _buttons[1]->setGeometry(790, 442, 130, 50);
     _buttons[1]->setText("Menu");
@@ -55,15 +55,47 @@ GameMap::GameMap(QWidget *parent) : QWidget(parent)
                                "QPushButton:hover{background-color:transparent;}");
     connect(_buttons[1], &QPushButton::clicked, this, GameMap::on_pauseButtonClicked);
 
-    //setup confirm dialog
+    // setup confirm dialog
     _switch_confirm = new SwitchToMapEditorConfirm(this);
-    connect(_switch_confirm,&MConfirmation::accepted,this,GameMap::on_switchRequested);
-    connect(_switch_confirm,&MConfirmation::rejected,this,GameMap::on_switchConfirmClosed);
+    connect(_switch_confirm, &MConfirmation::accepted, this, GameMap::on_switchRequested);
+    connect(_switch_confirm, &MConfirmation::rejected, this, GameMap::on_switchConfirmClosed);
+
+    _new_game_confirm = new NewGameConfirm(this);
+    connect(_new_game_confirm,&MConfirmation::accepted,this,GameMap::on_newGameRequested);
+    connect(_new_game_confirm,&MConfirmation::accepted,this,GameMap::on_exitRequested);
+    // setup score
+    _score_display.resize(3);
+    for (auto &label : _score_display)
+    {
+        label = new QLabel(this);
+    }
+    _score_display[0]->setGeometry(630,50,320,320);
+    QPixmap a(":/backgrounds/score_display.png");
+    a = a.scaled(320,320, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    _score_display[0]->setPixmap(a);
+    _score_display[0]->setMask(a.mask());
+    _score_display[0]->setParent(this);
+
+    _score_display[1]->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+    _score_display[1]->setGeometry(698,165,200,50);
+    _score_display[1]->setStyleSheet("QLabel{color:gray;font-family: \"Bauhaus 93\"; font-size: 35px;}");
+    _score_display[1]->setText("Nan");
+    _score_display[1]->setParent(this);
+
+    _score_display[2]->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+    _score_display[2]->setGeometry(698,285,200,50);
+    _score_display[2]->setStyleSheet("QLabel{color:red;font-family: \"Bauhaus 93\"; font-size: 35px;}");
+    _score_display[2]->setText("Nan");
+    _score_display[2]->setParent(this);
 }
 
 GameMap::~GameMap()
 {
     for (auto ptr : _buttons)
+    {
+        delete ptr;
+    }
+    for (auto ptr : _score_display)
     {
         delete ptr;
     }
@@ -86,7 +118,7 @@ void GameMap::setSounds(QSoundEffect *music, QList<QSoundEffect *> se)
 {
     _music = music;
     _sound_effects = se;
-    _pmenu->setSounds(music,se);
+    _pmenu->setSounds(music, se);
 }
 
 // enables blure while paused
@@ -110,23 +142,45 @@ void GameMap::on_exitRequested()
     emit exitRequest();
 }
 
-void GameMap::on_switchButtonClicked(){
+void GameMap::on_switchButtonClicked()
+{
     _pMask->show();
     _blure->setEnabled(true);
     _switch_confirm->move(mapToGlobal(geometry().topLeft()));
     _switch_confirm->raise();
     _switch_confirm->exec();
-    //pause
+    // pause
 }
 
-void GameMap::on_switchConfirmClosed(){
+void GameMap::on_switchConfirmClosed()
+{
     _pMask->close();
     _blure->setEnabled(false);
-    //resume
+    // resume
 }
 
-void GameMap::on_switchRequested(){
+void GameMap::on_switchRequested()
+{
     _pMask->close();
     _blure->setEnabled(false);
     emit switchRequest();
+}
+
+void GameMap::on_gameOver(){
+    _pMask->show();
+    _blure->setEnabled(true);
+    _new_game_confirm->move(mapToGlobal(geometry().topLeft()));
+    _new_game_confirm->raise();
+    _new_game_confirm->exec();
+}
+
+void GameMap::on_newGameRequested(){
+    _pMask->close();
+    _blure->setEnabled(false);
+    emit newGameRequest();
+}
+
+void GameMap::handle_setScore(int current_score,int maximum_score){
+    _score_display[1]->setText("🎉"+QString::number(current_score)+"🎉");
+    _score_display[2]->setText("🎉"+QString::number(maximum_score)+"🎉");
 }

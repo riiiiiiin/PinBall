@@ -92,6 +92,7 @@ void MDraggable::mouseMoveEvent(QMouseEvent *event)
 
 void MDraggable::mouseReleaseEvent(QMouseEvent *event)
 {
+    _label->resize(_static_pic->size());
     _label->setPixMap(*_static_pic);
     Q_UNUSED(event);
     if (IsPosValid())

@@ -7,6 +7,7 @@
     </qresource>
     <qresource prefix="/backgrounds">
         <file>Nebula.png</file>
+        <file>score_display.png</file>
     </qresource>
     <qresource prefix="/button_icons">
         <file>editor_button_inactive.png</file>
