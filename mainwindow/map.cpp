@@ -1,13 +1,12 @@
 #include <QVector>
 #include "map.h"
-#include "mydialog.h"
 #include <QObject>
 #include <cmath>
 #include <QTimer>
-#include "encodedmap.h"
+#include "Headers/encodedmap.h"
 #include <QLabel>
 #include <QWidget>
-#include <QPainter>
+
 map::map(QWidget *parent):pparent(parent)
 {
     gball=200;
@@ -72,6 +71,7 @@ void map::onestep(){
             //qDebug()<<i;
             if(cob[i]->bonus!=0){
                 score+=cob[i]->bonus;
+                highest = std::max(highest,score);
                 emit scorechange(score,highest);
             }
             break;
@@ -287,26 +287,27 @@ void map::updateflipper(){
     pix.load(":/new/prefix1/shifted_left_flipper.png");
     pix = pix.transformed(transform);
     transform.translate(40, 10);
-    pix = pix.scaled( 99,39);
+    pix = pix.scaled( 198,39);
     plabel->setPixmap(pix);
     plabel->setMask(pix.mask());
-    plabel->setGeometry(191,454, 99,39);
-    plabel->setFixedSize(99,39);
+    plabel->setGeometry(92,454, 198,39);
+    plabel->setFixedSize(198,39);
     plabel->show();
-//    QPainter painter;
-//    pix.load(":/new/prefix1/shifted_left_flipper.png");
-//    painter.translate(-40,-20);
-//    painter.rotate(-(0.24-theleft)/3.1416*180);
-//    painter.translate(40,20);
-//    painter.drawPixmap(191, 454, 99, 39, pix);
-//    plabel=which[2];
-////    delete plabel;
-////    plabel = new QLabel();
-//    plabel->setPixmap(pix);
-//    plabel->setMask(pix.mask());
-//    plabel->setGeometry(191,454, 99,39);
-//    plabel->setFixedSize(99,39);
-//    plabel->show();
+    plabel=which[3];
+    //    delete plabel;
+    //    plabel = new QLabel();
+    QTransform transform1;
+    transform1.translate(40, 20);
+    transform1.rotate((0.24-theright)/3.1416*180);
+    pix.load(":/new/prefix1/shifted_right_flipper.png");
+    pix = pix.transformed(transform1);
+    transform1.translate(40, 10);
+    pix = pix.scaled( 198,39);
+    plabel->setPixmap(pix);
+    plabel->setMask(pix.mask());
+    plabel->setGeometry(306,454, 198,39);
+    plabel->setFixedSize(198,39);
+    plabel->show();
 
 }
 void map::drawstatic(){
@@ -334,26 +335,34 @@ void map::drawstatic(){
 
     plabel=new QLabel(pparent);
     pix.load(":/new/prefix1/shifted_left_flipper.png");
-    pix = pix.scaled( 99,39);
+    pix = pix.scaled( 198,39);
     plabel->setPixmap(pix);
     plabel->setMask(pix.mask());
-    plabel->setGeometry(191,454, 99,39);
-    plabel->setFixedSize( 99,39);
+    plabel->setGeometry(92,454, 198,39);
+    plabel->setFixedSize( 198,39);
     plabel->show();
     which.push_back(plabel);
     plabel=0;
 
     plabel=new QLabel(pparent);
     pix.load(":/new/prefix1/shifted_right_flipper.png");
-    pix = pix.scaled( 99,39);
+    pix = pix.scaled( 198,39);
     plabel->setPixmap(pix);
     plabel->setMask(pix.mask());
-    plabel->setGeometry(306, 454, 99,39);
-    plabel->setFixedSize( 99,39);
+    plabel->setGeometry(306,454, 198,39);
+    plabel->setFixedSize( 198,39);
     plabel->show();
     which.push_back(plabel);
     plabel=0;
 
+    //    plabel_pieces=new QLabel(pparent);
+    //    auto pix_pieces = QPixmap(":/new/prefix1/pieces.png");
+    //    pix_pieces = pix_pieces.scaled(90,40);
+    //    plabel_pieces->setPixmap(pix_pieces);
+    //    plabel_pieces->setMask(pix_pieces.mask());
+    //    plabel_pieces->setGeometry(300, 460, 90,40);
+    //    plabel_pieces->setFixedSize(90,40);
+    //    plabel_pieces->show();
 }
 
 void map::drawscore(){
@@ -435,7 +444,7 @@ void map::drawscore(){
 
 }
 
-void setmap(QList<EncodedMapElement> newmap,int gg){
+void map::setmap(QList<EncodedMapElement> newmap,int gg){
     clearmap();
     cleardynamic();
     score=0;
@@ -618,11 +627,10 @@ void setmap(QList<EncodedMapElement> newmap,int gg){
         }
     }
     n=cob.size();
-pb=new ball(300,540,2,0,-30,gg);//小球指针
+    pb=new ball(300,270,10,30,-300,gg);//小球指针
 
 }
 
-
-
-
-
+void map::rebuildmap(QList<EncodedMapElement> newmap,int gravity){
+    setmap(newmap,gravity);
+}
