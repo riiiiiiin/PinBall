@@ -31,4 +31,11 @@ public:
     ~SwitchToMapEditorConfirm();
 };
 
+class NewGameConfirm:public MConfirmation{
+    Q_OBJECT
+public:
+    explicit NewGameConfirm(QWidget* parent=nullptr);
+    ~NewGameConfirm();
+};
+
 #endif 
