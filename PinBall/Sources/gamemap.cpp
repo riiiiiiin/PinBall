@@ -124,6 +124,7 @@ void GameMap::setSounds(QSoundEffect *music, QList<QSoundEffect *> se)
 // enables blure while paused
 void GameMap::on_pauseButtonClicked()
 {
+    emit pauseRequest();
     _pMask->show();
     _pmenu->setButtons();
     _pmenu->show();
@@ -150,6 +151,7 @@ void GameMap::on_switchButtonClicked()
     _switch_confirm->raise();
     _switch_confirm->exec();
     // pause
+    emit pauseRequest();
 }
 
 void GameMap::on_switchConfirmClosed()
@@ -157,6 +159,7 @@ void GameMap::on_switchConfirmClosed()
     _pMask->close();
     _blure->setEnabled(false);
     // resume
+    emit resumeRequest();
 }
 
 void GameMap::on_switchRequested()
@@ -169,6 +172,7 @@ void GameMap::on_switchRequested()
 void GameMap::on_gameOver(){
     _pMask->show();
     _blure->setEnabled(true);
+    _new_game_confirm->setScore(_score);
     _new_game_confirm->move(mapToGlobal(geometry().topLeft()));
     _new_game_confirm->raise();
     _new_game_confirm->exec();

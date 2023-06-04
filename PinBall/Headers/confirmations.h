@@ -36,6 +36,7 @@ class NewGameConfirm:public MConfirmation{
 public:
     explicit NewGameConfirm(QWidget* parent=nullptr);
     ~NewGameConfirm();
+    void setScore(int);
 };
 
 #endif 

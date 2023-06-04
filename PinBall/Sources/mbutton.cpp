@@ -18,7 +18,7 @@ MButton::MButton(int height, QString objName, QString text, QWidget *parent)
     this->setGraphicsEffect(_shadow);
     // setup textLabel
     _txtLabel = new QLabel(this);
-    _txtLabel->setGeometry(15, 3, 200, 25);
+    _txtLabel->setGeometry(15, 2, 200, 25);
     _txtLabel->setObjectName(_name + "_Label");
     _txtLabel->setText(_text);
     _txtLabel->setStyleSheet("#" + _txtLabel->objectName() + "{color:white;font-family: \"Segoe UI Variable Small Semibol\"; font-size: 20px;}");

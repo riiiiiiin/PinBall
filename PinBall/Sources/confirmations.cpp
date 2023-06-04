@@ -62,3 +62,7 @@ NewGameConfirm::NewGameConfirm(QWidget *parent) : MConfirmation(parent){
 }
 
 NewGameConfirm::~NewGameConfirm(){}
+
+void NewGameConfirm::setScore(int score){
+    _title->setText("🎉Your Score : "+QString::number(score)+" 🎉");
+}

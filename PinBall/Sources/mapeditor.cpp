@@ -15,6 +15,7 @@ MapEditor::MapEditor(QWidget *parent) : QWidget(parent)
     // Setup SettingsMenu
     _settings_menu = new SettingsMenu(_gravity, _sound_effects, _music, this);
     connect(_settings_menu, &SettingsMenu::closed, this, &MapEditor::on_pauseMenuClosed);
+    connect(_settings_menu,&SettingsMenu::resetMapRequest,this,&MapEditor::on_resetRequested);
     connect(_settings_menu, &SettingsMenu::exitRequest, this, &MapEditor::on_exitRequested);
     connect(_settings_menu, SIGNAL(gravityChange(int)), this, SLOT(on_gravityChanged(int)));
     
@@ -26,6 +27,7 @@ MapEditor::MapEditor(QWidget *parent) : QWidget(parent)
     _pMask->setStyleSheet("background-color:black");
     _pMask->setFixedSize(this->width(), this->height());
 
+    //setup container's background
     _container_back = new QLabel(this);
     _container_back->setText("");
     _container_back->setGeometry(650, 40, 260, 380);
@@ -49,13 +51,25 @@ MapEditor::MapEditor(QWidget *parent) : QWidget(parent)
     _draggable_containers[4]->setGeometry(670 - 5, 300 - 5, 110, 110);
     _draggable_containers[5]->setGeometry(790 - 5, 300 - 5, 110, 110);
 
-    _coming_soon_label = new QLabel(this);
-    _coming_soon_label->setMinimumSize(100, 100);
-    _coming_soon_label->move(795, 300);
-    _coming_soon_label->setText("");
     QPixmap coming_soon(":/button_icons/coming_soon.png");
-    _coming_soon_label->setPixmap(coming_soon);
-    _coming_soon_label->setMask(coming_soon.mask());
+    _coming_soon_labels.resize(2);
+    for(auto &plabel:_coming_soon_labels){
+        plabel = new QLabel(this);
+        plabel->setMinimumSize(100, 100);
+        plabel->setText("");
+        plabel->setPixmap(coming_soon);
+        plabel->setMask(coming_soon.mask());
+    }
+    _coming_soon_labels[0]->move(675,300);
+    _coming_soon_labels[1]->move(795, 300);
+
+    QPixmap background(":/backgrounds/map_background.png");
+    background = background.scaled(600,540, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    _map_background = new QLabel(this);
+    _map_background->setGeometry(0,0,600,540);
+    _map_background->setText("");
+    _map_background->setPixmap(background);
+    _map_background->setMask(background.mask());
 
     _buttons.resize(2);
     for (int i = 0; i < 2; ++i)
@@ -107,6 +121,9 @@ MapEditor::~MapEditor()
     {
         delete ptr;
     }
+    for(auto ptr:_coming_soon_labels){
+        delete ptr;
+    }
     delete _pMask;
     delete _settings_menu;
     delete _blure;
@@ -150,6 +167,7 @@ void MapEditor::on_exitRequested()
 
 void MapEditor::on_resetRequested()
 {
+    _container->clear();
     // resets the map
 }
 
@@ -176,8 +194,7 @@ void MapEditor::on_switchRequested(){
     _pMask->close();
     _blure->setEnabled(false);
     //convert map elements to map
-    //TODO:Decide the parameters of the signal below
-    emit switchRequest(_container->encodeMap());
+    emit switchRequest(_container->encodeMap(),_gravity);
 }
 
 void MapEditor::setUpMap(QList<EncodedMapElement> encoded_map){

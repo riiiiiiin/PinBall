@@ -37,7 +37,7 @@ bool MDraggable::IsPosValid()
     int cur_x = pos().x();
     // note:relative postion to parent widget
     int cur_y = pos().y();
-    bool pos_valid = (cur_x >= 50 && cur_x <= 550 && cur_y >= 40 && cur_y <= 500);
+    bool pos_valid = ((cur_x >= 50 && cur_x <= 550 && cur_y >= 40 && cur_y <= 500)and not(cur_x>150 and cur_x < 210 and cur_y>60 and cur_y<220));
     if(pos_valid && _shadow->collidingItems().empty()){
         return true;
     }
@@ -63,7 +63,6 @@ void MDraggable::mousePressEvent(QMouseEvent *event)
 
 void MDraggable::mouseMoveEvent(QMouseEvent *event)
 {
-
     if (event->buttons() == Qt::LeftButton && _banned_to_drag == false && (event->modifiers() & Qt::ControlModifier) == false)
     {
         emit be_moved();
@@ -75,14 +74,13 @@ void MDraggable::mouseMoveEvent(QMouseEvent *event)
         if (IsPosValid())
         {
             _label->setPixMap(*_dragged_valid);
-            qDebug()<<_label->size();
         }
         else
         {
             _label->setPixMap(*_dragged_invalid);
         }
     }
-    else
+    else if(event->buttons() & Qt::LeftButton)
     {
         QMouseEvent releaseEvent(QEvent::MouseButtonRelease, event->pos(), event->globalPos(),
                                  Qt::LeftButton, Qt::NoButton, event->modifiers());

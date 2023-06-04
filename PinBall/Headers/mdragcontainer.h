@@ -10,18 +10,25 @@
 class MDragContainer : public QObject{
     Q_OBJECT
 private:
+    QPixmap* _home_pic;
     QPixmap* _static_pic;
     QPixmap* _dragged_valid;
     QPixmap* _dragged_invalid;
+    QPixmap* _home_pic_2;
     QPixmap* _static_pic_2;
     QPixmap* _dragged_valid_2;
     QPixmap* _dragged_invalid_2;
+    QPixmap* _home_pic_3;
     QPixmap* _static_pic_3;
     QPixmap* _dragged_valid_3;
     QPixmap* _dragged_invalid_3;
+    QPixmap* _home_pic_4;
     QPixmap* _static_pic_4;
     QPixmap* _dragged_valid_4;
     QPixmap* _dragged_invalid_4;
+
+    QPixmap* _scratch_pic;
+    MDraggableShadow* _scratch_shadow;
 
     MDragLKidney* _dragLKidney_home;
     MDragRKidney* _dragRKidney_home;

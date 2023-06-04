@@ -12,18 +12,25 @@ class MapEditor:public QWidget{
     Q_OBJECT
 private:
     int _gravity=100;
+
     MDragContainer* _container;
+
     QLabel* _container_back;
     QList<QLabel*> _draggable_containers;
-    QLabel* _coming_soon_label;
-    QList<QPushButton*> _buttons;
-    SwitchToMapConfirm* _switch_confirm;
+    QList<QLabel*> _coming_soon_labels;
+    QLabel* _map_background;
 
+    QList<QPushButton*> _buttons;
+
+    SwitchToMapConfirm* _switch_confirm;
     SettingsMenu* _settings_menu;
+
     QGraphicsBlurEffect *_blure;
+    QWidget* _pMask;
+
     QList<QSoundEffect*> _sound_effects;
     QSoundEffect* _music;
-    QWidget* _pMask;
+    
 public:
     MapEditor(QWidget* parent=nullptr);
     ~MapEditor();
@@ -43,7 +50,7 @@ private slots:
     void on_switchRequested();
 signals:
     void exitRequest();
-    void switchRequest(QList<EncodedMapElement>);
+    void switchRequest(QList<EncodedMapElement>,int);
 };
 
 #endif

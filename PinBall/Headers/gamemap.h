@@ -23,11 +23,14 @@ private:
     QWidget *_pMask;
     QGraphicsBlurEffect *_blure;
 
+    int _score;
+    
 public:
     GameMap(QWidget *parent = nullptr);
     ~GameMap();
     void paintEvent(QPaintEvent *e) override;
     void setSounds(QSoundEffect *, QList<QSoundEffect *>);
+
 private slots:
     void on_pauseButtonClicked();
     void on_pauseMenuClosed();
@@ -45,6 +48,8 @@ signals:
     void exitRequest();
     void switchRequest();
     void newGameRequest();
+    void pauseRequest();
+    void resumeRequest();
 };
 
 #endif

@@ -119,6 +119,7 @@ void SettingsMenu::on_resumeButtonClicked(){
 }
 
 void SettingsMenu::on_resetMapRequested(){
+    close();
     emit resetMapRequest();
 }
 

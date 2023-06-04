@@ -1,17 +1,22 @@
 <RCC>
     <qresource prefix="/new/prefix1">
         <file>Nebula.png</file>
+        <file>scratch.png</file>
     </qresource>
     <qresource prefix="/new/prefix2">
+        <file>home_pic.png</file>
         <file>static.png</file>
         <file>dragged_valid.png</file>
         <file>dragged_invalid.png</file>
+        <file>home_pic_2.png</file>
         <file>static_2.png</file>
         <file>dragged_valid_2.png</file>
         <file>dragged_invalid_2.png</file>
+        <file>home_pic_3.png</file>
         <file>static_3.png</file>
         <file>dragged_valid_3.png</file>
         <file>dragged_invalid_3.png</file>
+        <file>home_pic_4.png</file>
         <file>static_4.png</file>
         <file>dragged_valid_4.png</file>
         <file>dragged_invalid_4.png</file>

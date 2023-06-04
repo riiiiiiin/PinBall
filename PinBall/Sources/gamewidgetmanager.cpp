@@ -43,6 +43,9 @@ void GameWidgetManager::on_exit_requested(){
 }
 
 void GameWidgetManager::switch_to_map(QList<EncodedMapElement> encoded_map){
+    for(auto ele:encoded_map){
+        qDebug()<<ele._element_type<<' '<<ele._x<<' '<<ele._y;
+    }
     //set up map
     _stacked_widget->setCurrentWidget(_map);
 }
