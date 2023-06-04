@@ -15,11 +15,12 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
 {
-
-    leftmap=new map;
+    //ui->formLayout->set
+    died=new mydialog();
+    leftmap=new map(this);
     setFixedSize(960, 540);
     tim=new QTimer();
-    tim->setInterval(12);
+    tim->setInterval(5);
     connect(tim,SIGNAL(timeout()),leftmap,SLOT(onestep()));
     atim=new QTimer();
     atim->setInterval(30);
@@ -30,11 +31,17 @@ MainWindow::MainWindow(QWidget *parent)
     connect(this,SIGNAL(pressM()),leftmap,SLOT(rightup()));
     connect(this,SIGNAL(releaseZ()),leftmap,SLOT(leftdown()));
     connect(this,SIGNAL(releaseM()),leftmap,SLOT(rightdown()));
+    connect(leftmap,SIGNAL(scorechange(int,int)),this,SLOT(showscore()));
     ui->setupUi(this);
     starttime();
 }
 
-
+void MainWindow::pause(){
+    stoptime();
+}
+void MainWindow::resume{
+    starttime();
+}
 void MainWindow::keyPressEvent(QKeyEvent* event)
 {
     if(event->key()==Qt::Key_Z)  emit pressZ();
@@ -69,15 +76,15 @@ void MainWindow::youaredead(){
         highest=leftmap->score;
         ui->highest->setNum(highest);
     }
-    died=new mydialog(leftmap->score);
+    died->getscore(leftmap->score);
     died->show();
 }
 
 void MainWindow::newgame(){
+    //qDebug()<<'a';
     died->close();
-    died->deleteLater();
-    delete leftmap;
-    leftmap=new map;
+    leftmap->clearmap();
+    leftmap->rebuildmap();
     starttime();
 }
 

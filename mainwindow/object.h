@@ -3,6 +3,7 @@
 
 
 #include <QObject>
+#include<QTimer>
 class ball;
 class object : public QObject
 {
@@ -13,10 +14,11 @@ public:
     double coushu;//不必在意
     bool ef;//判断是否需要特效
     int bonus=0;//加分
-    virtual void jump(double t);
+    bool noaward;
+    virtual void jump();
     virtual bool bounce(ball* a);
     virtual void effect();
-    virtual void change(double _x1,double _x2,double _y1,double _y2,int _nocoef);
+    virtual void change(double _x1,double _x2,double _y1,double _y2,int _nocoef,bool go);
 };
 
 class obline:public object{
@@ -27,7 +29,7 @@ public:
     bool judge(ball* a);//判断是否碰撞
     virtual bool bounce(ball* a);//虚
     virtual void effect();
-    virtual void change(double _x1,double _x2,double _y1,double _y2,int _nocoef);
+    virtual void change(double _x1,double _x2,double _y1,double _y2,int _nocoef,bool go);
 };
 
 class obcircle:public object{
@@ -38,10 +40,10 @@ protected:
 public:
     obcircle(double _x,double _y,double _r,bool _full,double _x1=0,double _x2=0,double _y1=0,double _y2=0);
     bool judge(ball* a);//判断是否碰撞
-    virtual void jump(double t);//虚
+    virtual void jump();//虚
     virtual bool bounce(ball* a);//虚
     virtual void effect();
-    virtual void change(double _x1,double _x2,double _y1,double _y2,int _nocoef);
+    virtual void change(double _x1,double _x2,double _y1,double _y2,int _nocoef,bool go);
 };
 
 class ball:public obcircle
@@ -50,7 +52,7 @@ private:
     double vx,vy,g,t,alive;//t是时间间隔
 public:
     ball(double _x, double _y, double _r, double _vx, double _vy,double _g);
-    virtual void jump(double t);//计算球的自由落体
+    virtual void jump();//计算球的自由落体
     virtual bool bounce(ball* a);//虚
     virtual void effect();
     double& getvx();
@@ -68,7 +70,7 @@ public:
     stwall(double _x1,double _x2,double _y1,double _y2,double _coef);
     virtual bool bounce(ball* a);
     virtual void effect();
-    virtual void change(double _x1,double _x2,double _y1,double _y2,int _nocoef);
+    virtual void change(double _x1,double _x2,double _y1,double _y2,int _nocoef,bool go);
 };
 
 class cirwall:public obcircle{
@@ -79,7 +81,7 @@ public:
     cirwall(double _x,double _y,double _r,double _coef);
     virtual bool bounce(ball* a);
     virtual void effect();
-    virtual void change(double _x1,double _x2,double _y1,double _y2,int _nocoef);
+    virtual void change(double _x1,double _x2,double _y1,double _y2,int _nocoef,bool go);
 };
 
 class drum:public obcircle{
@@ -103,10 +105,18 @@ public:
 
 
 class award:public obcircle{
+    Q_OBJECT
 public:
     award(double _x,double _y,double _r);
     void effect();
     bool bounce(ball* a);
+    QTimer *ifaward;
+
+signals:
+    void getaward();
+private slots:
+    void dealaward();
+    void deleteaward();
 };
 
 

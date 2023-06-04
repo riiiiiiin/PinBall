@@ -7,6 +7,8 @@
 #include <iostream>
 #include <mydialog.h>
 #include <QKeyEvent>
+#include <QList>
+
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -24,8 +26,10 @@ public:
     void starttime();//两个计时器开始
 public slots:
     void newgame();//恭喜分数窗口click之后开始新游戏
-    void youaredead();//死亡后弹出恭喜分数窗口
+    void youaredead();//即gameover
     void showscore();//游戏中每次分数变动后的重新显示
+    void pause();
+    void resume();
 signals:
     void pressZ();
     void pressM();
