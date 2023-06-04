@@ -19,31 +19,31 @@ MDragContainer::MDragContainer(QWidget *parent) : QObject(parent), _parent(paren
     _scene = new QGraphicsScene();
     _scene->setSceneRect(0, 0, 960, 540);
 
-    _dragKidney_home = new MDragKidney(kidney, _static_pic, _dragged_valid, _dragged_invalid, _location_kidney, _parent);
-    _dragDrum_home = new MDragDrum(drum, _static_pic_2, _dragged_valid_2, _dragged_invalid_2, _location_drum, _parent);
-    _dragAward_home = new MDragAward(award, _static_pic_3, _dragged_valid_3, _dragged_invalid_3, _location_award, _parent);
-    _dragCirWall_home = new MDragCirWall(cirwall, _static_pic_4, _dragged_valid_4, _dragged_invalid_4, _location_cirWall, _parent);
-    _scene->addItem(_dragKidney_home->shadow());
+    _dragLKidney_home = new MDragLKidney(LKidney, _static_pic, _dragged_valid, _dragged_invalid, _location_lKidney, _parent);
+    _dragRKidney_home = new MDragRKidney(RKidney, _static_pic_2, _dragged_valid_2, _dragged_invalid_2, _location_rKidney, _parent);
+    _dragDrum_home = new MDragDrum(Drum, _static_pic_3, _dragged_valid_3, _dragged_invalid_3, _location_drum, _parent);
+    _dragBonusPoint_home = new MDragBonusPoint(BonusPoint, _static_pic_4, _dragged_valid_4, _dragged_invalid_4, _location_bonusPoint, _parent);
+    _scene->addItem(_dragLKidney_home->shadow());
+    _scene->addItem(_dragRKidney_home->shadow());
     _scene->addItem(_dragDrum_home->shadow());
-    _scene->addItem(_dragAward_home->shadow());
-    _scene->addItem(_dragCirWall_home->shadow());
+    _scene->addItem(_dragBonusPoint_home->shadow());
 
     _draggable_buffer = nullptr;
 
-    connect(_dragKidney_home, &MDraggable::be_moved, this, &MDragContainer::create_new_kidney);
+    connect(_dragLKidney_home, &MDraggable::be_moved, this, &MDragContainer::create_new_lKidney);
+    connect(_dragRKidney_home, &MDraggable::be_moved, this, &MDragContainer::create_new_rKidney);
     connect(_dragDrum_home, &MDraggable::be_moved, this, &MDragContainer::create_new_drum);
-    connect(_dragAward_home, &MDraggable::be_moved, this, &MDragContainer::create_new_award);
-    connect(_dragCirWall_home, &MDraggable::be_moved, this, &MDragContainer::create_new_cirWall);
-    _elements.clear();
+    connect(_dragBonusPoint_home, &MDraggable::be_moved, this, &MDragContainer::create_new_bonusPoint);
+    _map_elements.clear();
 }
 
 MDragContainer::~MDragContainer()
 {
     disconnect(this);
-    delete _dragKidney_home;
+    delete _dragLKidney_home;
+    delete _dragRKidney_home;
     delete _dragDrum_home;
-    delete _dragAward_home;
-    delete _dragCirWall_home;
+    delete _dragBonusPoint_home;
     if (_draggable_buffer != nullptr)
     {
         delete _draggable_buffer;
@@ -53,11 +53,11 @@ MDragContainer::~MDragContainer()
         _scene->removeItem(item);
     }
     delete _scene;
-    for (auto ptr : _elements)
+    for (auto ptr : _map_elements)
     {
         delete ptr;
     }
-    _elements.clear();
+    _map_elements.clear();
     delete _static_pic;
     delete _dragged_valid;
     delete _dragged_invalid;
@@ -73,21 +73,40 @@ MDragContainer::~MDragContainer()
     
 }
 
-QList<MDraggable*> MDragContainer::mapElements(){
-    return _elements;
+QList<EncodedMapElement> MDragContainer::encodeMap(){
+    QList<EncodedMapElement> _encoded_elements;
+    for(auto ptr:_map_elements){
+        _encoded_elements.push_back({})
+    } 
+
+
+
 }
 
-void MDragContainer::create_new_kidney()
+void MDragContainer::create_new_lKidney()
 {
-    _draggable_buffer = _dragKidney_home;
-    disconnect(_draggable_buffer, &MDraggable::be_moved, this, &MDragContainer::create_new_kidney);
+    _draggable_buffer = _dragLKidney_home;
+    disconnect(_draggable_buffer, &MDraggable::be_moved, this, &MDragContainer::create_new_lKidney);
     connect(_draggable_buffer, &MDraggable::be_released_invalidly, this, &MDragContainer::trash_old);
     connect(_draggable_buffer, &MDraggable::be_released_validly, this, &MDragContainer::push_old);
-    _dragKidney_home = nullptr;
-    _dragKidney_home = new MDragKidney(kidney, _static_pic, _dragged_valid, _dragged_invalid, _location_kidney, _parent);
-    connect(_dragKidney_home, &MDraggable::be_moved, this, &MDragContainer::create_new_kidney);
+    _dragLKidney_home = nullptr;
+    _dragLKidney_home = new MDragLKidney(LKidney, _static_pic, _dragged_valid, _dragged_invalid, _location_lKidney, _parent);
+    connect(_dragLKidney_home, &MDraggable::be_moved, this, &MDragContainer::create_new_lKidney);
     _draggable_buffer->raise();
-    _scene->addItem(_dragKidney_home->shadow());
+    _scene->addItem(_dragLKidney_home->shadow());
+}
+
+void MDragContainer::create_new_rKidney()
+{
+    _draggable_buffer = _dragRKidney_home;
+    disconnect(_draggable_buffer, &MDraggable::be_moved, this, &MDragContainer::create_new_rKidney);
+    connect(_draggable_buffer, &MDraggable::be_released_invalidly, this, &MDragContainer::trash_old);
+    connect(_draggable_buffer, &MDraggable::be_released_validly, this, &MDragContainer::push_old);
+    _dragRKidney_home = nullptr;
+    _dragRKidney_home = new MDragRKidney(RKidney, _static_pic_2, _dragged_valid_2, _dragged_invalid_2, _location_rKidney, _parent);
+    connect(_dragRKidney_home, &MDraggable::be_moved, this, &MDragContainer::create_new_rKidney);
+    _draggable_buffer->raise();
+    _scene->addItem(_dragRKidney_home->shadow());
 }
 
 void MDragContainer::create_new_drum()
@@ -97,36 +116,23 @@ void MDragContainer::create_new_drum()
     connect(_draggable_buffer, &MDraggable::be_released_invalidly, this, &MDragContainer::trash_old);
     connect(_draggable_buffer, &MDraggable::be_released_validly, this, &MDragContainer::push_old);
     _dragDrum_home = nullptr;
-    _dragDrum_home = new MDragDrum(drum, _static_pic_2, _dragged_valid_2, _dragged_invalid_2, _location_drum, _parent);
+    _dragDrum_home = new MDragDrum(Drum, _static_pic_3, _dragged_valid_3, _dragged_invalid_3, _location_drum, _parent);
     connect(_dragDrum_home, &MDraggable::be_moved, this, &MDragContainer::create_new_drum);
     _draggable_buffer->raise();
     _scene->addItem(_dragDrum_home->shadow());
 }
 
-void MDragContainer::create_new_award()
+void MDragContainer::create_new_bonusPoint()
 {
-    _draggable_buffer = _dragAward_home;
-    disconnect(_draggable_buffer, &MDraggable::be_moved, this, &MDragContainer::create_new_award);
+    _draggable_buffer = _dragBonusPoint_home;
+    disconnect(_draggable_buffer, &MDraggable::be_moved, this, &MDragContainer::create_new_bonusPoint);
     connect(_draggable_buffer, &MDraggable::be_released_invalidly, this, &MDragContainer::trash_old);
     connect(_draggable_buffer, &MDraggable::be_released_validly, this, &MDragContainer::push_old);
-    _dragAward_home = nullptr;
-    _dragAward_home = new MDragAward(award, _static_pic_3, _dragged_valid_3, _dragged_invalid_3, _location_award, _parent);
-    connect(_dragAward_home, &MDraggable::be_moved, this, &MDragContainer::create_new_award);
+    _dragBonusPoint_home = nullptr;
+    _dragBonusPoint_home = new MDragBonusPoint(BonusPoint, _static_pic_4, _dragged_valid_4, _dragged_invalid_4, _location_bonusPoint, _parent);
+    connect(_dragBonusPoint_home, &MDraggable::be_moved, this, &MDragContainer::create_new_bonusPoint);
     _draggable_buffer->raise();
-    _scene->addItem(_dragAward_home->shadow());
-}
-
-void MDragContainer::create_new_cirWall()
-{
-    _draggable_buffer = _dragCirWall_home;
-    disconnect(_draggable_buffer, &MDraggable::be_moved, this, &MDragContainer::create_new_cirWall);
-    connect(_draggable_buffer, &MDraggable::be_released_invalidly, this, &MDragContainer::trash_old);
-    connect(_draggable_buffer, &MDraggable::be_released_validly, this, &MDragContainer::push_old);
-    _dragCirWall_home = nullptr;
-    _dragCirWall_home = new MDragCirWall(cirwall, _static_pic_4, _dragged_valid_4, _dragged_invalid_4, _location_cirWall, _parent);
-    connect(_dragCirWall_home, &MDraggable::be_moved, this, &MDragContainer::create_new_cirWall);
-    _draggable_buffer->raise();
-    _scene->addItem(_dragCirWall_home->shadow());
+    _scene->addItem(_dragBonusPoint_home->shadow());
 }
 
 void MDragContainer::trash_old()
@@ -147,9 +153,9 @@ void MDragContainer::push_old()
     if (_draggable_buffer != nullptr)
     {
         disconnect(_draggable_buffer, nullptr, this, nullptr);
-        if (not _elements.contains(_draggable_buffer))
+        if (not _map_elements.contains(_draggable_buffer))
         {
-            _elements.push_back(_draggable_buffer);
+            _map_elements.push_back(_draggable_buffer);
             connect(_draggable_buffer, &MDraggable::be_removed, this, &MDragContainer::handle_remove_element);
         }
         _draggable_buffer = nullptr;
@@ -160,7 +166,7 @@ void MDragContainer::handle_remove_element(MDraggable *element_to_remove)
 {
     if (element_to_remove != nullptr)
     {
-        _elements.removeOne(element_to_remove);
+        _map_elements.removeOne(element_to_remove);
         _scene->removeItem(element_to_remove->shadow());
         delete element_to_remove;
     }

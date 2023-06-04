@@ -9,13 +9,7 @@
 #include <QObject>
 
 #include "mdraggableshadow.h"
-
-enum e_MDraggables{
-    kidney = 1,
-    drum = 2,
-    award =3,
-    cirwall=4
-};
+#include "Headers/encodedmap.h"
 
 class MDraggable : public QWidget
 {
@@ -27,7 +21,7 @@ private:
     bool _is_set_properly;
 protected:
     QLabel *_label;
-    e_MDraggables _type;
+    e_MapElements _type;
     QPixmap* _static_pic;
     QPixmap* _dragged_valid;
     QPixmap* _dragged_invalid;
@@ -36,6 +30,7 @@ public:
     MDraggable(QPixmap* static_pic,QPoint location_source,QWidget *parent = nullptr);
     virtual ~MDraggable();
     MDraggableShadow * shadow();
+    
 protected:
     inline bool IsPosValid();
     void mousePressEvent(QMouseEvent *event) override;

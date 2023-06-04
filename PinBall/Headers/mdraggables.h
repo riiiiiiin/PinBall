@@ -3,31 +3,31 @@
 
 #include "headers/mdraggable.h"
 
-class MDragKidney : public MDraggable
+class MDragLKidney : public MDraggable
 {
 public:
-    MDragKidney(e_MDraggables type, QPixmap *staitc_pic, QPixmap *dragged_valid, QPixmap *dragged_invalid, QPoint location_source, QWidget *parent = nullptr);
-    ~MDragKidney();
+    MDragLKidney(e_MapElements type, QPixmap *staitc_pic, QPixmap *dragged_valid, QPixmap *dragged_invalid, QPoint location_source, QWidget *parent = nullptr);
+    ~MDragLKidney();
+};
+
+class MDragRKidney : public MDraggable
+{
+public:
+    MDragRKidney(e_MapElements type, QPixmap *staitc_pic, QPixmap *dragged_valid, QPixmap *dragged_invalid, QPoint location_source, QWidget *parent = nullptr);
+    ~MDragRKidney();
 };
 
 class MDragDrum : public MDraggable
 {
 public:
-    MDragDrum(e_MDraggables type, QPixmap *staitc_pic, QPixmap *dragged_valid, QPixmap *dragged_invalid, QPoint location_source, QWidget *parent = nullptr);
+    MDragDrum(e_MapElements type, QPixmap *staitc_pic, QPixmap *dragged_valid, QPixmap *dragged_invalid, QPoint location_source, QWidget *parent = nullptr);
     ~MDragDrum();
 };
 
-class MDragAward : public MDraggable
-{
+class MDragBonusPoint : public MDraggable{
 public:
-    MDragAward(e_MDraggables type, QPixmap *staitc_pic, QPixmap *dragged_valid, QPixmap *dragged_invalid, QPoint location_source, QWidget *parent = nullptr);
-    ~MDragAward();
-};
-
-class MDragCirWall : public MDraggable{
-public:
-    MDragCirWall(e_MDraggables type, QPixmap *staitc_pic, QPixmap *dragged_valid, QPixmap *dragged_invalid, QPoint location_source, QWidget *parent = nullptr);
-    ~MDragCirWall();
+    MDragBonusPoint(e_MapElements type, QPixmap *staitc_pic, QPixmap *dragged_valid, QPixmap *dragged_invalid, QPoint location_source, QWidget *parent = nullptr);
+    ~MDragBonusPoint();
 };
 
 #endif
