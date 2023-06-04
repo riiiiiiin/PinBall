@@ -7,9 +7,10 @@
         <file>new_drum.png</file>
         <file>right_flipper.png</file>
         <file>right_kidney.png</file>
-        <file>background_1.png</file>
         <file>shifted_left_kidney.png</file>
         <file>shifted_right_kidney.png</file>
-        <file>scratch.png</file>
+        <file>background.png</file>
+        <file>shifted_right_flipper.png</file>
+        <file>shifted_left_flipper.png</file>
     </qresource>
 </RCC>

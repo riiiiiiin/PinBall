@@ -91,7 +91,7 @@ bool stwall::bounce(ball* a){
         vy=c1*yl+c2*xl;
 
         a->getvx()=vx;
-        a->getvy()=vy-coushu*50;
+        a->getvy()=vy-coushu*125;
         this->effect();
         return true;
     }
@@ -100,8 +100,7 @@ bool stwall::bounce(ball* a){
 void stwall::effect(){}
 void stwall::change(double _x1,double _x2,double _y1,double _y2,int _nocoef,bool go){
     x1=_x1;x2=_x2;y1=_y1;y2=_y2;
-    if(_nocoef) coef=double(_nocoef)/2+0.5;
-    else coef=0.8;
+    coef=1;
     if(_nocoef>0 && go==true) coushu=_nocoef;
     else coushu=0;
 }

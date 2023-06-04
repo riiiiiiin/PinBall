@@ -39,7 +39,8 @@ MainWindow::MainWindow(QWidget *parent)
 void MainWindow::pause(){
     stoptime();
 }
-void MainWindow::resume{
+
+void MainWindow::resume(){
     starttime();
 }
 void MainWindow::keyPressEvent(QKeyEvent* event)

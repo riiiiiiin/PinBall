@@ -9,6 +9,7 @@
 #include <QLabel>
 #include <QWidget>
 #include <QPixmap>
+#include <QPainter>
 class map : public QObject
 {
     Q_OBJECT
@@ -18,6 +19,7 @@ public:
     ~map();
     double gball;
     int score;//游戏中分数
+    int highest;
     int n;//vector的size
     double t;
     void clearmap();
