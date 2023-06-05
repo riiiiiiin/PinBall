@@ -91,7 +91,7 @@ bool stwall::bounce(ball* a){
         vy=c1*yl+c2*xl;
 
         a->getvx()=vx;
-        a->getvy()=vy-coushu*125;
+        a->getvy()=vy-coushu*90;
         this->effect();
         return true;
     }

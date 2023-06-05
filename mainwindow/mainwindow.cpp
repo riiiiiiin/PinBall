@@ -75,6 +75,7 @@ void MainWindow::youaredead(){
     ui->score->setNum(leftmap->score);
     if(highest<leftmap->score){
         highest=leftmap->score;
+        leftmap->highest=highest;
         ui->highest->setNum(highest);
     }
     died->getscore(leftmap->score);
@@ -84,8 +85,18 @@ void MainWindow::youaredead(){
 void MainWindow::newgame(){
     //qDebug()<<'a';
     died->close();
-    leftmap->clearmap();
-    leftmap->rebuildmap();
+    leftmap->clearstatic();
+    leftmap->cleardynamic();
+    leftmap->clearmapdynamic();
+    leftmap->clearmapstatic();
+    leftmap->rebuildstatic();
+    leftmap->drawstatic();
+    if(!(leftmap->ifsetmap)){//如果进行了setmap
+        leftmap->rebuilddynamic();
+        leftmap->drawscore();
+
+    }
+    leftmap->ifsetmap=false;
     starttime();
 }
 
