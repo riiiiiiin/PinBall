@@ -1,6 +1,7 @@
 #include "object.h"
 #include <math.h>
 #include <QTimer>
+#include <QDebug>
 
 object::object():coushu(0),ef(false),noaward(false){}
 void object::jump(){}
@@ -28,14 +29,14 @@ bool obcircle::judge(ball* a){
         }
     }
     return false;
-//    else{
-//        if(sqrt((x-xx)*(x-xx)+(y-yy)*(y-yy))<=(r+rr)&&sqrt((x-xx)*(x-xx)+(y-yy)*(y-yy))>=abs(r-rr)){
-//            if(((x1-x)*(y-yy)-(y1-y)*(x-xx))*((x2-x)*(y-yy)-(y2-y)*(x-xx))<0){
-//                return true;
-//            }
-//        }
-//    }
-    return false;
+    // else{
+    //     if(sqrt((x-xx)*(x-xx)+(y-yy)*(y-yy))<=(r+rr)&&sqrt((x-xx)*(x-xx)+(y-yy)*(y-yy))>=abs(r-rr)){
+    //         if(((x1-x)*(y-yy)-(y1-y)*(x-xx))*((x2-x)*(y-yy)-(y2-y)*(x-xx))<0){
+    //             return true;
+    //         }
+    //     }
+    // }
+    // return false;
 }
 void obcircle::change(double _x1,double _x2,double _y1,double _y2,int _nocoef,bool go){}
 
@@ -71,9 +72,13 @@ void ball::jump(){
     x=x+vx*t;
     y=y+vy*t+0.5*g*t*t;
     vy=vy+g*t;
-    vx=0.999*vx;
-    vy=0.999*vy;
+    auto cur_velocity=sqrt((vx*vx)+(vy*vy));
+    if(cur_velocity>450 and cur_velocity!=0){
+        vx/=(cur_velocity/450);
+        vy/=(cur_velocity/450);
+    }
     if(y>540) alive=0;
+    if(y<0 or x>600 or x<0) qDebug()<<"超tm穿模了";
 }
 bool ball::isalive(){
     return alive;
