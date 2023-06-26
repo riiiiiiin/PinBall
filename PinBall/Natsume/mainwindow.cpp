@@ -49,6 +49,7 @@ void GameWindow::keyPressEvent(QKeyEvent* event)
     if(event->key()==Qt::Key_M)  emit pressM();
     QWidget::keyPressEvent(event);
     // 发送按下信号
+    // qDebug()<<'c';
 }
 
 void GameWindow::keyReleaseEvent(QKeyEvent* event) {
@@ -58,6 +59,7 @@ void GameWindow::keyReleaseEvent(QKeyEvent* event) {
 }
 
 void GameWindow::starttime(){
+    activateWindow();
     tim->start();
     atim->start();
 }

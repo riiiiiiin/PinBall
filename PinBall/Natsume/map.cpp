@@ -1,13 +1,4 @@
-#include <QVector>
 #include "map.h"
-#include <QObject>
-#include <cmath>
-#include <QTimer>
-#include <QLabel>
-#include <QWidget>
-#include <QTime>
-#include <QRandomGenerator>
-#include "Headers/encodedmap.h"
 
 map::map(QWidget *parent) : pparent(parent), encoded_elements(encoded_dynamic)
 {
@@ -233,11 +224,13 @@ map::~map()
 
 void map::leftup()
 {
+    // qDebug()<<'a';
     upleft = true;
 }
 
 void map::leftdown()
 {
+    // qDebug()<<'b';
     upleft = false;
 }
 
@@ -297,6 +290,11 @@ void map::rebuild_map()
 
 void map::redraw_map()
 {
+    for(auto&l:map_pics){
+        if(l!=nullptr){
+            delete l;
+        }
+    }
     map_pics.clear();
 
     QLabel *plabel = new QLabel(pparent);

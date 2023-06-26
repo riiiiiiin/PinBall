@@ -44,15 +44,14 @@ void GameWidgetManager::on_exit_requested(){
 }
 
 void GameWidgetManager::switch_to_map(QList<EncodedMapElement> encoded_map,int gravity){
-    for(auto ele:encoded_map){
-        qDebug()<<ele._element_type<<' '<<ele._x<<' '<<ele._y;
-    }
     //set up map
     emit setMap(encoded_map,gravity);
+    _map->activateWindow();
     _stacked_widget->setCurrentWidget(_map);
 }
 
 void GameWidgetManager::switch_to_mapEditor(){
+    _map_editor->activateWindow();
     _stacked_widget->setCurrentWidget(_map_editor);
 }
 

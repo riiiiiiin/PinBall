@@ -7,6 +7,10 @@
 #include <QLabel>
 #include <QWidget>
 #include <QPixmap>
+#include <cmath>
+#include <QTime>
+#include <QRandomGenerator>
+#include <QDebug>
 
 #include "Headers/encodedmap.h"
 #include "object.h"

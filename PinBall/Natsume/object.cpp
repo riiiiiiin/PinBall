@@ -72,11 +72,12 @@ void ball::jump(){
     x=x+vx*t;
     y=y+vy*t+0.5*g*t*t;
     vy=vy+g*t;
-    auto cur_velocity=sqrt((vx*vx)+(vy*vy));
-    if(cur_velocity>450 and cur_velocity!=0){
-        vx/=(cur_velocity/450);
-        vy/=(cur_velocity/450);
+    auto cur_speed=sqrt((vx*vx)+(vy*vy));
+    if(cur_speed>450 and cur_speed!=0){
+        vx/=(cur_speed/450);
+        vy/=(cur_speed/450);
     }
+    qDebug()<<cur_speed;
     if(y>540) alive=0;
     if(y<0 or x>600 or x<0) qDebug()<<"超tm穿模了";
 }
