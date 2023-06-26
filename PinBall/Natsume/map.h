@@ -2,13 +2,14 @@
 #define MAP_H
 #include <QObject>
 #include <QVector>
-#include "object.h"
 #include <QTimer>
 #include <QList>
-#include "Headers/encodedmap.h"
 #include <QLabel>
 #include <QWidget>
 #include <QPixmap>
+
+#include "Headers/encodedmap.h"
+#include "object.h"
 
 class map : public QObject
 {
@@ -17,26 +18,10 @@ class map : public QObject
 public:
     map(QWidget *parent=nullptr);
     ~map();
-    double gball;
+    void rebuild_map();
+    void redraw_map();
     int score;//游戏中分数
     int highest;
-    int n;//vector的size
-    double t;
-    void clearmap();
-    void rebuildmap();
-    void rebuildmap(QList<EncodedMapElement> newmap,int);
-//    void drawmap();
-    QWidget *pparent;
-    QVector<QLabel*> which,changeable;
-    QLabel *plabel;
-    QPixmap pix;
-    void updateball();
-    void drawstatic();
-    void drawscore();
-    void clearstatic();
-    void cleardynamic();
-    void updateflipper();
-
 
 public slots:
     void onestep();
@@ -46,6 +31,7 @@ public slots:
     void rightup();
     void rightdown();
     void setmap(QList<EncodedMapElement> newmap,int);//transform
+
 signals:
     void dead();//
     void scorechange(int,int);
@@ -55,9 +41,28 @@ private:
     bool upleft,upright,moveupleft,moveupright;
     double theleft,theright;//左右flipper的theta
     double leftx,rightx,y;
-    QVector<object*> cob;
+
     ball* pb;
-    object* pa;
+    double gball;
+    double t;
+
+    QWidget *pparent;
+
+    QList<object*> static_elements;
+    QList<object*> dynamic_elements;
+    QList<object*> dynamic_elements_default;
+    QList<object*> map_eles;
+
+    QList<EncodedMapElement> encoded_dynamic;
+    QList<EncodedMapElement> encoded_dynamic_default;
+    QList<EncodedMapElement>& encoded_elements;
+
+    QList<QLabel*> map_pics;
+
+    void updateball();
+    void updateflipper();
+
+    const double pi = acos(-1);
 };
 
 #endif // MAP_H

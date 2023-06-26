@@ -32,6 +32,8 @@ GameWindow::GameWindow(QWidget *parent)
     connect(leftmap,SIGNAL(scorechange(int,int)),this,SLOT(showscore()));
     connect(leftmap,&map::scorechange,this,on_scoreChanged);
     connect(this,&GameWindow::setMap,leftmap,&map::setmap);
+    leftmap->rebuild_map();
+    leftmap->redraw_map();
     starttime();
 }
 
@@ -73,14 +75,15 @@ void GameWindow::youaredead(){
     stoptime();
     if(highest<leftmap->score){
         highest=leftmap->score;
+        leftmap->highest=highest;
     }
     emit gameOverRequest();
 }
 
 void GameWindow::newgame(){
     //qDebug()<<'a';
-    leftmap->clearmap();
-    leftmap->rebuildmap();
+    leftmap->rebuild_map();
+    leftmap->redraw_map();
     starttime();
 }
 
@@ -93,6 +96,8 @@ void GameWindow::on_scoreChanged(int cur,int max){
 }
 
 void GameWindow::on_mapSet(QList<EncodedMapElement> newmap,int gravity){
-    leftmap->rebuildmap(newmap,gravity);
+    leftmap->setmap(newmap,gravity);
+    leftmap->rebuild_map();
+    leftmap->redraw_map();
     starttime();
 }
