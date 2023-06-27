@@ -1,16 +1,23 @@
 #ifndef MAP_H
 #define MAP_H
 #include <QObject>
-#include <QVector>
-#include <QTimer>
-#include <QList>
-#include <QLabel>
 #include <QWidget>
+
+#include <QTimer>
+
+#include <QVector>
+#include <QList>
+
+#include <QLabel>
 #include <QPixmap>
-#include <cmath>
+#include <QPainter>
+#include <QTransform>
+
 #include <QTime>
 #include <QRandomGenerator>
 #include <QDebug>
+
+#include <cmath>
 
 #include "Headers/encodedmap.h"
 #include "object.h"

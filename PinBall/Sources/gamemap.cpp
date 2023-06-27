@@ -157,13 +157,13 @@ void GameMap::on_exitRequested()
 
 void GameMap::on_switchButtonClicked()
 {
+    emit pauseRequest();
     _pMask->show();
     _blure->setEnabled(true);
     _switch_confirm->move(mapToGlobal(geometry().topLeft()));
     _switch_confirm->raise();
     _switch_confirm->exec();
     // pause
-    emit pauseRequest();
 }
 
 void GameMap::on_switchConfirmClosed()
@@ -171,7 +171,6 @@ void GameMap::on_switchConfirmClosed()
     _pMask->close();
     _blure->setEnabled(false);
     // resume
-    qDebug()<<'a';
     emit resumeRequest();
 }
 

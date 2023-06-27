@@ -38,9 +38,11 @@ GameWindow::GameWindow(QWidget *parent)
 }
 
 void GameWindow::pause(){
+    // qDebug()<<"PAUSECALLED";
     stoptime();
 }
 void GameWindow::resume(){
+    // qDebug()<<"RESUMECALLED";
     starttime();
 }
 void GameWindow::keyPressEvent(QKeyEvent* event)
@@ -83,7 +85,7 @@ void GameWindow::youaredead(){
 }
 
 void GameWindow::newgame(){
-    //qDebug()<<'a';
+    // qDebug()<<'a';
     leftmap->rebuild_map();
     leftmap->redraw_map();
     starttime();

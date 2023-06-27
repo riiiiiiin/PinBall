@@ -15,7 +15,7 @@ MDraggable(static_pic,location_source,parent,is_set_properly)
 }
 //note:offset to be determined
 QPoint MDragLKidney::locatingPoint()const{
-    return QPoint((pos().x()+50),(pos().y())+110);
+    return QPoint((pos().x()+50),(pos().y())+120);
 }
 
 MDragLKidney::~MDragLKidney(){}
@@ -34,7 +34,7 @@ MDraggable(static_pic,location_source,parent,is_set_properly)
 }
 //note:offset to be determined
 QPoint MDragRKidney::locatingPoint()const{
-    return QPoint((pos().x()+3),(pos().y()+110));
+    return QPoint((pos().x()+3),(pos().y()+120));
 }
 
 MDragRKidney::~MDragRKidney(){}

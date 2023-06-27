@@ -152,12 +152,12 @@ void map::onestep()
     }
     for (auto obj : map_eles)
     {
-        if (obj->bounce(pb) & (!obj->noaward))
+        if (obj->bounce(pb) and (!obj->noaward))
         { // 发生碰撞
             obj->ef = true;
             // qDebug()<<"bang!!!";
             // qDebug()<<i;
-            if (obj->bonus != 0)
+            if (obj->bonus != 0 and (not obj->noaward))
             {
                 score += obj->bonus;
                 highest = std::max(highest, score);
@@ -299,7 +299,7 @@ void map::redraw_map()
 
     QLabel *plabel = new QLabel(pparent);
     QPixmap *ppix = new QPixmap(":/new/prefix1/background.png");
-    *ppix = ppix->scaled(600, 540);
+    *ppix = ppix->scaled(600, 540, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     plabel->setPixmap(*ppix);
     plabel->setMask(ppix->mask());
     plabel->setGeometry(0, 0, 600, 540);
@@ -312,7 +312,7 @@ void map::redraw_map()
 
     plabel = new QLabel(pparent);
     ppix= new QPixmap(":/new/prefix1/ball.png");
-    *ppix = ppix->scaled(20, 20);
+    *ppix = ppix->scaled(20, 20, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     plabel->setPixmap(*ppix);
     plabel->setMask(ppix->mask());
     plabel->setGeometry(pb->getx() - 10, pb->gety() - 10, 20, 20);
@@ -325,7 +325,7 @@ void map::redraw_map()
 
     plabel = new QLabel(pparent);
     ppix= new QPixmap(":/new/prefix1/shifted_left_flipper.png");
-    *ppix = ppix->scaled(198, 39);
+    *ppix = ppix->scaled(198, 39, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     plabel->setPixmap(*ppix);
     plabel->setMask(ppix->mask());
     plabel->setGeometry(92, 454, 198, 39);
@@ -338,7 +338,7 @@ void map::redraw_map()
 
     plabel = new QLabel(pparent);
     ppix= new QPixmap(":/new/prefix1/shifted_right_flipper.png");
-    *ppix = ppix->scaled(198, 39);
+    *ppix = ppix->scaled(198, 39, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     plabel->setPixmap(*ppix);
     plabel->setMask(ppix->mask());
     plabel->setGeometry(306, 454, 198, 39);
@@ -357,11 +357,11 @@ void map::redraw_map()
         {
             plabel = new QLabel(pparent);
             ppix= new QPixmap(":/new/prefix1/shifted_left_kidney.png");
-            *ppix = ppix->scaled(51, 134);
+            *ppix = ppix->scaled(53, 134, Qt::KeepAspectRatio, Qt::SmoothTransformation);
             plabel->setPixmap(*ppix);
             plabel->setMask(ppix->mask());
-            plabel->setGeometry(e._x - 50, e._y - 110, 51, 134);
-            plabel->setFixedSize(51, 134);
+            plabel->setGeometry(e._x - 50, e._y - 120, 53, 134);
+            plabel->setFixedSize(53, 134);
             plabel->show();
             map_pics.push_back(plabel);
 
@@ -373,11 +373,11 @@ void map::redraw_map()
         {
             plabel = new QLabel(pparent);
             ppix= new QPixmap(":/new/prefix1/shifted_right_kidney.png");
-            *ppix = ppix->scaled(51, 134);
+            *ppix = ppix->scaled(53, 134, Qt::KeepAspectRatio, Qt::SmoothTransformation);
             plabel->setPixmap(*ppix);
             plabel->setMask(ppix->mask());
-            plabel->setGeometry(e._x - 3, e._y - 110, 51, 134);
-            plabel->setFixedSize(51, 134);
+            plabel->setGeometry(e._x - 3, e._y - 120, 53, 134);
+            plabel->setFixedSize(53, 134);
             plabel->show();
             map_pics.push_back(plabel);
 
@@ -389,7 +389,7 @@ void map::redraw_map()
         {
             plabel = new QLabel(pparent);
             ppix= new QPixmap(":/new/prefix1/new_drum.png");
-            *ppix = ppix->scaled(40,40);
+            *ppix = ppix->scaled(40,40, Qt::KeepAspectRatio, Qt::SmoothTransformation);
             plabel->setPixmap(*ppix);
             plabel->setMask(ppix->mask());
             plabel->setGeometry(e._x - 20, e._y - 20, 40, 40);
@@ -405,7 +405,7 @@ void map::redraw_map()
         {
             plabel = new QLabel(pparent);
             ppix= new QPixmap(":/new/prefix1/new_bonus_point.png");
-            *ppix = ppix->scaled(20,20);
+            *ppix = ppix->scaled(20,20, Qt::KeepAspectRatio, Qt::SmoothTransformation);
             plabel->setPixmap(*ppix);
             plabel->setMask(ppix->mask());
             plabel->setGeometry(e._x - 10, e._y - 10, 20, 20);

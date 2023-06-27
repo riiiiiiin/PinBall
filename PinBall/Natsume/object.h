@@ -3,7 +3,8 @@
 
 
 #include <QObject>
-#include<QTimer>
+#include <QTimer>
+#include <cmath>
 class ball;
 class object : public QObject
 {
@@ -26,7 +27,7 @@ protected:
     double x1,x2,y1,y2;//(x1,y1),(x2,y2)直线两端点
 public:
     obline(double _x1,double _x2,double _y1,double _y2);
-    bool judge(ball* a);//判断是否碰撞
+    virtual bool judge(ball* a);//判断是否碰撞
     virtual bool bounce(ball* a);//虚
     virtual void effect();
     virtual void change(double _x1,double _x2,double _y1,double _y2,int _nocoef,bool go);
@@ -39,7 +40,7 @@ protected:
     double x1,x2,y1,y2;//圆弧的两个端点
 public:
     obcircle(double _x,double _y,double _r,bool _full,double _x1=0,double _x2=0,double _y1=0,double _y2=0);
-    bool judge(ball* a);//判断是否碰撞
+    virtual bool judge(ball* a);//判断是否碰撞
     virtual void jump();//虚
     virtual bool bounce(ball* a);//虚
     virtual void effect();
@@ -109,6 +110,7 @@ class award:public obcircle{
 public:
     award(double _x,double _y,double _r);
     void effect();
+    bool judge(ball* a)override;
     bool bounce(ball* a);
     QTimer *ifaward;
 
