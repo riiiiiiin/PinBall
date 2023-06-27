@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
     leftmap=new map(this);
     setFixedSize(960, 540);
     tim=new QTimer();
-    tim->setInterval(5);
+    tim->setInterval(2);
     connect(tim,SIGNAL(timeout()),leftmap,SLOT(onestep()));
     atim=new QTimer();
     atim->setInterval(30);

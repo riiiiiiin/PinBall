@@ -70,7 +70,7 @@ void obline::change(double _x1,double _x2,double _y1,double _y2,int _nocoef,bool
 bool obline::bounce(ball* a){return true;}
 void obline::effect(){}
 
-ball::ball(double _x, double _y, double _r, double _vx, double _vy, double _g):obcircle(_x,_y,_r, true),vx(_vx),vy(_vy),g(_g),t(0.005),alive(1){}
+ball::ball(double _x, double _y, double _r, double _vx, double _vy, double _g):obcircle(_x,_y,_r, true),vx(_vx),vy(_vy),g(_g),t(0.003),alive(1){}
 bool ball::bounce(ball* a){}
 void ball::effect(){}
 double& ball::getvx(){return vx;}
@@ -82,8 +82,13 @@ void ball::jump(){
     x=x+vx*t;
     y=y+vy*t+0.5*g*t*t;
     vy=vy+g*t;
-    vx=0.999*vx;
-    vy=0.999*vy;
+    vx=0.9995*vx;
+    vy=0.9995*vy;
+    double c=sqrt(vx*vx+vy*vy)/700;
+    if(c>1){
+        vy=vy/c;
+        vx=vx/c;
+    }
     if(y>540) alive=0;
 }
 bool ball::isalive(){

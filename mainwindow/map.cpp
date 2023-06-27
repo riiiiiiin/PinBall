@@ -15,7 +15,7 @@ map::map(QWidget *parent):pparent(parent)
     highest=0;
     score=0;
     ifsetmap=false;
-    t=0.005;
+    t=0.002;
     rebuildstatic();
     rebuilddynamic();
     drawstatic();
@@ -58,17 +58,17 @@ void map::onestep(){
         cob[0]->change(leftx,leftx+rx,y,y+ry,int(upleft),moveupleft);
         cob[1]->change(leftx+rx,leftx+2*rx,y+ry,y+2*ry,int(upleft)*2,moveupleft);
         cob[2]->change(leftx+2*rx,leftx+3*rx,y+2*ry,y+3*ry,int(upleft)*3,moveupleft);
-        cob[4]->change(leftx+3*rx-2,y+3*ry+7.5,0,0,int(upleft),moveupleft);
-        cob[5]->change(leftx-4,leftx+3*rx-4,y+20,y+3*ry+15,0,moveupleft);
+        cob[3]->change(leftx+3*rx-2,y+3*ry+7.5,0,0,int(upleft),moveupleft);
+        cob[4]->change(leftx-4,leftx+3*rx-4,y+20,y+3*ry+15,0,moveupleft);
     }
     if(rc){
         rx=25*cos(theright);
         ry=25*sin(theright);
-        cob[6]->change(rightx,rightx-rx,y,y+ry,int(upright),moveupright);
-        cob[7]->change(rightx-rx,rightx-2*rx,y+ry,y+2*ry,int(upright)*2,moveupright);
-        cob[8]->change(rightx-2*rx,rightx-3*rx,y+2*ry,y+3*ry,int(upright)*3,moveupright);
-        cob[10]->change(rightx-3*rx+2,y-3*ry+7.5,0,0,int(upright),moveupright);
-        cob[11]->change(rightx+4,rightx-3*rx+4,y+20,y+3*ry+15,0,moveupright);
+        cob[5]->change(rightx,rightx-rx,y,y+ry,int(upright),moveupright);
+        cob[6]->change(rightx-rx,rightx-2*rx,y+ry,y+2*ry,int(upright)*2,moveupright);
+        cob[7]->change(rightx-2*rx,rightx-3*rx,y+2*ry,y+3*ry,int(upright)*3,moveupright);
+        cob[8]->change(rightx-3*rx+2,y-3*ry+7.5,0,0,int(upright),moveupright);
+        cob[9]->change(rightx+4,rightx-3*rx+4,y+20,y+3*ry+15,0,moveupright);
     }
     int n=cob.size();
     int m=cobd.size();
@@ -155,9 +155,9 @@ void map::rebuildstatic(){
     pa=new stwall(282.8,258.6,476.8,470.9,1);
     cob.push_back(pa);//2
     pa=0;
-    pa=new cirwall(208,469,10.2,1);
-    cob.push_back(pa);//3
-    pa=0;
+//    pa=new cirwall(208,469,10.2,1);
+//    cob.push_back(pa);//3
+//    pa=0;
     pa=new cirwall(280.8,484.3,7.8,1);
     cob.push_back(pa);//4
     pa=0;
@@ -173,9 +173,9 @@ void map::rebuildstatic(){
     pa=new stwall(317.2,341.4,476.8,470.9,1);
     cob.push_back(pa);//8
     pa=0;
-    pa=new cirwall(392,469,10.2,1);
-    cob.push_back(pa);//9
-    pa=0;
+//    pa=new cirwall(392,469,10.2,1);
+//    cob.push_back(pa);//9
+//    pa=0;
     pa=new cirwall(319.2,484.3,7.8,1);
     cob.push_back(pa);//10
     pa=0;
@@ -351,8 +351,8 @@ void map::updateflipper(){
 
     // 显示旋转后的图像
     plabel->setPixmap(rotatedPixmap);
-//    plabel->setMask(rotatedPixmap.mask());
-//    plabel->show();
+    plabel->setMask(rotatedPixmap.mask());
+    plabel->show();
 
     plabel=which[3];
     pix.load(":/new/prefix1/shifted_right_flipper.png");
@@ -366,8 +366,8 @@ void map::updateflipper(){
 
     // 显示旋转后的图像
     plabel->setPixmap(rotatedPixmap1);
-//    plabel->setMask(rotatedPixmap1.mask());
-//    plabel->show();
+    plabel->setMask(rotatedPixmap1.mask());
+    plabel->show();
 
 //    QPainter painter;
 //    pix.load(":/new/prefix1/shifted_left_flipper.png");
@@ -410,21 +410,22 @@ void map::drawstatic(){
 
     plabel=new QLabel(pparent);
     pix.load(":/new/prefix1/shifted_left_flipper.png");
-    pix = pix.scaled(527, 198);
+    pix = pix.scaled(191,377);//198,39
     plabel->setPixmap(pix);
-//    plabel->setMask(pix.mask());
-//    plabel->setGeometry(92, 454, 198, 39);
-    plabel->setGeometry(98, 338, 527, 198);
+    plabel->setMask(pix.mask());
+    plabel->setGeometry(100, 290, 191,377);
+    plabel->setFixedSize(191,377);
     plabel->show();
     which.push_back(plabel);
     plabel=0;
 
     plabel=new QLabel(pparent);
     pix.load(":/new/prefix1/shifted_right_flipper.png");
-    pix = pix.scaled(527, 198);
+    pix = pix.scaled( 191,377);
     plabel->setPixmap(pix);
-//    plabel->setMask(pix.mask());
-    plabel->setGeometry(305, 339, 527, 198);
+    plabel->setMask(pix.mask());
+    plabel->setGeometry(306,290, 191,377);
+    plabel->setFixedSize( 191,377);
     plabel->show();
     which.push_back(plabel);
     plabel=0;
