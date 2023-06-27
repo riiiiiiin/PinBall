@@ -1,7 +1,6 @@
 #include "object.h"
 #include <math.h>
 #include <QTimer>
-#include <QDebug>
 
 object::object():coushu(0),ef(false),noaward(false){}
 void object::jump(){}
@@ -19,24 +18,32 @@ bool obcircle::judge(ball* a){
     double yy=a->gety();
     double rr=a->getr();
     if(sqrt((x-xx)*(x-xx)+(y-yy)*(y-yy))<=(r+rr)&&sqrt((x-xx)*(x-xx)+(y-yy)*(y-yy))>=abs(r-rr)){
-        if(full) return true;
+        double vx=a->getvx(),vy=a->getvy();
+        double yl=y2-y1,xl=x2-x1;
+
+        if(full) {
+            if(((xx-x)*vx+(yy-y)*vy)>0) return false;//如果球的法向速度向外，就不进行变换了
+            return true;
+        }
         else{
-            double xm=(x1+x2)/2-x,ym=(y1+y2)/2-y;
+            double xm=(x1+x2)/2-x,ym=(y1+y2)/2-y,c=(xx-x)*(xx-x)+(yy-y)*(yy-y);
             double xl=x1-x,yl=y1-y,L=sqrt(xl*xl+yl*yl);
             double xb=xx-x,yb=yy-y,B=sqrt(xb*xb+yb*yb);
             double cos1=(xm*xb+ym*yb)/B,cos2=(xm*xl+ym*yl)/L;
-            if(cos1>=cos2) return true;
+            if(cos1>=cos2) {
+                if((c>r*r && ((xx-x)*vx+(yy-y)*vy)<0)||(c<=r*r&&((xx-x)*vx+(yy-y)*vy)>0)) return true;
+            }
         }
     }
     return false;
-    // else{
-    //     if(sqrt((x-xx)*(x-xx)+(y-yy)*(y-yy))<=(r+rr)&&sqrt((x-xx)*(x-xx)+(y-yy)*(y-yy))>=abs(r-rr)){
-    //         if(((x1-x)*(y-yy)-(y1-y)*(x-xx))*((x2-x)*(y-yy)-(y2-y)*(x-xx))<0){
-    //             return true;
-    //         }
-    //     }
-    // }
-    // return false;
+//    else{
+//        if(sqrt((x-xx)*(x-xx)+(y-yy)*(y-yy))<=(r+rr)&&sqrt((x-xx)*(x-xx)+(y-yy)*(y-yy))>=abs(r-rr)){
+//            if(((x1-x)*(y-yy)-(y1-y)*(x-xx))*((x2-x)*(y-yy)-(y2-y)*(x-xx))<0){
+//                return true;
+//            }
+//        }
+//    }
+    return false;
 }
 void obcircle::change(double _x1,double _x2,double _y1,double _y2,int _nocoef,bool go){}
 
@@ -53,6 +60,9 @@ bool obline::judge(ball* a){
     double l=sqrt((x2-x1)*(x2-x1)+(y2-y1)*(y2-y1));
     double cos=(min*min-max*max+l*l)/(2*min*l);
     if(cos<0) return false;
+    double vx=a->getvx(),vy=a->getvy();
+    double yl=y2-y1,xl=x2-x1;
+    if(coushu==0&&(yl*vx-xl*vy)*(yl*(x-x1)-xl*(y-y1))>0) return false;//如果球的法向速度向外，就不进行变换了
     if(sqrt(1-cos*cos)*min<a->getr()) return true;
     else return false;
 }
@@ -72,13 +82,9 @@ void ball::jump(){
     x=x+vx*t;
     y=y+vy*t+0.5*g*t*t;
     vy=vy+g*t;
-    auto cur_velocity=sqrt((vx*vx)+(vy*vy));
-    if(cur_velocity>450 and cur_velocity!=0){
-        vx/=(cur_velocity/450);
-        vy/=(cur_velocity/450);
-    }
+    vx=0.999*vx;
+    vy=0.999*vy;
     if(y>540) alive=0;
-    if(y<0 or x>600 or x<0) qDebug()<<"超tm穿模了";
 }
 bool ball::isalive(){
     return alive;

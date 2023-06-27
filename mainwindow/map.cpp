@@ -8,6 +8,8 @@
 #include <QLabel>
 #include <QWidget>
 #include <QPainter>
+#include <QTransform>
+//QMatrix在6.0版本中废弃了
 map::map(QWidget *parent):pparent(parent)
 {
     highest=0;
@@ -297,37 +299,76 @@ void map::updateball()
 {
     which[1]->setGeometry(pb->getx()-10,pb->gety()-10,20, 20);
 }
+
+//QPixmap map::rotateImageWithPainter(const QPixmap &src, int angle)
+//{
+//查到的第一个
+//    QPixmap pix(src.size());
+//    QPainter painter(&pix);
+//    painter.setBrush(Qt::transparent);
+//    painter.setPen(Qt::red);
+//    auto srcRect = src.rect();
+//    painter.translate(srcRect.center());
+//    painter.rotate(angle);
+//    //int cubeWidth = qMin(src.width(),src.height())/2;
+//    //painter.drawEllipse(QPoint(0,0),cubeWidth,cubeWidth);
+//    //方法1  -Point(1,1)是因为画笔宽度存在偏差
+//    //painter.drawPixmap(-srcRect.center()-QPoint(1,1),src);
+//    //方法2
+//    painter.translate(-srcRect.center());
+//    painter.drawPixmap(QPoint(-1,-1),src);
+//    return pix;
+
+//查到的第二个
+//    QTransform matri;
+//    //迁移到中心
+//    matri.translate(src.width()/2.0,src.height()/2.0);
+//    //中心旋转
+//    matri.rotate(angle);
+//    //回退中心
+//    matri.translate(-src.width()/2.0,-src.height()/2.0);
+//    //执行坐标映射变化
+//    //旋转后图像大小变化了 需要提前进行裁剪 如果在旋转后裁剪
+//    //则需要计算使用三角函数计算
+//    //中心偏移
+//    int cubeWidth = qMin(src.width(),src.height());
+//    QRect cubeRect(0,0,cubeWidth,cubeWidth);
+//    cubeRect.moveCenter(src.rect().center());
+//    auto retImg = src.copy(cubeRect);
+//    retImg = retImg.transformed(matri,Qt::SmoothTransformation);
+//    return retImg;
+//}
 void map::updateflipper(){
     plabel=which[2];
-//    delete plabel;
-//    plabel = new QLabel();
-    QTransform transform;
-    transform.translate(40, 20);
-    transform.rotate(-(0.24-theleft)/3.1416*180);
     pix.load(":/new/prefix1/shifted_left_flipper.png");
-    pix = pix.transformed(transform);
-    transform.translate(40, 10);
-    pix = pix.scaled( 198,39);
-    plabel->setPixmap(pix);
-    plabel->setMask(pix.mask());
-    plabel->setGeometry(92,454, 198,39);
-    plabel->setFixedSize(198,39);
+    QPixmap rotatedPixmap(pix.size());
+    rotatedPixmap.fill(Qt::transparent); // 设置透明背景
+    QPainter painter(&rotatedPixmap); // 创建绘制设备
+    painter.setRenderHint(QPainter::Antialiasing); // 设置抗锯齿
+    painter.translate(rotatedPixmap.width() / 2, rotatedPixmap.height() / 2);// 将坐标系移动到图像中心
+    painter.rotate(-(0.24-theleft)/3.1416*180);//旋转
+    painter.drawPixmap(-pix.width() / 2, -pix.height() / 2, pix);// 绘制旋转后的图像
+
+    // 显示旋转后的图像
+    plabel->setPixmap(rotatedPixmap);
+    plabel->setMask(rotatedPixmap.mask());
     plabel->show();
+
     plabel=which[3];
-    //    delete plabel;
-    //    plabel = new QLabel();
-    QTransform transform1;
-    transform1.translate(40, 20);
-    transform1.rotate((0.24-theright)/3.1416*180);
     pix.load(":/new/prefix1/shifted_right_flipper.png");
-    pix = pix.transformed(transform1);
-    transform1.translate(40, 10);
-    pix = pix.scaled( 198,39);
-    plabel->setPixmap(pix);
-    plabel->setMask(pix.mask());
-    plabel->setGeometry(306,454, 198,39);
-    plabel->setFixedSize(198,39);
+    QPixmap rotatedPixmap1(pix.size());
+    rotatedPixmap1.fill(Qt::transparent); // 设置透明背景
+    QPainter painter1(&rotatedPixmap1); // 创建绘制设备
+    painter1.setRenderHint(QPainter::Antialiasing); // 设置抗锯齿
+    painter1.translate(rotatedPixmap1.width() / 2, rotatedPixmap1.height() / 2);// 将坐标系移动到图像中心
+    painter1.rotate((0.24-theright)/3.1416*180);//旋转
+    painter1.drawPixmap(-pix.width() / 2, -pix.height() / 2, pix);// 绘制旋转后的图像
+
+    // 显示旋转后的图像
+    plabel->setPixmap(rotatedPixmap1);
+    plabel->setMask(rotatedPixmap1.mask());
     plabel->show();
+
 //    QPainter painter;
 //    pix.load(":/new/prefix1/shifted_left_flipper.png");
 //    painter.translate(-40,-20);
@@ -335,8 +376,8 @@ void map::updateflipper(){
 //    painter.translate(40,20);
 //    painter.drawPixmap(191, 454, 99, 39, pix);
 //    plabel=which[2];
-////    delete plabel;
-////    plabel = new QLabel();
+//    delete plabel;
+//    plabel = new QLabel();
 //    plabel->setPixmap(pix);
 //    plabel->setMask(pix.mask());
 //    plabel->setGeometry(191,454, 99,39);
