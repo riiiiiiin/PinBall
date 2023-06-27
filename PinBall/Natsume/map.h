@@ -11,7 +11,6 @@
 #include <QLabel>
 #include <QPixmap>
 #include <QPainter>
-#include <QTransform>
 
 #include <QTime>
 #include <QRandomGenerator>

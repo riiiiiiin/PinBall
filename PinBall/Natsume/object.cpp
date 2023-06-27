@@ -1,6 +1,5 @@
 #include "object.h"
-#include <math.h>
-#include <QTimer>
+
 #include <QDebug>
 
 object::object() : coushu(0), ef(false), noaward(false) {}
@@ -261,7 +260,6 @@ bool award::bounce(ball *a)
 {
     if (judge(a))
     {
-        qDebug() << 'c';
         this->effect();
         return true;
         emit getaward();
@@ -280,7 +278,6 @@ void award::dealaward()
     else{
         ifaward->start();
         noaward = true;
-        qDebug() << 'a';
     }
         
 } // 后面可做图片消失与重新出现

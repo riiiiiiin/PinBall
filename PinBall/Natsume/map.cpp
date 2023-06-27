@@ -224,13 +224,11 @@ map::~map()
 
 void map::leftup()
 {
-    // qDebug()<<'a';
     upleft = true;
 }
 
 void map::leftdown()
 {
-    // qDebug()<<'b';
     upleft = false;
 }
 
@@ -325,11 +323,10 @@ void map::redraw_map()
 
     plabel = new QLabel(pparent);
     ppix= new QPixmap(":/new/prefix1/shifted_left_flipper.png");
-    *ppix = ppix->scaled(198, 39, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    *ppix = ppix->scaled(527, 198, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     plabel->setPixmap(*ppix);
-    plabel->setMask(ppix->mask());
-    plabel->setGeometry(92, 454, 198, 39);
-    plabel->setFixedSize(198, 39);
+    // plabel->setMask(ppix->mask());
+    plabel->setGeometry(98, 338, 527, 198);
     plabel->show();
     map_pics.push_back(plabel);
 
@@ -338,11 +335,10 @@ void map::redraw_map()
 
     plabel = new QLabel(pparent);
     ppix= new QPixmap(":/new/prefix1/shifted_right_flipper.png");
-    *ppix = ppix->scaled(198, 39, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    *ppix = ppix->scaled(527, 198, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     plabel->setPixmap(*ppix);
-    plabel->setMask(ppix->mask());
-    plabel->setGeometry(306, 454, 198, 39);
-    plabel->setFixedSize(198, 39);
+    // plabel->setMask(ppix->mask());
+    plabel->setGeometry(305, 339, 527, 198);
     plabel->show();
     map_pics.push_back(plabel);
 
@@ -430,36 +426,30 @@ void map::updateflipper()
 {
     QLabel* plabel = map_pics[2];
 
-    QTransform transform;
-    transform.translate(40, 20);
-    transform.rotate(-(0.24 - theleft) / pi* 180);
     QPixmap* ppix=new QPixmap(":/new/prefix1/shifted_left_flipper.png");
-    *ppix = ppix->transformed(transform);
-    transform.translate(40, 10);
-    *ppix = ppix->scaled(198, 39);
-    plabel->setPixmap(*ppix);
-    plabel->setMask(ppix->mask());
-    plabel->setGeometry(92, 454, 198, 39);
-    plabel->setFixedSize(198, 39);
-    plabel->show();
+    QPixmap* rotatedPixmap=new QPixmap(ppix->size());
+    rotatedPixmap->fill(Qt::transparent);
+    QPainter* painter=new QPainter(rotatedPixmap);
+    painter->setRenderHint(QPainter::Antialiasing); // 设置抗锯齿
+    painter->translate(rotatedPixmap->width() / 2, rotatedPixmap->height() / 2);// 将坐标系移动到图像中心
+    painter->rotate(-(0.24-theleft)/pi*180);//旋转
+    painter->drawPixmap(-ppix->width() / 2, -ppix->height() / 2, *ppix);// 绘制旋转后的图像
+    plabel->setPixmap(*rotatedPixmap);
 
     plabel=nullptr;
     ppix = nullptr;
 
     plabel = map_pics[3];
-    QTransform transform1;
-    transform1.translate(40, 20);
-    transform1.rotate((0.24 - theright) / pi * 180);
-    
-    ppix= new QPixmap(":/new/prefix1/shifted_right_flipper.png");
-    *ppix = ppix->transformed(transform1);
-    transform1.translate(40, 10);
-    *ppix = ppix->scaled(198, 39);
-    plabel->setPixmap(*ppix);
-    plabel->setMask(ppix->mask());
-    plabel->setGeometry(306, 454, 198, 39);
-    plabel->setFixedSize(198, 39);
-    plabel->show();
+
+    ppix=new QPixmap(":/new/prefix1/shifted_right_flipper.png");
+    rotatedPixmap=new QPixmap(ppix->size());
+    rotatedPixmap->fill(Qt::transparent);
+    painter=new QPainter(rotatedPixmap);
+    painter->setRenderHint(QPainter::Antialiasing); // 设置抗锯齿
+    painter->translate(rotatedPixmap->width() / 2, rotatedPixmap->height() / 2);// 将坐标系移动到图像中心
+    painter->rotate((0.24-theright)/pi*180);//旋转
+    painter->drawPixmap(-ppix->width() / 2, -ppix->height() / 2, *ppix);// 绘制旋转后的图像
+    plabel->setPixmap(*rotatedPixmap);
 }
 
 void map::setmap(QList<EncodedMapElement> newmap, int gg)

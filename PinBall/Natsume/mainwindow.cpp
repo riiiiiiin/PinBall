@@ -1,7 +1,8 @@
 #include "mainwindow.h"
 #include "object.h"
-#include <QTimer>
 #include "map.h"
+
+#include <QTimer>
 #include <QKeyEvent>
 
 //void MainWindow::mousePressEvent(QMouseEvent *e)
@@ -38,11 +39,9 @@ GameWindow::GameWindow(QWidget *parent)
 }
 
 void GameWindow::pause(){
-    // qDebug()<<"PAUSECALLED";
     stoptime();
 }
 void GameWindow::resume(){
-    // qDebug()<<"RESUMECALLED";
     starttime();
 }
 void GameWindow::keyPressEvent(QKeyEvent* event)
@@ -51,7 +50,6 @@ void GameWindow::keyPressEvent(QKeyEvent* event)
     if(event->key()==Qt::Key_M)  emit pressM();
     QWidget::keyPressEvent(event);
     // 发送按下信号
-    // qDebug()<<'c';
 }
 
 void GameWindow::keyReleaseEvent(QKeyEvent* event) {
@@ -85,7 +83,6 @@ void GameWindow::youaredead(){
 }
 
 void GameWindow::newgame(){
-    // qDebug()<<'a';
     leftmap->rebuild_map();
     leftmap->redraw_map();
     starttime();
