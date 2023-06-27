@@ -12,5 +12,6 @@
         <file>background.png</file>
         <file>shifted_right_flipper.png</file>
         <file>shifted_left_flipper.png</file>
+        <file>shifted_background.png</file>
     </qresource>
 </RCC>
