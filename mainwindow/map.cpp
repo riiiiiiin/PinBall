@@ -351,8 +351,8 @@ void map::updateflipper(){
 
     // 显示旋转后的图像
     plabel->setPixmap(rotatedPixmap);
-    plabel->setMask(rotatedPixmap.mask());
-    plabel->show();
+//    plabel->setMask(rotatedPixmap.mask());
+//    plabel->show();
 
     plabel=which[3];
     pix.load(":/new/prefix1/shifted_right_flipper.png");
@@ -366,8 +366,8 @@ void map::updateflipper(){
 
     // 显示旋转后的图像
     plabel->setPixmap(rotatedPixmap1);
-    plabel->setMask(rotatedPixmap1.mask());
-    plabel->show();
+//    plabel->setMask(rotatedPixmap1.mask());
+//    plabel->show();
 
 //    QPainter painter;
 //    pix.load(":/new/prefix1/shifted_left_flipper.png");
@@ -387,7 +387,7 @@ void map::updateflipper(){
 }
 void map::drawstatic(){
     plabel=new QLabel(pparent);
-    pix.load(":/new/prefix1/background.png");
+    pix.load(":/new/prefix1/shifted_background.png");
     pix = pix.scaled(600, 540);
     plabel->setPixmap(pix);
     plabel->setMask(pix.mask());
@@ -410,22 +410,21 @@ void map::drawstatic(){
 
     plabel=new QLabel(pparent);
     pix.load(":/new/prefix1/shifted_left_flipper.png");
-    pix = pix.scaled( 198,39);
+    pix = pix.scaled(527, 198);
     plabel->setPixmap(pix);
-    plabel->setMask(pix.mask());
-    plabel->setGeometry(92,454, 198,39);
-    plabel->setFixedSize( 198,39);
+//    plabel->setMask(pix.mask());
+//    plabel->setGeometry(92, 454, 198, 39);
+    plabel->setGeometry(98, 338, 527, 198);
     plabel->show();
     which.push_back(plabel);
     plabel=0;
 
     plabel=new QLabel(pparent);
     pix.load(":/new/prefix1/shifted_right_flipper.png");
-    pix = pix.scaled( 198,39);
+    pix = pix.scaled(527, 198);
     plabel->setPixmap(pix);
-    plabel->setMask(pix.mask());
-    plabel->setGeometry(306,454, 198,39);
-    plabel->setFixedSize( 198,39);
+//    plabel->setMask(pix.mask());
+    plabel->setGeometry(305, 339, 527, 198);
     plabel->show();
     which.push_back(plabel);
     plabel=0;
