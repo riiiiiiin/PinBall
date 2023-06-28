@@ -4,7 +4,7 @@ map::map(QWidget *parent) : pparent(parent), encoded_elements(encoded_dynamic)
 {
     highest = 0;
     score = 0;
-    t = 0.005;
+    t = 0.002;
     pb=nullptr;
 
     //////////////////////////////////
@@ -12,37 +12,35 @@ map::map(QWidget *parent) : pparent(parent), encoded_elements(encoded_dynamic)
     /////////////////////////////////
 
     static_elements.clear();
-    // 0-5:左flipper,对应theleft
+    // 0-4:左flipper,对应theleft
     static_elements.push_back(new stwall(210, 234.3, 459, 464.9, 1));
     static_elements.push_back(new stwall(234.3, 258.6, 464.9, 470.9, 1));
     static_elements.push_back(new stwall(282.8, 258.6, 476.8, 470.9, 1));
-    static_elements.push_back(new cirwall(208, 469, 10.2, 1));
     static_elements.push_back(new cirwall(280.8, 484.3, 7.8, 1));
     static_elements.push_back(new stwall(206, 278.8, 479, 491.8, 1));
-    // 6-11:右flipper,对应theright
+    // 5-9:右flipper,对应theright
     static_elements.push_back(new stwall(390, 365.7, 459, 464.9, 1));
     static_elements.push_back(new stwall(365.7, 341.4, 464.9, 470.9, 1));
     static_elements.push_back(new stwall(317.2, 341.4, 476.8, 470.9, 1));
-    static_elements.push_back(new cirwall(392, 469, 10.2, 1));
     static_elements.push_back(new cirwall(319.2, 484.3, 7.8, 1));
     static_elements.push_back(new stwall(394, 321.2, 479, 491.8, 1));
-    // 12-15:右上角的四边形墙
+    // 10-13:右上角的四边形墙
     static_elements.push_back(new stwall(453, 390, 74, 117, 1));
     static_elements.push_back(new stwall(430, 390, 150, 117, 1));
     static_elements.push_back(new stwall(430, 484, 150, 114, 1));
     static_elements.push_back(new stwall(484, 453, 114, 74, 1));
-    // 16:左下直线墙
+    // 14:左下直线墙
     static_elements.push_back(new stwall(67, 210, 424, 459, 0.7));
-    // 17:右下直线墙
+    // 15:右下直线墙
     static_elements.push_back(new stwall(533, 390, 424, 459, 0.7));
-    // 18:圆弧顶
+    // 16:圆弧顶
     static_elements.push_back(new cirwall(300, 814.6, 800, 100, 500, 40, 40, 1));
-    // 19-20:轨道
+    // 17-18:轨道
     static_elements.push_back(new cirwall(343.326, 136.22, 180, 173, 181, 78, 214, 1));
     static_elements.push_back(new cirwall(339.835, 144.28, 150, 205, 200, 210, 90, 1));
-    // 21:左壁
+    // 19:左壁
     static_elements.push_back(new stwall(100, 67, 40, 424, 1));
-    // 22:右壁
+    // 20:右壁
     static_elements.push_back(new stwall(500, 533, 40, 424, 1));
 
     /////////////////////////////////////
@@ -137,18 +135,18 @@ void map::onestep()
         map_eles[0]->change(leftx, leftx + rx, y, y + ry, int(upleft), moveupleft);
         map_eles[1]->change(leftx + rx, leftx + 2 * rx, y + ry, y + 2 * ry, int(upleft) * 2, moveupleft);
         map_eles[2]->change(leftx + 2 * rx, leftx + 3 * rx, y + 2 * ry, y + 3 * ry, int(upleft) * 3, moveupleft);
-        map_eles[4]->change(leftx + 3 * rx - 2, y + 3 * ry + 7.5, 0, 0, int(upleft), moveupleft);
-        map_eles[5]->change(leftx - 4, leftx + 3 * rx - 4, y + 20, y + 3 * ry + 15, 0, moveupleft);
+        map_eles[3]->change(leftx + 3 * rx - 2, y + 3 * ry + 7.5, 0, 0, int(upleft), moveupleft);
+        map_eles[4]->change(leftx - 4, leftx + 3 * rx - 4, y + 20, y + 3 * ry + 15, 0, moveupleft);
     }
     if (rc)
     {
         rx = 25 * cos(theright);
         ry = 25 * sin(theright);
-        map_eles[6]->change(rightx, rightx - rx, y, y + ry, int(upright), moveupright);
-        map_eles[7]->change(rightx - rx, rightx - 2 * rx, y + ry, y + 2 * ry, int(upright) * 2, moveupright);
-        map_eles[8]->change(rightx - 2 * rx, rightx - 3 * rx, y + 2 * ry, y + 3 * ry, int(upright) * 3, moveupright);
-        map_eles[10]->change(rightx - 3 * rx + 2, y - 3 * ry + 7.5, 0, 0, int(upright), moveupright);
-        map_eles[11]->change(rightx + 4, rightx - 3 * rx + 4, y + 20, y + 3 * ry + 15, 0, moveupright);
+        map_eles[5]->change(rightx, rightx - rx, y, y + ry, int(upright), moveupright);
+        map_eles[6]->change(rightx - rx, rightx - 2 * rx, y + ry, y + 2 * ry, int(upright) * 2, moveupright);
+        map_eles[7]->change(rightx - 2 * rx, rightx - 3 * rx, y + 2 * ry, y + 3 * ry, int(upright) * 3, moveupright);
+        map_eles[8]->change(rightx - 3 * rx + 2, y - 3 * ry + 7.5, 0, 0, int(upright), moveupright);
+        map_eles[9]->change(rightx + 4, rightx - 3 * rx + 4, y + 20, y + 3 * ry + 15, 0, moveupright);
     }
     for (auto obj : map_eles)
     {
@@ -453,6 +451,7 @@ void map::updateflipper()
 
 void map::setmap(QList<EncodedMapElement> newmap, int gg)
 {
+    highest=0;
     encoded_dynamic = newmap;
     gball=gg;
     dynamic_elements.clear();

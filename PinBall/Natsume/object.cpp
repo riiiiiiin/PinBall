@@ -82,7 +82,8 @@ void obline::change(double _x1, double _x2, double _y1, double _y2, int _nocoef,
 bool obline::bounce(ball *a) { return true; }
 void obline::effect() {}
 
-ball::ball(double _x, double _y, double _r, double _vx, double _vy, double _g) : obcircle(_x, _y, _r, true), vx(_vx), vy(_vy), g(_g), t(0.005), alive(1) {}
+ball::ball(double _x, double _y, double _r, double _vx, double _vy, double _g)
+    : obcircle(_x, _y, _r, true), vx(_vx), vy(_vy), g(_g), t(0.002), alive(1) {}
 bool ball::bounce(ball *a) {}
 void ball::effect() {}
 double &ball::getvx() { return vx; }
@@ -251,9 +252,10 @@ void award::effect()
 {
 }
 
-bool award::judge(ball* a){
-    auto distance=sqrt((a->getx()-x)*(a->getx()-x)+(a->gety()-y)*(a->gety()-y));
-    return (distance<r);
+bool award::judge(ball *a)
+{
+    auto distance = sqrt((a->getx() - x) * (a->getx() - x) + (a->gety() - y) * (a->gety() - y));
+    return (distance < r);
 }
 
 bool award::bounce(ball *a)
@@ -276,12 +278,13 @@ void award::dealaward()
 {
     if (noaward)
         return;
-    else{
+    else
+    {
         ifaward->start();
         noaward = true;
         // qDebug()<<'a';
     }
-        
+
 } // 后面可做图片消失与重新出现
 
 // 按下按键，flipper,向上匀速（很快）旋转，按住按键flipper保持位置；松掉按键，flipper匀速（较慢）旋转回到初始位置

@@ -11,7 +11,7 @@
 class MapEditor:public QWidget{
     Q_OBJECT
 private:
-    int _gravity=100;
+    int _gravity=200;
 
     MDragContainer* _container;
 

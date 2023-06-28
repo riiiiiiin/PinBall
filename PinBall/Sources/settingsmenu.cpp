@@ -4,7 +4,8 @@ SettingsMenu::SettingsMenu(int gravity,QList<QSoundEffect *> se, QSoundEffect *m
 : MTab(parent),
       _music(msc),
       _sound_effects(se),
-      _gravity_rate(gravity)
+      _gravity_rate(100),
+      _default_gravity(gravity*1.0/100)
 {
     //setup buttons
     _buttons.resize(6);

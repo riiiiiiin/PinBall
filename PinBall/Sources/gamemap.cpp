@@ -98,6 +98,7 @@ GameMap::GameMap(QWidget *parent) : QWidget(parent)
     _score_display[2]->setStyleSheet("QLabel{color:red;font-family: \"Bauhaus 93\"; font-size: 35px;}");
     _score_display[2]->setText("Nan");
     _score_display[2]->setParent(this);
+    handle_setScore(0,0);
 }
 
 GameMap::~GameMap()
