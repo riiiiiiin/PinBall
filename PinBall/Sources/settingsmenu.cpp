@@ -4,7 +4,7 @@ SettingsMenu::SettingsMenu(int gravity,QList<QSoundEffect *> se, QSoundEffect *m
 : MTab(parent),
       _music(msc),
       _sound_effects(se),
-      _gravity(gravity)
+      _gravity_rate(gravity)
 {
     //setup buttons
     _buttons.resize(6);
@@ -12,7 +12,7 @@ SettingsMenu::SettingsMenu(int gravity,QList<QSoundEffect *> se, QSoundEffect *m
     _buttons[0]->setParent(this);
     connect(_buttons[0],SIGNAL(number_changed(int)),this,SLOT(on_sliderNumberChange(int)));
     auto _slider = dynamic_cast<MSlider*>(_buttons[0]);
-    _slider->setDefault(_gravity);
+    _slider->setDefault(_gravity_rate);
 
     _buttons[1] = new MPushButton(175,"Reset_Map","Reset Map",this);
     _buttons[1]->setParent(this);
@@ -120,10 +120,14 @@ void SettingsMenu::on_resumeButtonClicked(){
 
 void SettingsMenu::on_resetMapRequested(){
     close();
+    _gravity_rate=100;
+    auto _slider = dynamic_cast<MSlider*>(_buttons[0]);
+    _slider->setDefault(_gravity_rate);
     emit resetMapRequest();
+    emit gravityChange(_default_gravity*_gravity_rate);
 }
 
 void SettingsMenu::on_sliderNumberChange(int value){
-    _gravity = value;
-    emit gravityChange(2*_gravity);
+    _gravity_rate = value;
+    emit gravityChange(_default_gravity*_gravity_rate);
 }

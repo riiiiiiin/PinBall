@@ -261,8 +261,8 @@ bool award::bounce(ball *a)
     if (judge(a))
     {
         this->effect();
-        return true;
         emit getaward();
+        return true;
     }
     return false;
 }
@@ -270,6 +270,7 @@ void award::deleteaward()
 {
     ifaward->stop();
     noaward = false;
+    // qDebug()<<'b';
 }
 void award::dealaward()
 {
@@ -278,6 +279,7 @@ void award::dealaward()
     else{
         ifaward->start();
         noaward = true;
+        // qDebug()<<'a';
     }
         
 } // 后面可做图片消失与重新出现

@@ -53,7 +53,7 @@ private:
     double leftx,rightx,y;
 
     ball* pb;
-    double gball;
+    double gball=200;
     double t;
 
     QWidget *pparent;

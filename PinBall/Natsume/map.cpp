@@ -257,7 +257,6 @@ void map::rebuild_map()
     y = 459;
     leftx = 210;
     rightx = 390;
-    gball = 200;
 
     if (pb)
     {
@@ -455,13 +454,7 @@ void map::updateflipper()
 void map::setmap(QList<EncodedMapElement> newmap, int gg)
 {
     encoded_dynamic = newmap;
-    if(newmap.empty()){
-        gball = 200;
-    }
-    else{
-        gball = gg;
-    }
-
+    gball=gg;
     dynamic_elements.clear();
     for (auto const &e : newmap)
     {

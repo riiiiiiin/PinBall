@@ -9,7 +9,8 @@ private:
     QSoundEffect* _music;
     ExitConfirm *_exc;
     QList<QSoundEffect*> _sound_effects;
-    int _gravity;
+    int _gravity_rate;
+    double const _default_gravity=2;
 protected:
 public:
     explicit SettingsMenu(int gravity,QList<QSoundEffect*> se,QSoundEffect *msc,QWidget*parent=nullptr);
