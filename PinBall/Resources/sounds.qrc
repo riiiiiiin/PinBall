@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/music">
         <file>The_Unexplored.wav</file>
+        <file>The_Wild_Side.wav</file>
     </qresource>
     <qresource prefix="/se">
         <file>APPLAUSE.WAV</file>
