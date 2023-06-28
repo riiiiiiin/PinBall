@@ -118,10 +118,8 @@ void ball::jump()
         vy /= ((cur_speed - 350) * 0.25 + 350) / 350;
     }
     // qDebug()<<cur_speed;
-    if (y > 540)
+    if (y > 540 or y < 0 or x > 600 or x < 0)
         alive = 0;
-    if (y < 0 or x > 600 or x < 0)
-        qDebug() << "超tm穿模了";
 }
 bool ball::isalive()
 {
