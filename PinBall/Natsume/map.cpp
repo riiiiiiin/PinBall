@@ -59,16 +59,16 @@ map::map(QWidget *parent) : pparent(parent), encoded_elements(encoded_dynamic)
     dynamic_elements_default.push_back(new stwall(170, 170, 290, 380, 1));
     dynamic_elements_default.push_back(new kidney(190, 220, 290, 400, 1.5));
     dynamic_elements_default.push_back(new stwall(180, 210, 400, 410, 1));
-    dynamic_elements_default.push_back(new cirwall(180, 294, 12, 1));
-    dynamic_elements_default.push_back(new cirwall(210, 400, 10, 1));
-    dynamic_elements_default.push_back(new cirwall(199.9, 377.55, 30, 1));
+    dynamic_elements_default.push_back(new cirwall(180, 294, 12,170,190,290,290, 1));
+    dynamic_elements_default.push_back(new cirwall(210, 400, 10,220,210,400,410, 1));
+    dynamic_elements_default.push_back(new cirwall(199.9, 377.55, 30,180,170,400,380, 1));
     // 11-16:RKidney
     dynamic_elements_default.push_back(new stwall(430, 430, 290, 380, 1));
     dynamic_elements_default.push_back(new kidney(410, 380, 290, 400, 1.5));
     dynamic_elements_default.push_back(new stwall(430, 390, 400, 410, 1));
-    dynamic_elements_default.push_back(new cirwall(420, 294, 12, 1));
-    dynamic_elements_default.push_back(new cirwall(390, 400, 10, 1));
-    dynamic_elements_default.push_back(new cirwall(400.1, 377.55, 30, 1));
+    dynamic_elements_default.push_back(new cirwall(420, 294, 12,390,410,290,290, 1));
+    dynamic_elements_default.push_back(new cirwall(390, 400, 10,380,390,400,410, 1));
+    dynamic_elements_default.push_back(new cirwall(400.1, 377.55, 30,420,430,400,380, 1));
 
     encoded_dynamic_default.clear();
 
@@ -476,7 +476,7 @@ void map::setmap(QList<EncodedMapElement> newmap, int gg)
             dynamic_elements.push_back(new kidney(e._x + 30, e._x, e._y - 110, e._y, 1.3));
             dynamic_elements.push_back(new stwall(e._x + 50, e._x + 10, e._y, e._y + 10, 1));
             dynamic_elements.push_back(new cirwall(e._x + 40, e._y - 106, 12, e._x + 10, e._x + 30, e._y - 110, e._y - 110, 1));
-            dynamic_elements.push_back(new cirwall(e._x + 10, e._y, 10, e._x, e._x + 10, e._y, e._y, 1));
+            dynamic_elements.push_back(new cirwall(e._x + 10, e._y, 10, e._x, e._x + 10, e._y, e._y+10, 1));
             dynamic_elements.push_back(new cirwall(e._x + 20.1, e._y - 22.45, 30, e._x + 40, e._x + 50, e._y, e._y - 20, 1));
 
             break;
