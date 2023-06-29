@@ -37,7 +37,7 @@ bool MDraggable::IsPosValid()
     int cur_x = pos().x();
     // note:relative postion to parent widget
     int cur_y = pos().y();
-    bool pos_valid = ((cur_x >= 50 && cur_x <= 550 && cur_y >= 40 && cur_y <= 500)and not(cur_x>150 and cur_x < 210 and cur_y>60 and cur_y<220));
+    bool pos_valid = ((cur_x >= 50 && cur_x <= 550 && cur_y >= 40 && cur_y <= 500));
     if(pos_valid && _shadow->collidingItems().empty()){
         return true;
     }

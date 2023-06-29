@@ -12,4 +12,8 @@
         <file>play_button_inactive.png</file>
         <file>play_button_active.png</file>
     </qresource>
+    <qresource prefix="/window_icons">
+        <file>bing_icon_1.png</file>
+        <file>bing_icon_2.png</file>
+    </qresource>
 </RCC>

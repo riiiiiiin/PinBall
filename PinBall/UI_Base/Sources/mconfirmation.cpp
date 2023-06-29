@@ -4,7 +4,7 @@ MConfirmation::MConfirmation(QWidget *parent) : QDialog(parent)
 {
     // setup background
     setGeometry(0, 0, 960, 540);
-    setModal(true);
+    // setModal(true);
     setWindowFlags(Qt::FramelessWindowHint | windowFlags());
     setAttribute(Qt::WA_TranslucentBackground);
     _background = new QLabel(this);
@@ -47,7 +47,7 @@ MConfirmation::~MConfirmation()
 void MConfirmation::closeEvent(QCloseEvent *event)
 {
     
-    QDialog::closeEvent(event);
+    QWidget::closeEvent(event);
 }
 
 void MConfirmation::on_Rejected()
@@ -64,6 +64,7 @@ void MConfirmation::on_Accepted()
 
 void MConfirmation::keyPressEvent(QKeyEvent *event)
 {
+    qDebug()<<event->key();
     switch (event->key())
     {
     case Qt::Key_Escape:
@@ -72,8 +73,13 @@ void MConfirmation::keyPressEvent(QKeyEvent *event)
         close();
         break;
     }
-    case Qt::Key_Enter:
+    case Qt::Key_Return:
     {
+        emit accepted();
+        close();
+        break;
+    }
+    case Qt::Key_Enter:{
         emit accepted();
         close();
         break;
@@ -82,4 +88,5 @@ void MConfirmation::keyPressEvent(QKeyEvent *event)
     {
     }
     }
+    QWidget::keyPressEvent(event);
 }

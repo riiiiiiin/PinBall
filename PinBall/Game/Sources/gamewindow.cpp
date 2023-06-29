@@ -42,8 +42,24 @@ void GameWindow::resume(){
 }
 void GameWindow::keyPressEvent(QKeyEvent* event)
 {
-    if(event->key()==Qt::Key_Z)  emit pressZ();
-    if(event->key()==Qt::Key_M)  emit pressM();
+    switch(event->key()){
+        case Qt::Key_Z:{
+            emit pressZ();
+            break;
+        }
+        case Qt::Key_M:{
+            emit pressM();
+            break;
+        }
+        case Qt::Key_Return:{
+            qDebug()<<"Enter Pressed";
+            break;
+        }
+        case Qt::Key_Enter:{
+            qDebug()<<"Enter Pressed";
+            break;
+        }
+    }
     QWidget::keyPressEvent(event);
     // 发送按下信号
 }

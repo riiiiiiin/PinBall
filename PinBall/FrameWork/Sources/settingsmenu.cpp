@@ -73,7 +73,7 @@ void SettingsMenu::setButtons(){
 void SettingsMenu::on_exitButtonClicked(){
     _exc->move(geometry().topLeft());
     _exc->raise();
-    _exc->exec();
+   _exc->exec();
 }
 
 void SettingsMenu::on_exitConfirmClosed()

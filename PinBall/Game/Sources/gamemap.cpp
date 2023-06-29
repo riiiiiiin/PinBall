@@ -163,7 +163,7 @@ void GameMap::on_switchButtonClicked()
     _blure->setEnabled(true);
     _switch_confirm->move(mapToGlobal(geometry().topLeft()));
     _switch_confirm->raise();
-    _switch_confirm->exec();
+   _switch_confirm->exec();
     // pause
 }
 
@@ -189,7 +189,7 @@ void GameMap::on_gameOver(){
     _new_game_confirm->setScore(_score);
     _new_game_confirm->move(mapToGlobal(geometry().topLeft()));
     _new_game_confirm->raise();
-    _new_game_confirm->exec();
+   _new_game_confirm->exec();
 }
 
 void GameMap::on_newGameRequested(){

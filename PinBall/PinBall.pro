@@ -29,7 +29,7 @@ SOURCES += \
     FrameWork/Sources/gamewidgetmanager.cpp \
     FrameWork/Sources/pausemenu.cpp \
     FrameWork/Sources/settingsmenu.cpp \
-    mainwindow.cpp \
+    FrameWork/Sources/mainwindow.cpp \
     main.cpp \
 
 
@@ -55,7 +55,7 @@ HEADERS += \
     FrameWork/Headers/gamewidgetmanager.h \
     FrameWork/Headers/pausemenu.h \
     FrameWork/Headers/settingsmenu.h \
-    mainwindow.h
+    FrameWork/Headers/mainwindow.h
 
 FORMS += 
     
@@ -70,4 +70,5 @@ RESOURCES += \
     MapEditor/Resources/mapeditor_pics.qrc \
     UI_Base/Resources/UI_pics.qrc \
     FrameWork/Resources/FrameWork_pics/FrameWork_pics.qrc \
-    FrameWork/Resources/Music&SE/sounds.qrc
+    FrameWork/Resources/Music&SE/sounds.qrc \
+    FrameWork/Resources/Slogans/slogans.qrc

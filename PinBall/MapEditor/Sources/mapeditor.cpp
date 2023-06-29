@@ -191,7 +191,7 @@ void MapEditor::on_switchButtonClicked(){
     _blure->setEnabled(true);
     _switch_confirm->move(mapToGlobal(geometry().topLeft()));
     _switch_confirm->raise();
-    _switch_confirm->exec();
+   _switch_confirm->exec();
     
 }
 

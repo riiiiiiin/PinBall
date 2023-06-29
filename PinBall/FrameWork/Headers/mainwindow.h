@@ -3,6 +3,11 @@
 
 #include <QMainWindow>
 #include <QApplication>
+#include <QFile>
+#include <QTextStream>
+#include <QVector>
+#include <QTime>
+#include <QRandomGenerator>
 
 #include "FrameWork/Headers/gamewidgetmanager.h"
 

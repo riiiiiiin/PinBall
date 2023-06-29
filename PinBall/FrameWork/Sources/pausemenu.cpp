@@ -68,7 +68,7 @@ void PauseMenu::on_exitButtonClicked()
 {
     _exc->move(geometry().topLeft());
     _exc->raise();
-    _exc->exec();
+   _exc->exec();
 }
 
 void PauseMenu::on_exitConfirmClosed()

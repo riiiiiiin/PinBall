@@ -5,6 +5,7 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QKeyEvent>
+#include <QDebug>
 
 class MConfirmation : public QDialog
 {
