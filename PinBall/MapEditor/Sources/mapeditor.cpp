@@ -51,7 +51,7 @@ MapEditor::MapEditor(QWidget *parent) : QWidget(parent)
     _draggable_containers[4]->setGeometry(670 - 5, 300 - 5, 110, 110);
     _draggable_containers[5]->setGeometry(790 - 5, 300 - 5, 110, 110);
 
-    QPixmap coming_soon(":/button_icons/coming_soon.png");
+    QPixmap coming_soon(":/mapeditor/draggables/coming_soon.png");
     _coming_soon_labels.resize(2);
     for(auto &plabel:_coming_soon_labels){
         plabel = new QLabel(this);

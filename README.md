@@ -1,4 +1,129 @@
-### 已知bug
+- [代码结构](#代码结构)  
+      - [/](#/)  
+        - [/FrameWork -程序中枢](#framework--程序中枢)  
+        - [/Game -可游玩的游戏部分](#game--可游玩的游戏部分)  
+        - [/MapEditor -地图编辑器](#mapeditor--地图编辑器)  
+        - [/UI\_Base -自创(?)UI设计](#ui_base--自创ui设计)  
+- [已知bug](#已知bug)  
+- [TODO](#todo)  
+        - [这部分容易完成](#这部分容易完成)  
+        - [未跟进部分](#未跟进部分)  
+        - [这部分有待商榷和跟进](#这部分有待商榷和跟进)  
+        - [这可能是远期计划了吧...大概率不会去做了](#这可能是远期计划了吧大概率不会去做了)  
+
+# 代码结构
+#### /
+      mainwindow.h
+      mainwindow.cpp
+      main.cpp
+      程序入口
+##### /FrameWork -程序中枢
+      /Resources/FrameWork_pics
+      /Resources/Music&SE
+
+      /Headers/confirmations.h
+      /Sources/confirmations.cpp
+      程序使用的确认框
+
+      /Headers/gamewidgetmanager.h
+      /Sources/gamewidgetmanager.cpp
+      处理游戏和地图编辑器间切换使用的框架,声音播放中枢
+
+      /Headers/pausemenu.h
+      /Sources/pausemenu.cpp
+      游戏过程中的暂停菜单
+
+      /Headers/settingsmenu.h
+      /Sources/settingsmenu.cpp
+      地图编辑器的拓展设置菜单
+
+      /Headers/encodedmap.h
+      原本设计为在地图编辑器和游戏地图间传送自定义地图的一个抽象
+      原本还计划将其作为存储地图设置使用的抽象
+      遗憾的是,由于后端队员抽象能力奇差,目前这一抽象也被用在后端地图构建部分
+
+##### /Game -可游玩的游戏部分
+      /Resources
+      实际地图元素图片素材
+
+      /Headers/object.h
+      /Sources/object.cpp
+      游戏底层抽象,实现碰撞箱
+
+      /Headers/map.h
+      /Sources/map.cpp
+      游戏过程的抽象,实现游戏地图及图形化
+
+      /Headers/gamewindow.h
+      /Sources/gamewindow.cpp
+      游戏的对外接口,处理游戏的开始结束等
+
+      /Headers/gamemap.h
+      /Sources/gamemap.cpp
+      处理游戏的外围事件,包括应用前端ui,与中枢交互
+      我承认,后面这三层包装并不是太好.一部分是后端提供的抽象太抽象（?）,另一部分就是交接的问题
+
+##### /MapEditor -地图编辑器
+      /Resources
+      地图编辑器使用的图片素材
+
+      /Headers/madaptablelabel.h
+      /Sources/madaptablelabel.cpp
+      毫无卵用地包装了一遍QLabel
+      很难理解我是在什么精神状态下写的这个东西
+
+      /Headers/mdraggable.h
+      /Sources/mdraggable.cpp
+      "可拖动"标签的基类
+      
+      /Headers/mdraggableshadow.h
+      /Sources/mdraggableshadow.cpp
+      "可拖动"标签的"影子",继承自QGraphicsItem用于处理重叠检测
+
+      /Headers/mdraggables.h
+      /Sources/mdraggables.cpp
+      游戏实际使用的"可拖动"标签派生类
+
+      /Headers/mdragcontainer.h
+      /Sources/mdragcontainer.cpp
+      容纳和处理"可拖动"标签的容器,地图编辑器的主要逻辑
+
+      /Headers/mapeditor.h
+      /Sources/mapeditor.cpp
+      地图编辑器的图形化部分,处理与中枢的交互
+
+##### /UI_Base -自创(?)UI设计
+      /Resources
+      自己绘制的CheckButton图标
+
+      /Headers/mbutton.h
+      /Sources/mbutton.cpp
+      按钮基类
+      原本计划实现键盘交互,但是现在只实现了鼠标交互
+
+      /Headers/mpushbutton.h
+      /Sources/mpushbutton.cpp
+      实现了点击功能的按钮
+
+      /Headers/mcheckbutton.h
+      /Sources/mcheckbutton.cpp
+      实现了是/否单选功能的按钮
+
+      /Headers/mslider.h
+      /Sources/mslider.cpp
+      实现了滑动条的按钮
+
+      /Headers/mconfirmation.h
+      /Sources/mconfirmation.cpp
+      实现了是/否选项的dialog式弹出框,支持少量键盘操作
+
+      /Headers/mtab.h
+      /Sources/mtab.cpp
+      菜单的基类
+
+
+
+# 已知bug
 ##### 开发基本完成后会把未修复bug放在issue里面的🥺
 
 + flipper的初始位置似乎不在下垂位置，而是在顶部
@@ -26,25 +151,36 @@
    - [ ] 定位问题
    - [ ] 解决问题
 
-### TODO
-##### 以下分先后
+# TODO
+##### 这部分容易完成
 + [x] 确认地图编辑器的g运行状况  
       - 已修复，正常运作
 + [x] 在游戏和地图编辑器应用不同的bgm  
       - 当前设计:从头开始播放
 + [x] 给地图加上祖传外发光  
       - 效果一般 在地图编辑器中试安装了一个
-+ [ ] 整理文件系统（杀了我吧）
++ [x] 整理文件系统
+
+##### 未跟进部分
++ [ ] 地图背景似乎传了新版
++ [ ] 记得左上角放一个黑点
+
+##### 这部分有待商榷和跟进
 + [ ] 修改小球，鼓和奖励点的贴图  
-      - 小球如果修改贴图,是否要配套设计旋转动画?
+      - 小球如果修改贴图,是否要配套设计旋转动画?  
+      - 如果提供多种小球贴图,地图编辑器里'coming soon'的空栏就有救了
 + [ ] 碰撞光效和音效  
       - 目前无方案：目前地图元素的抽象方式不允许这么做
 + [ ] 将程序入口改为开场视频  
       - 呃呃了 zqx怎么连源码都没传上来  
-+ [ ] 在地图背景上加入更多装饰
++ [ ] 在地图背景上加入更多装饰  
+      - 我大概没有改贴图的权限（？）
 + [ ] 优化轨道，四边形的贴图
 + [ ] 优化腰子，活版的贴图
 
-### 未跟进部分
-+ [ ] 地图背景似乎传了新版
-+ [ ] 记得左上角放一个黑点
+##### 这可能是远期计划了吧...大概率不会去做了
++ [ ] 实现更好的键盘交互
++ [ ] 将静音和音量滑块组合在一起
++ [ ] 地图编辑器的文件读写
+
+

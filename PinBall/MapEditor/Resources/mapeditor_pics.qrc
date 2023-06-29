@@ -20,5 +20,6 @@
         <file>static_4.png</file>
         <file>dragged_valid_4.png</file>
         <file>dragged_invalid_4.png</file>
+        <file>coming_soon.png</file>
     </qresource>
 </RCC>

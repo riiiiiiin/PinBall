@@ -11,6 +11,5 @@
         <file>menu_button_active.png</file>
         <file>play_button_inactive.png</file>
         <file>play_button_active.png</file>
-        <file>coming_soon.png</file>
     </qresource>
 </RCC>
