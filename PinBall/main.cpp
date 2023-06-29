@@ -1,5 +1,5 @@
 
-#include "Headers/mmainwindow.h"
+#include "mainwindow.h"
 
 #include <QApplication>
 
@@ -7,7 +7,7 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MMainWindow w;
+    MainWindow w;
     w.show();
     return a.exec();
 }

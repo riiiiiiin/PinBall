@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>Box_Black_Checked.png</file>
+        <file>Box_Black_unChecked.png</file>
+        <file>Box_White_Checked.png</file>
+        <file>Box_White_unChecked.png</file>
+    </qresource>
+</RCC>

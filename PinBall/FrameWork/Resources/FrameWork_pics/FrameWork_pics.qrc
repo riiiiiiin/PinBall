@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/backgrounds">
+        <file>Dual_Quasar.png</file>
+        <file>score_display.png</file>
+        <file>Quasar_Outflows.png</file>
+    </qresource>
+    <qresource prefix="/button_icons">
+        <file>editor_button_inactive.png</file>
+        <file>editor_button_active.png</file>
+        <file>menu_button_inactive.png</file>
+        <file>menu_button_active.png</file>
+        <file>play_button_inactive.png</file>
+        <file>play_button_active.png</file>
+        <file>coming_soon.png</file>
+    </qresource>
+</RCC>
