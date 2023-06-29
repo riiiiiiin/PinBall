@@ -2,9 +2,6 @@
 
 map::map(QWidget *parent) : pparent(parent), encoded_elements(encoded_dynamic)
 {
-    highest = 0;
-    score = 0;
-    t = 0.002;
     pb=nullptr;
 
     //////////////////////////////////
@@ -301,6 +298,13 @@ void map::redraw_map()
     plabel->setFixedSize(600, 540);
     plabel->show();
     map_pics.push_back(plabel);
+
+    // _shadow = new QGraphicsDropShadowEffect();
+    // _shadow->setBlurRadius(50);
+    // _shadow->setColor(QColor("#ffffff"));
+    // _shadow->setOffset(0);
+    // _shadow->setEnabled(true);
+    // plabel->setGraphicsEffect(_shadow);
 
     plabel = nullptr;
     ppix = nullptr;

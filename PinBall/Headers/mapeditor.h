@@ -3,6 +3,7 @@
 
 #include <QPushButton>
 #include <QGraphicsBlurEffect>
+#include <QGraphicsDropShadowEffect>
 #include <QtMultimedia>
 
 #include "mdragcontainer.h"
@@ -25,6 +26,7 @@ private:
     SwitchToMapConfirm* _switch_confirm;
     SettingsMenu* _settings_menu;
 
+    QGraphicsDropShadowEffect* _shadow;
     QGraphicsBlurEffect *_blure;
     QWidget* _pMask;
 

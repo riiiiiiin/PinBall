@@ -63,14 +63,24 @@ MapEditor::MapEditor(QWidget *parent) : QWidget(parent)
     _coming_soon_labels[0]->move(675,300);
     _coming_soon_labels[1]->move(795, 300);
 
+    //Setup map background
     QPixmap background(":/backgrounds/map_background.png");
     background = background.scaled(600,540, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     _map_background = new QLabel(this);
+    _map_background->setParent(this);
     _map_background->setGeometry(0,0,600,540);
     _map_background->setText("");
     _map_background->setPixmap(background);
     _map_background->setMask(background.mask());
 
+    _shadow = new QGraphicsDropShadowEffect();
+    _shadow->setBlurRadius(70);
+    _shadow->setColor(QColor("#ffffff"));
+    _shadow->setOffset(0);
+    _shadow->setEnabled(true);
+    _map_background->setGraphicsEffect(_shadow);
+
+    //Setup buttons
     _buttons.resize(2);
     for (int i = 0; i < 2; ++i)
     {
@@ -78,7 +88,7 @@ MapEditor::MapEditor(QWidget *parent) : QWidget(parent)
         _buttons[i]->setParent(this);
     }
 
-    _buttons[0]->setGeometry(675, 440, 110, 50);
+    _buttons[0]->setGeometry(665, 440, 110, 50);
     _buttons[0]->setText("Play");
     _buttons[0]->setStyleSheet("QPushButton {background-position: left;text-align: right;padding-right: 20px;padding-left: 0px;}"
                                "QPushButton{background-image: url(:/button_icons/play_button_inactive.png);background-origin: content;background-position: left;background-repeat: no-repeat;}"
@@ -90,7 +100,7 @@ MapEditor::MapEditor(QWidget *parent) : QWidget(parent)
                                "QPushButton:hover{background-color:transparent;}");
     connect(_buttons[0],&QPushButton::clicked,this,MapEditor::on_switchButtonClicked);
 
-    _buttons[1]->setGeometry(790, 442, 130, 50);
+    _buttons[1]->setGeometry(780, 442, 130, 50);
     _buttons[1]->setText("Menu");
     _buttons[1]->setStyleSheet("QPushButton {background-position: left;text-align: right;padding-right: 20px;padding-left: 0px;}"
                                "QPushButton{background-image: url(:/button_icons/menu_button_inactive.png);background-origin: content;background-position: left;background-repeat: no-repeat;}"

@@ -11,6 +11,7 @@
 #include <QLabel>
 #include <QPixmap>
 #include <QPainter>
+#include <QGraphicsDropShadowEffect>
 
 #include <QTime>
 #include <QRandomGenerator>
@@ -30,8 +31,8 @@ public:
     ~map();
     void rebuild_map();
     void redraw_map();
-    int score;//游戏中分数
-    int highest;
+    int score=0;//游戏中分数
+    int highest=0;
 
 public slots:
     void onestep();
@@ -54,7 +55,7 @@ private:
 
     ball* pb;
     double gball=200;
-    double t;
+    double t=0.002;
 
     QWidget *pparent;
 
@@ -68,6 +69,7 @@ private:
     QList<EncodedMapElement>& encoded_elements;
 
     QList<QLabel*> map_pics;
+    QGraphicsDropShadowEffect* _shadow;
 
     void updateball();
     void updateflipper();

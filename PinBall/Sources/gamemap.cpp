@@ -42,7 +42,7 @@ GameMap::GameMap(QWidget *parent) : QWidget(parent)
         button = new QPushButton(this);
     }
 
-    _buttons[0]->setGeometry(675, 440, 110, 50);
+    _buttons[0]->setGeometry(660, 442, 110, 50);
     _buttons[0]->setText("Edit");
     _buttons[0]->setStyleSheet("QPushButton {background-position: left;text-align: right;padding-right: 20px;padding-left: 0px;}"
                                "QPushButton{background-image: url(:/button_icons/editor_button_inactive.png);background-origin: content;background-position: left;background-repeat: no-repeat;}"
@@ -54,7 +54,7 @@ GameMap::GameMap(QWidget *parent) : QWidget(parent)
                                "QPushButton:hover{background-color:transparent;}");
     connect(_buttons[0], &QPushButton::clicked, this, &GameMap::on_switchButtonClicked);
 
-    _buttons[1]->setGeometry(790, 442, 130, 50);
+    _buttons[1]->setGeometry(780, 442, 130, 50);
     _buttons[1]->setText("Menu");
     _buttons[1]->setStyleSheet("QPushButton {background-position: left;text-align: right;padding-right: 20px;padding-left: 0px;}"
                                "QPushButton{background-image: url(:/button_icons/menu_button_inactive.png);background-origin: content;background-position: left;background-repeat: no-repeat;}"
@@ -80,7 +80,7 @@ GameMap::GameMap(QWidget *parent) : QWidget(parent)
     {
         label = new QLabel(this);
     }
-    _score_display[0]->setGeometry(630,50,320,320);
+    _score_display[0]->setGeometry(610,50,320,320);
     QPixmap a(":/backgrounds/score_display.png");
     a = a.scaled(320,320, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     _score_display[0]->setPixmap(a);
@@ -88,13 +88,13 @@ GameMap::GameMap(QWidget *parent) : QWidget(parent)
     _score_display[0]->setParent(this);
 
     _score_display[1]->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-    _score_display[1]->setGeometry(698,165,200,50);
+    _score_display[1]->setGeometry(678,165,200,50);
     _score_display[1]->setStyleSheet("QLabel{color:gray;font-family: \"Bauhaus 93\"; font-size: 35px;}");
     _score_display[1]->setText("Nan");
     _score_display[1]->setParent(this);
 
     _score_display[2]->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-    _score_display[2]->setGeometry(698,285,200,50);
+    _score_display[2]->setGeometry(678,285,200,50);
     _score_display[2]->setStyleSheet("QLabel{color:red;font-family: \"Bauhaus 93\"; font-size: 35px;}");
     _score_display[2]->setText("Nan");
     _score_display[2]->setParent(this);

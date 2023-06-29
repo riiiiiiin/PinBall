@@ -2,10 +2,10 @@
 #define MAINWINDOW_H
 
 #include <QWidget>
-#include <Natsume/map.h>
-#include <iostream>
 #include <QKeyEvent>
 #include <QList>
+
+#include <Natsume/map.h>
 
 class GameWindow : public QWidget
 {
