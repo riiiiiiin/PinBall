@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/new/prefix1">
-        <file>Nebula.png</file>
         <file>scratch.png</file>
     </qresource>
     <qresource prefix="/new/prefix2">

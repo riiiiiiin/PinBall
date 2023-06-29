@@ -142,7 +142,7 @@ MapEditor::~MapEditor()
 void MapEditor::paintEvent(QPaintEvent *e)
 {
     QPixmap *bg = new QPixmap;
-    bg->load(":/backgrounds/Nebula.png");
+    bg->load(":/backgrounds/Dual_Quasar.png");
     QPainter painter(this);
     painter.drawPixmap(0, 0, *bg);
     QWidget::paintEvent(e);

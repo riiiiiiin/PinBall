@@ -6,9 +6,10 @@
         <file>Box_White_unChecked.png</file>
     </qresource>
     <qresource prefix="/backgrounds">
-        <file>Nebula.png</file>
+        <file>Dual_Quasar.png</file>
         <file>score_display.png</file>
         <file>map_background.png</file>
+        <file>Quasar_Outflows.png</file>
     </qresource>
     <qresource prefix="/button_icons">
         <file>editor_button_inactive.png</file>

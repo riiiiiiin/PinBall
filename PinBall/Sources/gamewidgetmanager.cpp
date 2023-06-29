@@ -12,7 +12,7 @@ GameWidgetManager::GameWidgetManager(QWidget* parent)
     _sound_effects.push_back(_se);
     //setup music
     _music = new QSoundEffect();
-    _music->setSource(QUrl::fromLocalFile(":/music/The_Unexplored.wav"));
+    _music->setSource(QUrl::fromLocalFile(":/music/The_Wild_Side.wav"));
     _music->setLoopCount(QSoundEffect::Infinite);
     _music->setVolume(0.25f);
     _music->play();
@@ -48,7 +48,7 @@ void GameWidgetManager::switch_to_map(QList<EncodedMapElement> encoded_map,int g
     emit setMap(encoded_map,gravity);
     _map->activateWindow();
     _stacked_widget->setCurrentWidget(_map);
-    _music->setSource(QUrl::fromLocalFile(":/music/The_Unexplored.wav"));
+    _music->setSource(QUrl::fromLocalFile(":/music/The_Wild_Side.wav"));
     _music->setLoopCount(QSoundEffect::Infinite);
     _music->setVolume(0.25f);
     _music->play();
@@ -57,7 +57,7 @@ void GameWidgetManager::switch_to_map(QList<EncodedMapElement> encoded_map,int g
 void GameWidgetManager::switch_to_mapEditor(){
     _map_editor->activateWindow();
     _stacked_widget->setCurrentWidget(_map_editor);
-    _music->setSource(QUrl::fromLocalFile(":/music/The_Wild_Side.wav"));
+    _music->setSource(QUrl::fromLocalFile(":/music/The_Unexplored.wav"));
     _music->setLoopCount(QSoundEffect::Infinite);
     _music->setVolume(0.25f);
     _music->play();
