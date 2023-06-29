@@ -1,12 +1,8 @@
 <RCC>
-    <qresource prefix="/new/prefix1">
+    <qresource prefix="/map_items">
         <file>ball.png</file>
-        <file>left_flipper.png</file>
-        <file>left_kidney.png</file>
         <file>new_bonus_point.png</file>
         <file>new_drum.png</file>
-        <file>right_flipper.png</file>
-        <file>right_kidney.png</file>
         <file>shifted_left_kidney.png</file>
         <file>shifted_right_kidney.png</file>
         <file>background.png</file>

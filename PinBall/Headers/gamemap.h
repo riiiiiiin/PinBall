@@ -6,7 +6,7 @@
 #include <QtMultimedia>
 #include <QApplication>
 
-#include "Natsume/mainwindow.h"
+#include "Natsume/gamewindow.h"
 #include "pausemenu.h"
 
 class GameMap : public QWidget

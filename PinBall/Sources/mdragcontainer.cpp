@@ -3,24 +3,24 @@
 MDragContainer::MDragContainer(QWidget *parent) : QObject(parent), _parent(parent)
 {
     // open pixmap
-    _home_pic = new QPixmap(":/new/prefix2/home_pic.png");
-    _static_pic = new QPixmap(":/new/prefix2/static.png");
-    _dragged_valid = new QPixmap(":/new/prefix2/dragged_valid.png");
-    _dragged_invalid = new QPixmap(":/new/prefix2/dragged_invalid.png");
-    _home_pic_2 = new QPixmap(":/new/prefix2/home_pic_2.png");
-    _static_pic_2 = new QPixmap(":/new/prefix2/static_2.png");
-    _dragged_valid_2 = new QPixmap(":/new/prefix2/dragged_valid_2.png");
-    _dragged_invalid_2 = new QPixmap(":/new/prefix2/dragged_invalid_2.png");
-    _home_pic_3 = new QPixmap(":/new/prefix2/home_pic_3.png");
-    _static_pic_3 = new QPixmap(":/new/prefix2/static_3.png");
-    _dragged_valid_3 = new QPixmap(":/new/prefix2/dragged_valid_3.png");
-    _dragged_invalid_3 = new QPixmap(":/new/prefix2/dragged_invalid_3.png");
-    _home_pic_4 = new QPixmap(":/new/prefix2/home_pic_4.png");
-    _static_pic_4 = new QPixmap(":/new/prefix2/static_4.png");
-    _dragged_valid_4 = new QPixmap(":/new/prefix2/dragged_valid_4.png");
-    _dragged_invalid_4 = new QPixmap(":/new/prefix2/dragged_invalid_4.png");
+    _home_pic = new QPixmap(":/mapeditor/draggables/home_pic.png");
+    _static_pic = new QPixmap(":/mapeditor/draggables/static.png");
+    _dragged_valid = new QPixmap(":/mapeditor/draggables/dragged_valid.png");
+    _dragged_invalid = new QPixmap(":/mapeditor/draggables/dragged_invalid.png");
+    _home_pic_2 = new QPixmap(":/mapeditor/draggables/home_pic_2.png");
+    _static_pic_2 = new QPixmap(":/mapeditor/draggables/static_2.png");
+    _dragged_valid_2 = new QPixmap(":/mapeditor/draggables/dragged_valid_2.png");
+    _dragged_invalid_2 = new QPixmap(":/mapeditor/draggables/dragged_invalid_2.png");
+    _home_pic_3 = new QPixmap(":/mapeditor/draggables/home_pic_3.png");
+    _static_pic_3 = new QPixmap(":/mapeditor/draggables/static_3.png");
+    _dragged_valid_3 = new QPixmap(":/mapeditor/draggables/dragged_valid_3.png");
+    _dragged_invalid_3 = new QPixmap(":/mapeditor/draggables/dragged_invalid_3.png");
+    _home_pic_4 = new QPixmap(":/mapeditor/draggables/home_pic_4.png");
+    _static_pic_4 = new QPixmap(":/mapeditor/draggables/static_4.png");
+    _dragged_valid_4 = new QPixmap(":/mapeditor/draggables/dragged_valid_4.png");
+    _dragged_invalid_4 = new QPixmap(":/mapeditor/draggables/dragged_invalid_4.png");
 
-    _scratch_pic = new QPixmap(":/new/prefix1/scratch.png");
+    _scratch_pic = new QPixmap(":/mapeditor/backgrounds/scratch.png");
     _scratch_shadow = new MDraggableShadow(_scratch_pic);
     _scratch_shadow->setPos(0,0);
 

@@ -8,7 +8,6 @@
     <qresource prefix="/backgrounds">
         <file>Dual_Quasar.png</file>
         <file>score_display.png</file>
-        <file>map_background.png</file>
         <file>Quasar_Outflows.png</file>
     </qresource>
     <qresource prefix="/button_icons">

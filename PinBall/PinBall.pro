@@ -28,7 +28,7 @@ SOURCES += \
     Sources/settingsmenu.cpp \
     main.cpp \
     Sources/madaptablelabel.cpp \
-    Natsume/mainwindow.cpp \
+    Natsume/gamewindow.cpp \
     Natsume/map.cpp \
     Natsume/object.cpp
 
@@ -52,7 +52,7 @@ HEADERS += \
     Headers/settingsmenu.h \
     Headers/encodedmap.h \
     Headers/madaptablelabel.h \
-    Natsume/mainwindow.h \
+    Natsume/gamewindow.h \
     Natsume/map.h \
     Natsume/object.h
 
@@ -65,7 +65,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    Resources/game_pics.qrc \
-    Resources/pics.qrc \
-    Resources/sounds.qrc \
-    Natsume/ball_image.qrc
+    Resources/MapEditor_pics/mapeditor_pics.qrc \
+    Resources/UI_pics/UI_pics.qrc \
+    Resources/Music&SE/sounds.qrc \
+    Resources/Game_pics/Game_pics.qrc 

@@ -64,7 +64,7 @@ MapEditor::MapEditor(QWidget *parent) : QWidget(parent)
     _coming_soon_labels[1]->move(795, 300);
 
     //Setup map background
-    QPixmap background(":/backgrounds/map_background.png");
+    QPixmap background(":/mapeditor/backgrounds/mapeditor_background.png");
     background = background.scaled(600,540, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     _map_background = new QLabel(this);
     _map_background->setParent(this);

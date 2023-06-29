@@ -290,7 +290,7 @@ void map::redraw_map()
     map_pics.clear();
 
     QLabel *plabel = new QLabel(pparent);
-    QPixmap *ppix = new QPixmap(":/new/prefix1/background.png");
+    QPixmap *ppix = new QPixmap(":/map_items/background.png");
     *ppix = ppix->scaled(600, 540, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     plabel->setPixmap(*ppix);
     plabel->setMask(ppix->mask());
@@ -310,7 +310,7 @@ void map::redraw_map()
     ppix = nullptr;
 
     plabel = new QLabel(pparent);
-    ppix= new QPixmap(":/new/prefix1/ball.png");
+    ppix= new QPixmap(":/map_items/ball.png");
     *ppix = ppix->scaled(20, 20, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     plabel->setPixmap(*ppix);
     plabel->setMask(ppix->mask());
@@ -323,7 +323,7 @@ void map::redraw_map()
     ppix = nullptr;
 
     plabel = new QLabel(pparent);
-    ppix= new QPixmap(":/new/prefix1/shifted_left_flipper.png");
+    ppix= new QPixmap(":/map_items/shifted_left_flipper.png");
     *ppix = ppix->scaled(527, 198, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     plabel->setPixmap(*ppix);
     // plabel->setMask(ppix->mask());
@@ -335,7 +335,7 @@ void map::redraw_map()
     ppix = nullptr;
 
     plabel = new QLabel(pparent);
-    ppix= new QPixmap(":/new/prefix1/shifted_right_flipper.png");
+    ppix= new QPixmap(":/map_items/shifted_right_flipper.png");
     *ppix = ppix->scaled(527, 198, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     plabel->setPixmap(*ppix);
     // plabel->setMask(ppix->mask());
@@ -353,7 +353,7 @@ void map::redraw_map()
         case LKidney:
         {
             plabel = new QLabel(pparent);
-            ppix= new QPixmap(":/new/prefix1/shifted_left_kidney.png");
+            ppix= new QPixmap(":/map_items/shifted_left_kidney.png");
             *ppix = ppix->scaled(53, 134, Qt::KeepAspectRatio, Qt::SmoothTransformation);
             plabel->setPixmap(*ppix);
             plabel->setMask(ppix->mask());
@@ -369,7 +369,7 @@ void map::redraw_map()
         case RKidney:
         {
             plabel = new QLabel(pparent);
-            ppix= new QPixmap(":/new/prefix1/shifted_right_kidney.png");
+            ppix= new QPixmap(":/map_items/shifted_right_kidney.png");
             *ppix = ppix->scaled(53, 134, Qt::KeepAspectRatio, Qt::SmoothTransformation);
             plabel->setPixmap(*ppix);
             plabel->setMask(ppix->mask());
@@ -385,7 +385,7 @@ void map::redraw_map()
         case Drum:
         {
             plabel = new QLabel(pparent);
-            ppix= new QPixmap(":/new/prefix1/new_drum.png");
+            ppix= new QPixmap(":/map_items/new_drum.png");
             *ppix = ppix->scaled(40,40, Qt::KeepAspectRatio, Qt::SmoothTransformation);
             plabel->setPixmap(*ppix);
             plabel->setMask(ppix->mask());
@@ -401,7 +401,7 @@ void map::redraw_map()
         case BonusPoint:
         {
             plabel = new QLabel(pparent);
-            ppix= new QPixmap(":/new/prefix1/new_bonus_point.png");
+            ppix= new QPixmap(":/map_items/new_bonus_point.png");
             *ppix = ppix->scaled(20,20, Qt::KeepAspectRatio, Qt::SmoothTransformation);
             plabel->setPixmap(*ppix);
             plabel->setMask(ppix->mask());
@@ -427,7 +427,7 @@ void map::updateflipper()
 {
     QLabel* plabel = map_pics[2];
 
-    QPixmap* ppix=new QPixmap(":/new/prefix1/shifted_left_flipper.png");
+    QPixmap* ppix=new QPixmap(":/map_items/shifted_left_flipper.png");
     QPixmap* rotatedPixmap=new QPixmap(ppix->size());
     rotatedPixmap->fill(Qt::transparent);
     QPainter* painter=new QPainter(rotatedPixmap);
@@ -442,7 +442,7 @@ void map::updateflipper()
 
     plabel = map_pics[3];
 
-    ppix=new QPixmap(":/new/prefix1/shifted_right_flipper.png");
+    ppix=new QPixmap(":/map_items/shifted_right_flipper.png");
     rotatedPixmap=new QPixmap(ppix->size());
     rotatedPixmap->fill(Qt::transparent);
     painter=new QPainter(rotatedPixmap);
