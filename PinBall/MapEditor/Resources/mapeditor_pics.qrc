@@ -20,6 +20,11 @@
         <file>static_4.png</file>
         <file>dragged_valid_4.png</file>
         <file>dragged_invalid_4.png</file>
-        <file>coming_soon.png</file>
+    </qresource>
+    <qresource prefix="/mapeditor/themes">
+        <file>next_page_active.png</file>
+        <file>next_page_inactive.png</file>
+        <file>previous_page_active.png</file>
+        <file>previous_page_inactive.png</file>
     </qresource>
 </RCC>

@@ -18,10 +18,10 @@ private:
 
     QLabel* _container_back;
     QVector<QLabel*> _draggable_containers;
-    QVector<QLabel*> _coming_soon_labels;
     QLabel* _map_background;
 
     QVector<QPushButton*> _buttons;
+    QVector<QPushButton*> _page_change_buttons;
 
     SwitchToMapConfirm* _switch_confirm;
     SettingsMenu* _settings_menu;
