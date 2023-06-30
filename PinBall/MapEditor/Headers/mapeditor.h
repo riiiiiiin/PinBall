@@ -32,6 +32,16 @@ private:
 
     QVector<QSoundEffect*> _sound_effects;
     QSoundEffect* _music;
+
+    int _theme_index{0};
+    int _theme_count{2};
+    const QVector<QString> _theme_titles{"Legacy","Bustling Downtown"};
+    QVector<QPixmap*> _theme_covers;
+
+    QLabel* _theme_title_display;
+    QLabel* _theme_cover_display;
+
+    void updateTheme();
     
 public:
     MapEditor(QWidget* parent=nullptr);
@@ -50,6 +60,9 @@ private slots:
     void on_switchButtonClicked();
     void on_switchConfirmClosed();
     void on_switchRequested();
+
+    void on_themeIndexIncrease();
+    void on_themeIndexDecrease();
 signals:
     void exitRequest();
     void switchRequest(QVector<EncodedMapElement>,int);

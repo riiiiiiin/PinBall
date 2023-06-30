@@ -90,7 +90,7 @@ MapEditor::MapEditor(QWidget *parent) : QWidget(parent)
         "QPushButton:hover{background-image: url(:/button_icons/play_button_active.png);background-origin: content;background-position: left;background-repeat: no-repeat;}"
         "QPushButton:hover{font-size:30px;color:#fefefe;font-family: \"Segoe UI\";}"
         "QPushButton:hover{background-color:transparent;}");
-    connect(_buttons[0], &QPushButton::clicked, this, MapEditor::on_switchButtonClicked);
+    connect(_buttons[0], &QPushButton::clicked, this,&MapEditor::on_switchButtonClicked);
 
     _buttons[1]->setGeometry(780, 442, 130, 50);
     _buttons[1]->setText("Menu");
@@ -103,7 +103,7 @@ MapEditor::MapEditor(QWidget *parent) : QWidget(parent)
         "QPushButton:hover{background-image: url(:/button_icons/menu_button_active.png);background-origin: content;background-position: left;background-repeat: no-repeat;}"
         "QPushButton:hover{font-size:30px;color:#fefefe;font-family: \"Segoe UI\";}"
         "QPushButton:hover{background-color:transparent;}");
-    connect(_buttons[1], &QPushButton::clicked, this, MapEditor::on_pauseButtonClicked);
+    connect(_buttons[1], &QPushButton::clicked, this, &MapEditor::on_pauseButtonClicked);
 
     // Setup themes
     _page_change_buttons.resize(2);
@@ -118,20 +118,42 @@ MapEditor::MapEditor(QWidget *parent) : QWidget(parent)
         "QPushButton{background-color:transparent;}"
         "QPushButton:hover{icon: url(:/mapeditor/themes/next_page_active.png);}"
         "QPushButton:hover{background-color:transparent;}");
-    _page_change_buttons[0]->setGeometry(867, 320, 32, 64);
+    _page_change_buttons[0]->setGeometry(867, 300, 32, 64);
     _page_change_buttons[1]->setStyleSheet(
         "QPushButton{icon: url(:/mapeditor/themes/previous_page_inactive.png);}"
         "QPushButton{background-color:transparent;}"
         "QPushButton:hover{icon: url(:/mapeditor/themes/previous_page_active.png);}"
         "QPushButton:hover{background-color:transparent;}");
-    _page_change_buttons[1]->setGeometry(660, 319, 32, 64);
+    _page_change_buttons[1]->setGeometry(660, 299, 32, 64);
+    connect(_page_change_buttons[0],&QPushButton::clicked,this,&MapEditor::on_themeIndexIncrease);
+    connect(_page_change_buttons[1],&QPushButton::clicked,this,&MapEditor::on_themeIndexDecrease);
+
+    _theme_title_display=new QLabel(this);
+    _theme_title_display->setParent(this);
+    _theme_title_display->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+    _theme_title_display->setStyleSheet("color:honeydew;font-family: \"Segoe UI Variable Display Light\"; font-size: 25px;");
+    _theme_title_display->setGeometry(680,360,200,40);
+
+    _theme_covers.resize(_theme_count);
+    // -warning pic_count=?=theme_count
+    // -default_pic
+    _theme_covers[0]=new QPixmap(":/mapeditor/themes/Legacy_cover.png");
+    *_theme_covers[0] = _theme_covers[0]->scaled(175,70, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    _theme_covers[1]=new QPixmap(":/mapeditor/themes/Bustling_Downtown_cover.png");
+    *_theme_covers[1] = _theme_covers[1]->scaled(175,70, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    _theme_cover_display=new QLabel(this);
+    _theme_cover_display->setParent(this);
+    _theme_cover_display->setText("");
+    _theme_cover_display->setGeometry(695,300,175,70);
+    
+    updateTheme();
 
     _container = new MDragContainer(this);
 
     // Setup confirm dialogs
     _switch_confirm = new SwitchToMapConfirm(this);
-    connect(_switch_confirm, &MConfirmation::accepted, this, MapEditor::on_switchRequested);
-    connect(_switch_confirm, &MConfirmation::rejected, this, MapEditor::on_switchConfirmClosed);
+    connect(_switch_confirm, &MConfirmation::accepted, this, &MapEditor::on_switchRequested);
+    connect(_switch_confirm, &MConfirmation::rejected, this, &MapEditor::on_switchConfirmClosed);
 }
 
 MapEditor::~MapEditor()
@@ -152,6 +174,11 @@ MapEditor::~MapEditor()
     delete _pMask;
     delete _settings_menu;
     delete _blure;
+    for(auto ptr:_theme_covers){
+        delete ptr;
+    }
+    delete _theme_title_display;
+    delete _theme_cover_display;
 }
 
 void MapEditor::paintEvent(QPaintEvent *e)
@@ -228,4 +255,23 @@ void MapEditor::setUpMap(QVector<EncodedMapElement> encoded_map)
 {
     _container->clear();
     _container->decodeMap(encoded_map);
+}
+
+void MapEditor::on_themeIndexIncrease(){
+    ++_theme_index;
+    updateTheme();
+}
+
+void MapEditor::on_themeIndexDecrease(){
+    --_theme_index;
+    updateTheme();
+}
+
+void MapEditor::updateTheme(){
+    _theme_index=_theme_index%_theme_count;
+    _theme_index=_theme_index>=0?_theme_index:_theme_index+_theme_count;
+    _theme_title_display->setText(_theme_titles[_theme_index]);
+    _theme_cover_display->setPixmap(*_theme_covers[_theme_index]);
+    qDebug()<<_theme_index;
+    //update others
 }
