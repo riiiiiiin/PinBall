@@ -27,7 +27,7 @@ MDraggableShadow * MDraggable::shadow(){
     return _shadow;
 }
 
-e_MapElements MDraggable::type()const{
+enumMapElements MDraggable::type()const{
     return _type;
 }
 

@@ -1,7 +1,7 @@
 #ifndef MDRAGCONTAINER_H
 #define MDRAGCONTAINER_H
 
-#include <QList>
+#include <QVector>
 #include <QGraphicsScene>
 
 #include "MapEditor/Headers/mdraggables.h"
@@ -36,7 +36,7 @@ private:
     MDragBonusPoint* _dragBonusPoint_home;
     MDraggable* _draggable_buffer;
 
-    QList<MDraggable*> _map_elements;
+    QVector<MDraggable*> _map_elements;
     QPoint _location_lKidney{QPoint(670,180)};
     QPoint _location_rKidney{QPoint(670,60)};
     QPoint _location_drum{QPoint(790,180)};
@@ -47,8 +47,8 @@ private:
 public:
     explicit MDragContainer(QWidget* parent = nullptr);
     ~MDragContainer();
-    QList<EncodedMapElement> encodeMap();
-    void decodeMap(QList<EncodedMapElement>);
+    QVector<EncodedMapElement> encodeMap();
+    void decodeMap(QVector<EncodedMapElement>);
     void clear();
 public slots:
     void create_new_lKidney();

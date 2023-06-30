@@ -2,9 +2,9 @@
 #define ENCODEDMAP_H
 
 #include <QString>
-#include <QList>
+#include <QVector>
 
-enum e_MapElements{
+enum enumMapElements{
     LKidney=1,
     RKidney=2,
     Drum=3,
@@ -12,9 +12,9 @@ enum e_MapElements{
 };
 
 struct EncodedMapElement{
-    e_MapElements _element_type;
-    double _x;
-    double _y;
+    enumMapElements e_element_type;
+    double m_x;
+    double m_y;
 };
 
 #endif

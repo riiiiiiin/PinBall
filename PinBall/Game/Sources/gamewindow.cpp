@@ -108,7 +108,7 @@ void GameWindow::on_scoreChanged(int cur,int max){
     emit scoreChange(cur,max);
 }
 
-void GameWindow::on_mapSet(QList<EncodedMapElement> newmap,int gravity){
+void GameWindow::on_mapSet(QVector<EncodedMapElement> newmap,int gravity){
     leftmap->setmap(newmap,gravity);
     leftmap->rebuild_map();
     leftmap->redraw_map();

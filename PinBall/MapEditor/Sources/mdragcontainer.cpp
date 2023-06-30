@@ -86,46 +86,46 @@ MDragContainer::~MDragContainer()
     
 }
 
-QList<EncodedMapElement> MDragContainer::encodeMap(){
-    QList<EncodedMapElement> _encoded_map;
+QVector<EncodedMapElement> MDragContainer::encodeMap(){
+    QVector<EncodedMapElement> _encoded_map;
     for(auto ptr:_map_elements){
         _encoded_map.push_back(EncodedMapElement{ptr->type(),(double)ptr->locatingPoint().x(),(double)ptr->locatingPoint().y()});
     } 
     return _encoded_map;
 }
 
-void MDragContainer::decodeMap(QList<EncodedMapElement> encoded_map){
+void MDragContainer::decodeMap(QVector<EncodedMapElement> encoded_map){
     MDraggable* temp_ele;
     for(auto ele:encoded_map){
         temp_ele = nullptr;
-        switch(ele._element_type){
-            case e_MapElements::LKidney:{
+        switch(ele.e_element_type){
+            case enumMapElements::LKidney:{
                 //offset to be determined
-                temp_ele = new MDragLKidney(LKidney,_home_pic, _static_pic, _dragged_valid, _dragged_invalid, QPoint(int(ele._x),(int)(ele._y)), _parent);
+                temp_ele = new MDragLKidney(LKidney,_home_pic, _static_pic, _dragged_valid, _dragged_invalid, QPoint(int(ele.m_x),(int)(ele.m_y)), _parent);
                 _map_elements.push_back(temp_ele);
                 _scene->addItem(temp_ele->shadow());
                 connect(temp_ele, &MDraggable::be_removed, this, &MDragContainer::handle_remove_element);
                 break;
             }
-            case e_MapElements::RKidney:{
+            case enumMapElements::RKidney:{
                 //offset to be determined
-                temp_ele = new MDragRKidney(RKidney, _home_pic_2,_static_pic_2, _dragged_valid_2, _dragged_invalid_2, QPoint(int(ele._x),(int)(ele._y)), _parent);
+                temp_ele = new MDragRKidney(RKidney, _home_pic_2,_static_pic_2, _dragged_valid_2, _dragged_invalid_2, QPoint(int(ele.m_x),(int)(ele.m_y)), _parent);
                 _map_elements.push_back(temp_ele);
                 _scene->addItem(temp_ele->shadow());
                 connect(temp_ele, &MDraggable::be_removed, this, &MDragContainer::handle_remove_element);
                 break;
             }
-            case e_MapElements::Drum:{
+            case enumMapElements::Drum:{
                 //offset to be determined
-                temp_ele = new MDragDrum(Drum,  _home_pic_3,_static_pic_3, _dragged_valid_3, _dragged_invalid_3, QPoint(int(ele._x),(int)(ele._y)), _parent);
+                temp_ele = new MDragDrum(Drum,  _home_pic_3,_static_pic_3, _dragged_valid_3, _dragged_invalid_3, QPoint(int(ele.m_x),(int)(ele.m_y)), _parent);
                 _map_elements.push_back(temp_ele);
                 _scene->addItem(temp_ele->shadow());
                 connect(temp_ele, &MDraggable::be_removed, this, &MDragContainer::handle_remove_element);
                 break;
             }
-            case e_MapElements::BonusPoint:{
+            case enumMapElements::BonusPoint:{
                 //offset to be determined
-                temp_ele = new MDragBonusPoint(BonusPoint,_home_pic_4, _static_pic_4, _dragged_valid_4, _dragged_invalid_4, QPoint(int(ele._x),(int)(ele._y)), _parent);
+                temp_ele = new MDragBonusPoint(BonusPoint,_home_pic_4, _static_pic_4, _dragged_valid_4, _dragged_invalid_4, QPoint(int(ele.m_x),(int)(ele.m_y)), _parent);
                 _map_elements.push_back(temp_ele);
                 _scene->addItem(temp_ele->shadow());
                 connect(temp_ele, &MDraggable::be_removed, this, &MDragContainer::handle_remove_element);

@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QKeyEvent>
-#include <QList>
+#include <QVector>
 
 #include <Game/Headers/map.h>
 
@@ -25,7 +25,7 @@ public slots:
     void pause();
     void resume();
     void on_scoreChanged(int,int);
-    void on_mapSet(QList<EncodedMapElement> newmap,int);
+    void on_mapSet(QVector<EncodedMapElement> newmap,int);
 signals:
     void pressZ();
     void pressM();
@@ -33,7 +33,7 @@ signals:
     void releaseM();
     void gameOverRequest();
     void scoreChange(int,int);
-    void setMap(QList<EncodedMapElement> newmap,int);
+    void setMap(QVector<EncodedMapElement> newmap,int);
 protected:
     void keyPressEvent(QKeyEvent* event) override;
     void keyReleaseEvent(QKeyEvent* event) override;

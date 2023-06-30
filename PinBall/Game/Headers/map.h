@@ -22,6 +22,17 @@
 #include "FrameWork/Headers/encodedmap.h"
 #include "Game/Headers/object.h"
 
+enum enumPixmapIndex{
+    p_Background,
+    p_Ball,
+    p_LFlipper,
+    p_RFlipper,
+    p_LKidney,
+    p_RKidney,
+    p_Drum,
+    p_BonusPoint
+};
+
 class map : public QObject
 {
     Q_OBJECT
@@ -41,7 +52,7 @@ public slots:
     void leftdown();
     void rightup();
     void rightdown();
-    void setmap(QList<EncodedMapElement> newmap,int);//transform
+    void setmap(QVector<EncodedMapElement> newmap,int);//transform
 
 signals:
     void dead();//
@@ -59,16 +70,17 @@ private:
 
     QWidget *pparent;
 
-    QList<object*> static_elements;
-    QList<object*> dynamic_elements;
-    QList<object*> dynamic_elements_default;
-    QList<object*> map_eles;
+    QVector<object*> static_elements;
+    QVector<object*> dynamic_elements;
+    QVector<object*> dynamic_elements_default;
+    QVector<object*> map_eles;
 
-    QList<EncodedMapElement> encoded_dynamic;
-    QList<EncodedMapElement> encoded_dynamic_default;
-    QList<EncodedMapElement>& encoded_elements;
+    QVector<EncodedMapElement> encoded_dynamic;
+    QVector<EncodedMapElement> encoded_dynamic_default;
+    QVector<EncodedMapElement>& encoded_elements;
 
-    QList<QLabel*> map_pics;
+    QVector<QPixmap*> pic_buffer;
+    QVector<QLabel*> map_pic_labels;
     QGraphicsDropShadowEffect* _shadow;
 
     void updateball();

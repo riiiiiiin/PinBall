@@ -13,15 +13,15 @@ class GameMap : public QWidget
 {
     Q_OBJECT
 private:
-    QList<QPushButton *> _buttons;
-    QList<QLabel*> _score_display;
+    QVector<QPushButton *> _buttons;
+    QVector<QLabel*> _score_display;
     GameWindow* _game_window;
 
     SwitchToMapEditorConfirm *_switch_confirm;
     NewGameConfirm *_new_game_confirm;
     PauseMenu *_pmenu;
     
-    QList<QSoundEffect *> _sound_effects;
+    QVector<QSoundEffect *> _sound_effects;
     QSoundEffect *_music;
     QWidget *_pMask;
     QGraphicsBlurEffect *_blure;
@@ -32,7 +32,7 @@ public:
     GameMap(QWidget *parent = nullptr);
     ~GameMap();
     void paintEvent(QPaintEvent *e) override;
-    void setSounds(QSoundEffect *, QList<QSoundEffect *>);
+    void setSounds(QSoundEffect *, QVector<QSoundEffect *>);
 
 private slots:
     void on_pauseButtonClicked();
@@ -47,7 +47,7 @@ private slots:
     void handle_setScore(int,int);
     void on_newGameRequested();
 public slots:
-    void on_newMapSet(QList<EncodedMapElement> newmap,int);
+    void on_newMapSet(QVector<EncodedMapElement> newmap,int);
 
 signals:
     void exitRequest();
@@ -55,7 +55,7 @@ signals:
     void newGameRequest();
     void pauseRequest();
     void resumeRequest();
-    void setMap(QList<EncodedMapElement> newmap,int);
+    void setMap(QVector<EncodedMapElement> newmap,int);
 
 protected:
 

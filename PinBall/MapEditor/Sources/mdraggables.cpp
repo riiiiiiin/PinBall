@@ -1,6 +1,6 @@
 #include "MapEditor/Headers/mdraggables.h"
 
-MDragLKidney::MDragLKidney(e_MapElements type, QPixmap* home_pic,QPixmap* static_pic,QPixmap* dragged_valid,QPixmap* dragged_invalid,QPoint location_source,QWidget* parent,bool is_set_properly):
+MDragLKidney::MDragLKidney(enumMapElements type, QPixmap* home_pic,QPixmap* static_pic,QPixmap* dragged_valid,QPixmap* dragged_invalid,QPoint location_source,QWidget* parent,bool is_set_properly):
 MDraggable(static_pic,location_source,parent,is_set_properly)
 {
     
@@ -20,7 +20,7 @@ QPoint MDragLKidney::locatingPoint()const{
 
 MDragLKidney::~MDragLKidney(){}
 
-MDragRKidney::MDragRKidney(e_MapElements type,QPixmap* home_pic, QPixmap* static_pic,QPixmap* dragged_valid,QPixmap* dragged_invalid,QPoint location_source,QWidget* parent,bool is_set_properly):
+MDragRKidney::MDragRKidney(enumMapElements type,QPixmap* home_pic, QPixmap* static_pic,QPixmap* dragged_valid,QPixmap* dragged_invalid,QPoint location_source,QWidget* parent,bool is_set_properly):
 MDraggable(static_pic,location_source,parent,is_set_properly)
 {
     _type = type;
@@ -39,7 +39,7 @@ QPoint MDragRKidney::locatingPoint()const{
 
 MDragRKidney::~MDragRKidney(){}
 
-MDragDrum::MDragDrum(e_MapElements type, QPixmap* home_pic,QPixmap* static_pic,QPixmap* dragged_valid,QPixmap* dragged_invalid,QPoint location_source,QWidget* parent,bool is_set_properly):
+MDragDrum::MDragDrum(enumMapElements type, QPixmap* home_pic,QPixmap* static_pic,QPixmap* dragged_valid,QPixmap* dragged_invalid,QPoint location_source,QWidget* parent,bool is_set_properly):
 MDraggable(static_pic,location_source,parent,is_set_properly){
     _type = type;
     _static_pic = static_pic;
@@ -57,7 +57,7 @@ QPoint MDragDrum::locatingPoint()const{
 
 MDragDrum::~MDragDrum(){}
 
-MDragBonusPoint::MDragBonusPoint(e_MapElements type,QPixmap* home_pic, QPixmap* static_pic,QPixmap* dragged_valid,QPixmap* dragged_invalid,QPoint location_source,QWidget* parent,bool is_set_properly):
+MDragBonusPoint::MDragBonusPoint(enumMapElements type,QPixmap* home_pic, QPixmap* static_pic,QPixmap* dragged_valid,QPixmap* dragged_invalid,QPoint location_source,QWidget* parent,bool is_set_properly):
 MDraggable(static_pic,location_source,parent,is_set_properly){
     _type = type;
     _static_pic = static_pic;

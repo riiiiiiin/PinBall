@@ -8,14 +8,14 @@ class PauseMenu : public MTab
     Q_OBJECT
 
 public:
-    explicit PauseMenu(QList<QSoundEffect *> se, QSoundEffect *msc, QWidget *parent = nullptr);
+    explicit PauseMenu(QVector<QSoundEffect *> se, QSoundEffect *msc, QWidget *parent = nullptr);
     ~PauseMenu();
-    void setSounds(QSoundEffect*,QList<QSoundEffect*>);
+    void setSounds(QSoundEffect*,QVector<QSoundEffect*>);
     void setButtons();
 private:
     QSoundEffect *_music;
     ExitConfirm *_exc;
-    QList<QSoundEffect *> _sound_effects;
+    QVector<QSoundEffect *> _sound_effects;
 signals:
 
 protected:

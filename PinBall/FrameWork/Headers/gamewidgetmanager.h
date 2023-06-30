@@ -15,15 +15,15 @@ private:
     GameMap* _map;
     MapEditor* _map_editor;
     QSoundEffect* _music;
-    QList<QSoundEffect*> _sound_effects;
+    QVector<QSoundEffect*> _sound_effects;
 public:
     GameWidgetManager(QWidget* parent=nullptr);
     ~GameWidgetManager();
     QStackedWidget* StackedWidget();
 signals:
-    void setMap(QList<EncodedMapElement> newmap,int);
+    void setMap(QVector<EncodedMapElement> newmap,int);
 private slots:
-    void switch_to_map(QList<EncodedMapElement>,int gravity);
+    void switch_to_map(QVector<EncodedMapElement>,int gravity);
     void switch_to_mapEditor();
     void on_exit_requested();
 };

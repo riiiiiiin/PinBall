@@ -8,14 +8,14 @@ class SettingsMenu : public MTab{
 private:
     QSoundEffect* _music;
     ExitConfirm *_exc;
-    QList<QSoundEffect*> _sound_effects;
+    QVector<QSoundEffect*> _sound_effects;
     int _gravity_rate;
     double const _default_gravity;
 protected:
 public:
-    explicit SettingsMenu(int gravity,QList<QSoundEffect*> se,QSoundEffect *msc,QWidget*parent=nullptr);
+    explicit SettingsMenu(int gravity,QVector<QSoundEffect*> se,QSoundEffect *msc,QWidget*parent=nullptr);
     ~SettingsMenu();
-    void setSounds(QSoundEffect*,QList<QSoundEffect*>);
+    void setSounds(QSoundEffect*,QVector<QSoundEffect*>);
     void setButtons();
 signals:
     void resetMapRequest();

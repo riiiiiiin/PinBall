@@ -1,6 +1,6 @@
 #include "FrameWork/Headers/settingsmenu.h"
 
-SettingsMenu::SettingsMenu(int gravity,QList<QSoundEffect *> se, QSoundEffect *msc, QWidget *parent)
+SettingsMenu::SettingsMenu(int gravity,QVector<QSoundEffect *> se, QSoundEffect *msc, QWidget *parent)
 : MTab(parent),
       _music(msc),
       _sound_effects(se),
@@ -55,7 +55,7 @@ SettingsMenu::~SettingsMenu(){
     delete _exc;
 }
 
-void SettingsMenu::setSounds(QSoundEffect *music, QList<QSoundEffect *> se)
+void SettingsMenu::setSounds(QSoundEffect *music, QVector<QSoundEffect *> se)
 {
     _music = music;
     _sound_effects = se;

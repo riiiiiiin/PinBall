@@ -43,7 +43,7 @@ void GameWidgetManager::on_exit_requested(){
     QCoreApplication::quit();
 }
 
-void GameWidgetManager::switch_to_map(QList<EncodedMapElement> encoded_map,int gravity){
+void GameWidgetManager::switch_to_map(QVector<EncodedMapElement> encoded_map,int gravity){
     //set up map
     emit setMap(encoded_map,gravity);
     _map->activateWindow();

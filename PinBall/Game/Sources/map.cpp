@@ -4,6 +4,29 @@ map::map(QWidget *parent) : pparent(parent), encoded_elements(encoded_dynamic)
 {
     pb=nullptr;
 
+    /////////////////////////////////
+    /////       预加载图片       /////
+    /////////////////////////////////
+
+    pic_buffer.clear();
+    pic_buffer.resize(8);
+    pic_buffer[enumPixmapIndex::p_Background] = new QPixmap(":/map_items/background.png");
+    *pic_buffer[enumPixmapIndex::p_Background] = pic_buffer[enumPixmapIndex::p_Background]->scaled(600, 540, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    pic_buffer[enumPixmapIndex::p_Ball] = new QPixmap(":/map_items/ball.png");
+    *pic_buffer[enumPixmapIndex::p_Ball] = pic_buffer[enumPixmapIndex::p_Ball]->scaled(20, 20, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    pic_buffer[enumPixmapIndex::p_LFlipper] = new QPixmap(":/map_items/shifted_left_flipper.png");
+    *pic_buffer[enumPixmapIndex::p_LFlipper] = pic_buffer[enumPixmapIndex::p_LFlipper]->scaled(191, 377, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    pic_buffer[enumPixmapIndex::p_RFlipper] = new QPixmap(":/map_items/shifted_right_flipper.png");
+    *pic_buffer[enumPixmapIndex::p_RFlipper] = pic_buffer[enumPixmapIndex::p_RFlipper]->scaled(191, 377, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    pic_buffer[enumPixmapIndex::p_LKidney] = new QPixmap(":/map_items/shifted_left_kidney.png");
+    *pic_buffer[enumPixmapIndex::p_LKidney] = pic_buffer[enumPixmapIndex::p_LKidney]->scaled(53,134, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    pic_buffer[enumPixmapIndex::p_RKidney] = new QPixmap(":/map_items/shifted_right_kidney.png");
+    *pic_buffer[enumPixmapIndex::p_RKidney] = pic_buffer[enumPixmapIndex::p_RKidney]->scaled(53,134, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    pic_buffer[enumPixmapIndex::p_Drum] = new QPixmap(":/map_items/new_drum.png");
+    *pic_buffer[enumPixmapIndex::p_Drum] = pic_buffer[enumPixmapIndex::p_Drum]->scaled(40, 40, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    pic_buffer[enumPixmapIndex::p_BonusPoint] = new QPixmap(":/map_items/new_bonus_point.png");
+    *pic_buffer[enumPixmapIndex::p_BonusPoint] = pic_buffer[enumPixmapIndex::p_BonusPoint]->scaled(20, 20, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+
     //////////////////////////////////
     ////      静态地图元素部分     ////
     /////////////////////////////////
@@ -69,13 +92,13 @@ map::map(QWidget *parent) : pparent(parent), encoded_elements(encoded_dynamic)
 
     encoded_dynamic_default.clear();
 
-    encoded_dynamic_default.push_back(EncodedMapElement{BonusPoint, 175, 145});
-    encoded_dynamic_default.push_back(EncodedMapElement{BonusPoint, 133, 64});
-    encoded_dynamic_default.push_back(EncodedMapElement{Drum, 300, 90});
-    encoded_dynamic_default.push_back(EncodedMapElement{Drum, 270, 150});
-    encoded_dynamic_default.push_back(EncodedMapElement{Drum, 330, 150});
-    encoded_dynamic_default.push_back(EncodedMapElement{LKidney, 220, 400});
-    encoded_dynamic_default.push_back(EncodedMapElement{RKidney, 380, 400});
+    encoded_dynamic_default.push_back(EncodedMapElement{enumMapElements::BonusPoint, 175, 145});
+    encoded_dynamic_default.push_back(EncodedMapElement{enumMapElements::BonusPoint, 133, 64});
+    encoded_dynamic_default.push_back(EncodedMapElement{enumMapElements::Drum, 300, 90});
+    encoded_dynamic_default.push_back(EncodedMapElement{enumMapElements::Drum, 270, 150});
+    encoded_dynamic_default.push_back(EncodedMapElement{enumMapElements::Drum, 330, 150});
+    encoded_dynamic_default.push_back(EncodedMapElement{enumMapElements::LKidney, 220, 400});
+    encoded_dynamic_default.push_back(EncodedMapElement{enumMapElements::RKidney, 380, 400});
 
     /////////////////////////////////////
     ////      留空动态地图元素部分     ////
@@ -85,6 +108,7 @@ map::map(QWidget *parent) : pparent(parent), encoded_elements(encoded_dynamic)
     dynamic_elements.clear();
     rebuild_map();
     redraw_map();
+    updateflipper();
 }
 
 void map::onestep()
@@ -282,22 +306,20 @@ void map::rebuild_map()
 
 void map::redraw_map()
 {
-    for(auto&l:map_pics){
+    for(auto&l:map_pic_labels){
         if(l!=nullptr){
             delete l;
         }
     }
-    map_pics.clear();
+    map_pic_labels.clear();
 
     QLabel *plabel = new QLabel(pparent);
-    QPixmap *ppix = new QPixmap(":/map_items/background.png");
-    *ppix = ppix->scaled(600, 540, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    plabel->setPixmap(*ppix);
-    plabel->setMask(ppix->mask());
+    plabel->setPixmap(*pic_buffer[enumPixmapIndex::p_Background]);
+    plabel->setMask(pic_buffer[enumPixmapIndex::p_Background]->mask());
     plabel->setGeometry(0, 0, 600, 540);
     plabel->setFixedSize(600, 540);
     plabel->show();
-    map_pics.push_back(plabel);
+    map_pic_labels.push_back(plabel);
 
     // _shadow = new QGraphicsDropShadowEffect();
     // _shadow->setBlurRadius(50);
@@ -307,111 +329,89 @@ void map::redraw_map()
     // plabel->setGraphicsEffect(_shadow);
 
     plabel = nullptr;
-    ppix = nullptr;
 
     plabel = new QLabel(pparent);
-    ppix= new QPixmap(":/map_items/ball.png");
-    *ppix = ppix->scaled(20, 20, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    plabel->setPixmap(*ppix);
-    plabel->setMask(ppix->mask());
+    plabel->setPixmap(*pic_buffer[enumPixmapIndex::p_Ball]);
+    plabel->setMask(pic_buffer[enumPixmapIndex::p_Ball]->mask());
     plabel->setGeometry(pb->getx() - 10, pb->gety() - 10, 20, 20);
     plabel->setFixedSize(20, 20);
     plabel->show();
-    map_pics.push_back(plabel);
+    map_pic_labels.push_back(plabel);
 
     plabel = nullptr;
-    ppix = nullptr;
 
     plabel = new QLabel(pparent);
-    ppix= new QPixmap(":/map_items/shifted_left_flipper.png");
-    *ppix = ppix->scaled(527, 198, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    plabel->setPixmap(*ppix);
-    // plabel->setMask(ppix->mask());
-    plabel->setGeometry(98, 338, 527, 198);
+    plabel->setPixmap(*pic_buffer[enumPixmapIndex::p_LFlipper]);
+    // plabel->setMask(pic_buffer[enumPixmapIndex::p_LFlipper]->mask());
+    plabel->setGeometry(98, 294, 191, 377);
     plabel->show();
-    map_pics.push_back(plabel);
+    map_pic_labels.push_back(plabel);
 
     plabel = nullptr;
-    ppix = nullptr;
 
     plabel = new QLabel(pparent);
-    ppix= new QPixmap(":/map_items/shifted_right_flipper.png");
-    *ppix = ppix->scaled(527, 198, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    plabel->setPixmap(*ppix);
-    // plabel->setMask(ppix->mask());
-    plabel->setGeometry(305, 339, 527, 198);
+    plabel->setPixmap(*pic_buffer[enumPixmapIndex::p_RFlipper]);
+    // plabel->setMask(pic_buffer[enumPixmapIndex::p_RFlipper]->mask());
+    plabel->setGeometry(305, 295, 191, 377);
     plabel->show();
-    map_pics.push_back(plabel);
+    map_pic_labels.push_back(plabel);
 
     plabel = nullptr;
-    ppix = nullptr;
 
     for (auto const &e : encoded_elements)
     {
-        switch (e._element_type)
+        switch (e.e_element_type)
         {
-        case LKidney:
+        case enumMapElements::LKidney:
         {
             plabel = new QLabel(pparent);
-            ppix= new QPixmap(":/map_items/shifted_left_kidney.png");
-            *ppix = ppix->scaled(53, 134, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-            plabel->setPixmap(*ppix);
-            plabel->setMask(ppix->mask());
-            plabel->setGeometry(e._x - 50, e._y - 120, 53, 134);
+            plabel->setPixmap(*pic_buffer[enumPixmapIndex::p_LKidney]);
+            plabel->setMask(pic_buffer[enumPixmapIndex::p_LKidney]->mask());
+            plabel->setGeometry(e.m_x - 50, e.m_y - 120, 53, 134);
             plabel->setFixedSize(53, 134);
             plabel->show();
-            map_pics.push_back(plabel);
+            map_pic_labels.push_back(plabel);
 
             plabel = nullptr;
-            ppix = nullptr;
             break;
         }
-        case RKidney:
+        case enumMapElements::RKidney:
         {
             plabel = new QLabel(pparent);
-            ppix= new QPixmap(":/map_items/shifted_right_kidney.png");
-            *ppix = ppix->scaled(53, 134, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-            plabel->setPixmap(*ppix);
-            plabel->setMask(ppix->mask());
-            plabel->setGeometry(e._x - 3, e._y - 120, 53, 134);
+            plabel->setPixmap(*pic_buffer[enumPixmapIndex::p_RKidney]);
+            plabel->setMask(pic_buffer[enumPixmapIndex::p_RKidney]->mask());
+            plabel->setGeometry(e.m_x - 3, e.m_y - 120, 53, 134);
             plabel->setFixedSize(53, 134);
             plabel->show();
-            map_pics.push_back(plabel);
+            map_pic_labels.push_back(plabel);
 
             plabel = nullptr;
-            ppix = nullptr;
             break;
         }
-        case Drum:
+        case enumMapElements::Drum:
         {
             plabel = new QLabel(pparent);
-            ppix= new QPixmap(":/map_items/new_drum.png");
-            *ppix = ppix->scaled(40,40, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-            plabel->setPixmap(*ppix);
-            plabel->setMask(ppix->mask());
-            plabel->setGeometry(e._x - 20, e._y - 20, 40, 40);
+            plabel->setPixmap(*pic_buffer[enumPixmapIndex::p_Drum]);
+            plabel->setMask(pic_buffer[enumPixmapIndex::p_Drum]->mask());
+            plabel->setGeometry(e.m_x - 20, e.m_y - 20, 40, 40);
             plabel->setFixedSize(40, 40);
             plabel->show();
-            map_pics.push_back(plabel);
+            map_pic_labels.push_back(plabel);
 
             plabel = nullptr;
-            ppix = nullptr;
             break;
         }
-        case BonusPoint:
+        case enumMapElements::BonusPoint:
         {
             plabel = new QLabel(pparent);
-            ppix= new QPixmap(":/map_items/new_bonus_point.png");
-            *ppix = ppix->scaled(20,20, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-            plabel->setPixmap(*ppix);
-            plabel->setMask(ppix->mask());
-            plabel->setGeometry(e._x - 10, e._y - 10, 20, 20);
+            plabel->setPixmap(*pic_buffer[enumPixmapIndex::p_BonusPoint]);
+            plabel->setMask(pic_buffer[enumPixmapIndex::p_BonusPoint]->mask());
+            plabel->setGeometry(e.m_x - 10, e.m_y - 10, 20, 20);
             plabel->setFixedSize(20, 20);
             plabel->show();
-            map_pics.push_back(plabel);
+            map_pic_labels.push_back(plabel);
 
             plabel = nullptr;
-            ppix = nullptr;
             break;
         }
         }
@@ -420,14 +420,14 @@ void map::redraw_map()
 
 void map::updateball()
 {
-    map_pics[1]->setGeometry(pb->getx() - 10, pb->gety() - 10, 20, 20);
+    map_pic_labels[1]->setGeometry(pb->getx() - 10, pb->gety() - 10, 20, 20);
 }
 
 void map::updateflipper()
 {
-    QLabel* plabel = map_pics[2];
+    QLabel* plabel = map_pic_labels[2];
 
-    QPixmap* ppix=new QPixmap(":/map_items/shifted_left_flipper.png");
+    QPixmap* ppix=pic_buffer[enumPixmapIndex::p_LFlipper];
     QPixmap* rotatedPixmap=new QPixmap(ppix->size());
     rotatedPixmap->fill(Qt::transparent);
     QPainter* painter=new QPainter(rotatedPixmap);
@@ -440,9 +440,9 @@ void map::updateflipper()
     plabel=nullptr;
     ppix = nullptr;
 
-    plabel = map_pics[3];
+    plabel = map_pic_labels[3];
 
-    ppix=new QPixmap(":/map_items/shifted_right_flipper.png");
+    ppix=pic_buffer[enumPixmapIndex::p_RFlipper];
     rotatedPixmap=new QPixmap(ppix->size());
     rotatedPixmap->fill(Qt::transparent);
     painter=new QPainter(rotatedPixmap);
@@ -453,7 +453,7 @@ void map::updateflipper()
     plabel->setPixmap(*rotatedPixmap);
 }
 
-void map::setmap(QList<EncodedMapElement> newmap, int gg)
+void map::setmap(QVector<EncodedMapElement> newmap, int gg)
 {
     highest=0;
     encoded_dynamic = newmap;
@@ -461,41 +461,41 @@ void map::setmap(QList<EncodedMapElement> newmap, int gg)
     dynamic_elements.clear();
     for (auto const &e : newmap)
     {
-        switch (e._element_type)
+        switch (e.e_element_type)
         {
-        case LKidney:
+        case enumMapElements::LKidney:
         {
-            dynamic_elements.push_back(new stwall(e._x - 50, e._x - 50, e._y - 110, e._y - 20, 1));
-            dynamic_elements.push_back(new kidney(e._x - 30, e._x, e._y - 110, e._y, 1.3));
-            dynamic_elements.push_back(new stwall(e._x - 40, e._x - 10, e._y, e._y + 10, 1));
+            dynamic_elements.push_back(new stwall(e.m_x - 50, e.m_x - 50, e.m_y - 110, e.m_y - 20, 1));
+            dynamic_elements.push_back(new kidney(e.m_x - 30, e.m_x, e.m_y - 110, e.m_y, 1.3));
+            dynamic_elements.push_back(new stwall(e.m_x - 40, e.m_x - 10, e.m_y, e.m_y + 10, 1));
             // dynamic_elements.push_back(new cirwall(e._x - 40, e._y - 106, 12, e._x - 50, e._x - 30, e._y - 110, e._y - 110, 1));
-            dynamic_elements.push_back(new cirwall(e._x - 40, e._y - 106, 12, 1));
-            dynamic_elements.push_back(new cirwall(e._x - 10, e._y, 10, e._x, e._x - 10, e._y, e._y + 10, 1));
-            dynamic_elements.push_back(new cirwall(e._x - 20.1, e._y - 22.45, 30, e._x - 40, e._x - 50, e._y, e._y - 20, 1));
+            dynamic_elements.push_back(new cirwall(e.m_x - 40, e.m_y - 106, 12, 1));
+            dynamic_elements.push_back(new cirwall(e.m_x - 10, e.m_y, 10, e.m_x, e.m_x - 10, e.m_y, e.m_y + 10, 1));
+            dynamic_elements.push_back(new cirwall(e.m_x - 20.1, e.m_y - 22.45, 30, e.m_x - 40, e.m_x - 50, e.m_y, e.m_y - 20, 1));
 
             break;
         }
-        case RKidney:
+        case enumMapElements::RKidney:
         {
-            dynamic_elements.push_back(new stwall(e._x + 50, e._x + 50, e._y - 110, e._y - 20, 1));
-            dynamic_elements.push_back(new kidney(e._x + 30, e._x, e._y - 110, e._y, 1.3));
-            dynamic_elements.push_back(new stwall(e._x + 50, e._x + 10, e._y, e._y + 10, 1));
+            dynamic_elements.push_back(new stwall(e.m_x + 50, e.m_x + 50, e.m_y - 110, e.m_y - 20, 1));
+            dynamic_elements.push_back(new kidney(e.m_x + 30, e.m_x, e.m_y - 110, e.m_y, 1.3));
+            dynamic_elements.push_back(new stwall(e.m_x + 50, e.m_x + 10, e.m_y, e.m_y + 10, 1));
             // dynamic_elements.push_back(new cirwall(e._x + 40, e._y - 106, 12, e._x + 10, e._x + 30, e._y - 110, e._y - 110, 1));
-            dynamic_elements.push_back(new cirwall(e._x + 40, e._y - 106, 12, 1));
-            dynamic_elements.push_back(new cirwall(e._x + 10, e._y, 10, e._x, e._x + 10, e._y, e._y+10, 1));
-            dynamic_elements.push_back(new cirwall(e._x + 20.1, e._y - 22.45, 30, e._x + 40, e._x + 50, e._y, e._y - 20, 1));
+            dynamic_elements.push_back(new cirwall(e.m_x + 40, e.m_y - 106, 12, 1));
+            dynamic_elements.push_back(new cirwall(e.m_x + 10, e.m_y, 10, e.m_x, e.m_x + 10, e.m_y, e.m_y+10, 1));
+            dynamic_elements.push_back(new cirwall(e.m_x + 20.1, e.m_y - 22.45, 30, e.m_x + 40, e.m_x + 50, e.m_y, e.m_y - 20, 1));
 
             break;
         }
-        case Drum:
+        case enumMapElements::Drum:
         {
-            dynamic_elements.push_back(new drum(e._x, e._y, 20, 1.2));
+            dynamic_elements.push_back(new drum(e.m_x, e.m_y, 20, 1.2));
 
             break;
         }
-        case BonusPoint:
+        case enumMapElements::BonusPoint:
         {
-            dynamic_elements.push_back(new award(e._x, e._y, 10));
+            dynamic_elements.push_back(new award(e.m_x, e.m_y, 10));
 
             break;
         }

@@ -22,7 +22,7 @@ private:
     bool _is_set_properly;
 protected:
     MAdaptableLabel *_label;
-    e_MapElements _type;
+    enumMapElements _type;
     QPixmap* _static_pic;
     QPixmap* _dragged_valid;
     QPixmap* _dragged_invalid;
@@ -31,7 +31,7 @@ public:
     MDraggable(QPixmap* static_pic,QPoint location_source,QWidget *parent = nullptr,bool is_set_properly=false);
     virtual ~MDraggable();
     MDraggableShadow * shadow();
-    e_MapElements type()const;
+    enumMapElements type()const;
     virtual QPoint locatingPoint()const =0;
 protected:
     inline bool IsPosValid();

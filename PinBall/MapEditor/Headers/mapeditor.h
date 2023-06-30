@@ -17,11 +17,11 @@ private:
     MDragContainer* _container;
 
     QLabel* _container_back;
-    QList<QLabel*> _draggable_containers;
-    QList<QLabel*> _coming_soon_labels;
+    QVector<QLabel*> _draggable_containers;
+    QVector<QLabel*> _coming_soon_labels;
     QLabel* _map_background;
 
-    QList<QPushButton*> _buttons;
+    QVector<QPushButton*> _buttons;
 
     SwitchToMapConfirm* _switch_confirm;
     SettingsMenu* _settings_menu;
@@ -30,15 +30,15 @@ private:
     QGraphicsBlurEffect *_blure;
     QWidget* _pMask;
 
-    QList<QSoundEffect*> _sound_effects;
+    QVector<QSoundEffect*> _sound_effects;
     QSoundEffect* _music;
     
 public:
     MapEditor(QWidget* parent=nullptr);
     ~MapEditor();
     void paintEvent(QPaintEvent* event)override;
-    void setSounds(QSoundEffect*,QList<QSoundEffect*>);
-    void setUpMap(QList<EncodedMapElement>);
+    void setSounds(QSoundEffect*,QVector<QSoundEffect*>);
+    void setUpMap(QVector<EncodedMapElement>);
 private slots:
     void on_pauseButtonClicked();
     void on_pauseMenuClosed();
@@ -52,7 +52,7 @@ private slots:
     void on_switchRequested();
 signals:
     void exitRequest();
-    void switchRequest(QList<EncodedMapElement>,int);
+    void switchRequest(QVector<EncodedMapElement>,int);
 };
 
 #endif

@@ -1,6 +1,6 @@
 #include "FrameWork/Headers/pausemenu.h"
 
-PauseMenu::PauseMenu(QList<QSoundEffect *> se, QSoundEffect *msc, QWidget *parent)
+PauseMenu::PauseMenu(QVector<QSoundEffect *> se, QSoundEffect *msc, QWidget *parent)
     : MTab(parent),
       _music(msc),
       _sound_effects(se)
@@ -44,7 +44,7 @@ PauseMenu::~PauseMenu()
     delete _exc;
 }
 
-void PauseMenu::setSounds(QSoundEffect *music, QList<QSoundEffect *> se)
+void PauseMenu::setSounds(QSoundEffect *music, QVector<QSoundEffect *> se)
 {
     _music = music;
     _sound_effects = se;

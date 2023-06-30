@@ -126,7 +126,7 @@ void GameMap::paintEvent(QPaintEvent *e)
     QWidget::paintEvent(e);
 }
 
-void GameMap::setSounds(QSoundEffect *music, QList<QSoundEffect *> se)
+void GameMap::setSounds(QSoundEffect *music, QVector<QSoundEffect *> se)
 {
     _music = music;
     _sound_effects = se;
@@ -204,6 +204,6 @@ void GameMap::handle_setScore(int current_score,int maximum_score){
     _score_display[2]->setText("🎉"+QString::number(maximum_score)+"🎉");
 }
 
-void GameMap::on_newMapSet(QList<EncodedMapElement> newmap,int gravity){
+void GameMap::on_newMapSet(QVector<EncodedMapElement> newmap,int gravity){
     emit setMap(newmap,gravity);
 }

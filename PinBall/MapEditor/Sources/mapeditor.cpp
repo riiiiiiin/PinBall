@@ -148,7 +148,7 @@ void MapEditor::paintEvent(QPaintEvent *e)
     QWidget::paintEvent(e);
 }
 
-void MapEditor::setSounds(QSoundEffect *music, QList<QSoundEffect *> se)
+void MapEditor::setSounds(QSoundEffect *music, QVector<QSoundEffect *> se)
 {
     _music = music;
     _sound_effects = se;
@@ -207,7 +207,7 @@ void MapEditor::on_switchRequested(){
     emit switchRequest(_container->encodeMap(),_gravity);
 }
 
-void MapEditor::setUpMap(QList<EncodedMapElement> encoded_map){
+void MapEditor::setUpMap(QVector<EncodedMapElement> encoded_map){
     _container->clear();
     _container->decodeMap(encoded_map);
 }
