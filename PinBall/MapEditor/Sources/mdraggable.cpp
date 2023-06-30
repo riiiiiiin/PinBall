@@ -1,7 +1,8 @@
 #include "MapEditor/Headers/mdraggable.h"
 
-MDraggable::MDraggable(QPixmap* static_pic,QPoint location_source, QWidget *parent,bool is_set_properly)
-    : _static_pic(static_pic),QWidget(parent),_is_set_properly(is_set_properly)
+MDraggable::MDraggable(QPixmap* home_pic,QPixmap* static_pic,QPixmap* dragged_valid,QPixmap* dragged_invalid,QPoint location_source, QWidget *parent,bool is_set_properly)
+    : _home_pic(home_pic),_static_pic(static_pic),_dragged_valid(dragged_valid),_dragged_invalid(dragged_invalid),
+    QWidget(parent),_is_set_properly(is_set_properly)
 {
     _label = new MAdaptableLabel(this);
     resize(100,100);
@@ -21,6 +22,20 @@ MDraggable::~MDraggable()
     disconnect(this);
     delete _label;
     delete _shadow;
+}
+
+void MDraggable::updatePics(QPixmap* home_pic,QPixmap* static_pic,QPixmap* dragged_valid,QPixmap* dragged_invalid)
+{
+    _home_pic=home_pic;
+    _static_pic=static_pic;
+    _dragged_valid=dragged_valid;
+    _dragged_invalid=dragged_invalid;
+    if(_is_set_properly){
+        _label->setPixMap(*_static_pic);
+    }
+    else{
+        _label->setPixMap(*_home_pic);
+    }
 }
 
 MDraggableShadow * MDraggable::shadow(){

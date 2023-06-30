@@ -23,13 +23,15 @@ private:
 protected:
     MAdaptableLabel *_label;
     enumMapElements _type;
+    QPixmap* _home_pic;
     QPixmap* _static_pic;
     QPixmap* _dragged_valid;
     QPixmap* _dragged_invalid;
     MDraggableShadow* _shadow;
 public:
-    MDraggable(QPixmap* static_pic,QPoint location_source,QWidget *parent = nullptr,bool is_set_properly=false);
+    MDraggable(QPixmap* home_pic,QPixmap* static_pic,QPixmap* dragged_valid,QPixmap* dragged_invalid,QPoint location_source,QWidget *parent = nullptr,bool is_set_properly=false);
     virtual ~MDraggable();
+    void updatePics(QPixmap* home_pic,QPixmap* static_pic,QPixmap* dragged_valid,QPixmap* dragged_invalid);
     MDraggableShadow * shadow();
     enumMapElements type()const;
     virtual QPoint locatingPoint()const =0;

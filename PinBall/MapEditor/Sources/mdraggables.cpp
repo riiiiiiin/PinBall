@@ -1,13 +1,10 @@
 #include "MapEditor/Headers/mdraggables.h"
 
 MDragLKidney::MDragLKidney(enumMapElements type, QPixmap* home_pic,QPixmap* static_pic,QPixmap* dragged_valid,QPixmap* dragged_invalid,QPoint location_source,QWidget* parent,bool is_set_properly):
-MDraggable(static_pic,location_source,parent,is_set_properly)
+MDraggable(home_pic,static_pic,dragged_valid,dragged_invalid,location_source,parent,is_set_properly)
 {
     
     _type = type;
-    _static_pic = static_pic;
-    _dragged_valid = dragged_valid;
-    _dragged_invalid = dragged_invalid;
     _label->resize(100,100);
     _label->setPixmap(*home_pic);
     _label->setMask(home_pic->mask());
@@ -21,12 +18,9 @@ QPoint MDragLKidney::locatingPoint()const{
 MDragLKidney::~MDragLKidney(){}
 
 MDragRKidney::MDragRKidney(enumMapElements type,QPixmap* home_pic, QPixmap* static_pic,QPixmap* dragged_valid,QPixmap* dragged_invalid,QPoint location_source,QWidget* parent,bool is_set_properly):
-MDraggable(static_pic,location_source,parent,is_set_properly)
+MDraggable(home_pic,static_pic,dragged_valid,dragged_invalid,location_source,parent,is_set_properly)
 {
     _type = type;
-    _static_pic = static_pic;
-    _dragged_valid = dragged_valid;
-    _dragged_invalid = dragged_invalid;
     _label->resize(100,100);
     _label->setPixmap(*home_pic);
     _label->setMask(home_pic->mask());
@@ -40,11 +34,8 @@ QPoint MDragRKidney::locatingPoint()const{
 MDragRKidney::~MDragRKidney(){}
 
 MDragDrum::MDragDrum(enumMapElements type, QPixmap* home_pic,QPixmap* static_pic,QPixmap* dragged_valid,QPixmap* dragged_invalid,QPoint location_source,QWidget* parent,bool is_set_properly):
-MDraggable(static_pic,location_source,parent,is_set_properly){
+MDraggable(home_pic,static_pic,dragged_valid,dragged_invalid,location_source,parent,is_set_properly){
     _type = type;
-    _static_pic = static_pic;
-    _dragged_valid = dragged_valid;
-    _dragged_invalid = dragged_invalid;
     _label->resize(100,100);
     _label->setPixmap(*home_pic);
     _label->setMask(home_pic->mask());
@@ -58,11 +49,8 @@ QPoint MDragDrum::locatingPoint()const{
 MDragDrum::~MDragDrum(){}
 
 MDragBonusPoint::MDragBonusPoint(enumMapElements type,QPixmap* home_pic, QPixmap* static_pic,QPixmap* dragged_valid,QPixmap* dragged_invalid,QPoint location_source,QWidget* parent,bool is_set_properly):
-MDraggable(static_pic,location_source,parent,is_set_properly){
+MDraggable(home_pic,static_pic,dragged_valid,dragged_invalid,location_source,parent,is_set_properly){
     _type = type;
-    _static_pic = static_pic;
-    _dragged_valid = dragged_valid;
-    _dragged_invalid = dragged_invalid;
     _label->resize(100,100);
     _label->setPixmap(*home_pic);
     _label->setMask(home_pic->mask());
