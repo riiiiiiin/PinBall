@@ -58,17 +58,17 @@ void map::onestep(){
         cob[0]->change(leftx,leftx+rx,y,y+ry,int(upleft),moveupleft);
         cob[1]->change(leftx+rx,leftx+2*rx,y+ry,y+2*ry,int(upleft)*2,moveupleft);
         cob[2]->change(leftx+2*rx,leftx+3*rx,y+2*ry,y+3*ry,int(upleft)*3,moveupleft);
-        cob[3]->change(leftx+3*rx-2,y+3*ry+7.5,0,0,int(upleft),moveupleft);
-        cob[4]->change(leftx-4,leftx+3*rx-4,y+20,y+3*ry+15,0,moveupleft);
+//        cob[3]->change(leftx+3*rx-2,y+3*ry+7.5,0,0,int(upleft),moveupleft);
+//       cob[4]->change(leftx-4,leftx+3*rx-4,y+20,y+3*ry+15,0,moveupleft);
     }
     if(rc){
         rx=25*cos(theright);
         ry=25*sin(theright);
-        cob[5]->change(rightx,rightx-rx,y,y+ry,int(upright),moveupright);
-        cob[6]->change(rightx-rx,rightx-2*rx,y+ry,y+2*ry,int(upright)*2,moveupright);
-        cob[7]->change(rightx-2*rx,rightx-3*rx,y+2*ry,y+3*ry,int(upright)*3,moveupright);
-        cob[8]->change(rightx-3*rx+2,y-3*ry+7.5,0,0,int(upright),moveupright);
-        cob[9]->change(rightx+4,rightx-3*rx+4,y+20,y+3*ry+15,0,moveupright);
+        cob[3]->change(rightx,rightx-rx,y,y+ry,int(upright),moveupright);
+        cob[4]->change(rightx-rx,rightx-2*rx,y+ry,y+2*ry,int(upright)*2,moveupright);
+        cob[5]->change(rightx-2*rx,rightx-3*rx,y+2*ry,y+3*ry,int(upright)*3,moveupright);
+//       cob[8]->change(rightx-3*rx+2,y-3*ry+7.5,0,0,int(upright),moveupright);
+//        cob[9]->change(rightx+4,rightx-3*rx+4,y+20,y+3*ry+15,0,moveupright);
     }
     int n=cob.size();
     int m=cobd.size();
@@ -154,16 +154,16 @@ void map::rebuildstatic(){
     pa=0;
     pa=new stwall(282.8,258.6,476.8,470.9,1);
     cob.push_back(pa);//2
-    pa=0;
+    pa=0;//左flipper,对应theleft
 //    pa=new cirwall(208,469,10.2,1);
 //    cob.push_back(pa);//3
 //    pa=0;
-    pa=new cirwall(280.8,484.3,7.8,1);
-    cob.push_back(pa);//4
-    pa=0;
-    pa=new stwall(206,278.8,479,491.8,1);
-    cob.push_back(pa);//5
-    pa=0;//左flipper,对应theleft
+//    pa=new cirwall(280.8,484.3,7.8,1);
+//    cob.push_back(pa);//4
+//    pa=0;
+//    pa=new stwall(206,278.8,479,491.8,1);
+//    cob.push_back(pa);//5
+//    pa=0;
     pa=new stwall(390,365.7,459,464.9,1);
     cob.push_back(pa);//6
     pa=0;
@@ -172,16 +172,16 @@ void map::rebuildstatic(){
     pa=0;
     pa=new stwall(317.2,341.4,476.8,470.9,1);
     cob.push_back(pa);//8
-    pa=0;
+    pa=0;//右flipper,对应theright
 //    pa=new cirwall(392,469,10.2,1);
 //    cob.push_back(pa);//9
 //    pa=0;
-    pa=new cirwall(319.2,484.3,7.8,1);
-    cob.push_back(pa);//10
-    pa=0;
-    pa=new stwall(394,321.2,479,491.8,1);
-    cob.push_back(pa);//11
-    pa=0;//右flipper,对应theright
+//    pa=new cirwall(319.2,484.3,7.8,1);
+//    cob.push_back(pa);//10
+//    pa=0;
+//    pa=new stwall(394,321.2,479,491.8,1);
+//    cob.push_back(pa);//11
+//    pa=0;
     pa=new stwall(453,390,74,117,1);
     cob.push_back(pa);//12
     pa=0;
@@ -194,25 +194,25 @@ void map::rebuildstatic(){
     pa=new stwall(484,453,114,74,1);
     cob.push_back(pa);//15
     pa=0;//右上角的四边形墙
-    pa=new stwall(67,210,424,459,0.7);
+    pa=new stwall(67,210,424,459,0.5);
     cob.push_back(pa);//16
     pa=0;//左下直线墙
-    pa=new stwall(533,390,424,459,0.7);
+    pa=new stwall(533,390,424,459,0.5);
     cob.push_back(pa);//17
     pa=0;//右下直线墙
     pa=new cirwall(300,814.6,800,100,500,40,40,1);
     cob.push_back(pa);//18
     pa=0;//圆弧顶
-    pa=new cirwall(343.326,136.22,180,173,181,78,214,1);
+    pa=new cirwall(343.326,136.22,180,173,181,78,214,0.5);
     cob.push_back(pa);//19
     pa=0;//轨道
-    pa=new cirwall(339.835,144.28,150,205,200,210,90,1);
+    pa=new cirwall(339.835,144.28,150,205,200,210,90,0.5);
     cob.push_back(pa);//20
     pa=0;//轨道
-    pa=new stwall(100,67,40,424,1);
+    pa=new stwall(100,67,40,424,0.7);
     cob.push_back(pa);//21
     pa=0;//左壁
-    pa=new stwall(500,533,40,424,1);
+    pa=new stwall(500,533,40,424,0.7);
     cob.push_back(pa);//22
     pa=0;//右壁
 }
