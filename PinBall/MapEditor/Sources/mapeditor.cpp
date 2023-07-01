@@ -139,8 +139,6 @@ MapEditor::MapEditor(QWidget *parent) : QWidget(parent)
     // -default_pic
     _theme_covers[0]=new QPixmap(":/mapeditor/themes/Legacy_cover.png");
     *_theme_covers[0] = _theme_covers[0]->scaled(175,70, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    _theme_covers[1]=new QPixmap(":/mapeditor/themes/Bustling_Downtown_cover.png");
-    *_theme_covers[1] = _theme_covers[1]->scaled(175,70, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     _theme_cover_display=new QLabel(this);
     _theme_cover_display->setParent(this);
     _theme_cover_display->setText("");
@@ -272,6 +270,6 @@ void MapEditor::updateTheme(){
     _theme_index=_theme_index>=0?_theme_index:_theme_index+_theme_count;
     _theme_title_display->setText(_theme_titles[_theme_index]);
     _theme_cover_display->setPixmap(*_theme_covers[_theme_index]);
-    qDebug()<<_theme_index;
+    // qDebug()<<_theme_index;
     //update others
 }

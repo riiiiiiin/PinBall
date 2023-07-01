@@ -51,14 +51,6 @@ void GameWindow::keyPressEvent(QKeyEvent* event)
             emit pressM();
             break;
         }
-        case Qt::Key_Return:{
-            qDebug()<<"Enter Pressed";
-            break;
-        }
-        case Qt::Key_Enter:{
-            qDebug()<<"Enter Pressed";
-            break;
-        }
     }
     QWidget::keyPressEvent(event);
     // 发送按下信号

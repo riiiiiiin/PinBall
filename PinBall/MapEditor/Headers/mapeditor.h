@@ -32,10 +32,10 @@ private:
 
     QVector<QSoundEffect*> _sound_effects;
     QSoundEffect* _music;
-
+    // 待重写
     int _theme_index{0};
-    int _theme_count{2};
-    const QVector<QString> _theme_titles{"Legacy","Bustling Downtown"};
+    int _theme_count{1};
+    const QVector<QString> _theme_titles{"Legacy"};
     QVector<QPixmap*> _theme_covers;
 
     QLabel* _theme_title_display;

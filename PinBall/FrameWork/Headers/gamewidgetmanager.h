@@ -7,6 +7,7 @@
 
 #include "Game/Headers/gamemap.h"
 #include "MapEditor/Headers/mapeditor.h"
+#include "FrameWork/Headers/themepack.h"
 
 class GameWidgetManager : public QObject{
     Q_OBJECT
@@ -14,8 +15,12 @@ private:
     QStackedWidget* _stacked_widget;
     GameMap* _map;
     MapEditor* _map_editor;
+
     QSoundEffect* _music;
     QVector<QSoundEffect*> _sound_effects;
+
+    int _theme_index;
+    QVector<ThemePack> _theme_packs;
 public:
     GameWidgetManager(QWidget* parent=nullptr);
     ~GameWidgetManager();
