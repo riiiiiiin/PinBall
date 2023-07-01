@@ -29,10 +29,10 @@ private:
     int _score;
 
     int& _theme_index;
-    QVector<ThemePack>& _theme_packs;
+    QVector<ThemePack*>& _theme_packs;
     
 public:
-    GameMap(int&,QVector<ThemePack>&,QSoundEffect *, QVector<QSoundEffect *>,QWidget *parent = nullptr);
+    GameMap(int&,QVector<ThemePack*>&,QSoundEffect *, QVector<QSoundEffect *>,QWidget *parent = nullptr);
     ~GameMap();
     void paintEvent(QPaintEvent *e) override;
 

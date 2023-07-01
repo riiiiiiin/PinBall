@@ -19,8 +19,8 @@ private:
     QSoundEffect* _music;
     QVector<QSoundEffect*> _sound_effects;
 
-    int _theme_index{0};
-    QVector<ThemePack> _theme_packs;
+    int _theme_index{};
+    QVector<ThemePack*> _theme_packs;
 public:
     GameWidgetManager(QWidget* parent=nullptr);
     ~GameWidgetManager();

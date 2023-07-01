@@ -1,33 +1,9 @@
 #include "Game/Headers/map.h"
 
-map::map(int& theme_index,QVector<ThemePack>& themes,QWidget *parent)
+map::map(int& theme_index,QVector<ThemePack*>& themes,QWidget *parent)
 : pparent(parent),_theme_index(theme_index),_theme_packs(themes), encoded_elements(encoded_dynamic)
 {
     pb=nullptr;
-
-    /////////////////////////////////
-    /////       预加载图片       /////
-    /////////////////////////////////
-
-    pic_buffer.clear();
-    pic_buffer.resize(8);
-    pic_buffer[enumPixmapIndex::p_Background] = new QPixmap(":/map_items/background.png");
-    *pic_buffer[enumPixmapIndex::p_Background] = pic_buffer[enumPixmapIndex::p_Background]->scaled(600, 540, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    pic_buffer[enumPixmapIndex::p_Ball] = new QPixmap(":/map_items/ball.png");
-    *pic_buffer[enumPixmapIndex::p_Ball] = pic_buffer[enumPixmapIndex::p_Ball]->scaled(20, 20, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    pic_buffer[enumPixmapIndex::p_LFlipper] = new QPixmap(":/map_items/shifted_left_flipper.png");
-    *pic_buffer[enumPixmapIndex::p_LFlipper] = pic_buffer[enumPixmapIndex::p_LFlipper]->scaled(191, 377, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    pic_buffer[enumPixmapIndex::p_RFlipper] = new QPixmap(":/map_items/shifted_right_flipper.png");
-    *pic_buffer[enumPixmapIndex::p_RFlipper] = pic_buffer[enumPixmapIndex::p_RFlipper]->scaled(191, 377, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    pic_buffer[enumPixmapIndex::p_LKidney] = new QPixmap(":/map_items/shifted_left_kidney.png");
-    *pic_buffer[enumPixmapIndex::p_LKidney] = pic_buffer[enumPixmapIndex::p_LKidney]->scaled(53,134, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    pic_buffer[enumPixmapIndex::p_RKidney] = new QPixmap(":/map_items/shifted_right_kidney.png");
-    *pic_buffer[enumPixmapIndex::p_RKidney] = pic_buffer[enumPixmapIndex::p_RKidney]->scaled(53,134, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    pic_buffer[enumPixmapIndex::p_Drum] = new QPixmap(":/map_items/new_drum.png");
-    *pic_buffer[enumPixmapIndex::p_Drum] = pic_buffer[enumPixmapIndex::p_Drum]->scaled(40, 40, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-    pic_buffer[enumPixmapIndex::p_BonusPoint] = new QPixmap(":/map_items/new_bonus_point.png");
-    *pic_buffer[enumPixmapIndex::p_BonusPoint] = pic_buffer[enumPixmapIndex::p_BonusPoint]->scaled(20, 20, Qt::KeepAspectRatio, Qt::SmoothTransformation);
-
     //////////////////////////////////
     ////      静态地图元素部分     ////
     /////////////////////////////////
@@ -303,6 +279,7 @@ void map::rebuild_map()
     {
         encoded_elements = encoded_dynamic;
     }
+    qDebug()<<gball;
 }
 
 void map::redraw_map()
@@ -315,25 +292,25 @@ void map::redraw_map()
     map_pic_labels.clear();
 
     QLabel *plabel = new QLabel(pparent);
-    plabel->setPixmap(*pic_buffer[enumPixmapIndex::p_Background]);
-    plabel->setMask(pic_buffer[enumPixmapIndex::p_Background]->mask());
+    plabel->setPixmap(*_theme_packs[_theme_index]->themePics()[BG_Game]);
+    plabel->setMask(_theme_packs[_theme_index]->themePics()[BG_Game]->mask());
     plabel->setGeometry(0, 0, 600, 540);
     plabel->setFixedSize(600, 540);
     plabel->show();
     map_pic_labels.push_back(plabel);
 
-    // _shadow = new QGraphicsDropShadowEffect();
-    // _shadow->setBlurRadius(50);
-    // _shadow->setColor(QColor("#ffffff"));
-    // _shadow->setOffset(0);
-    // _shadow->setEnabled(true);
-    // plabel->setGraphicsEffect(_shadow);
+    _shadow = new QGraphicsDropShadowEffect();
+    _shadow->setBlurRadius(70);
+    _shadow->setColor(QColor("#ffffff"));
+    _shadow->setOffset(0);
+    _shadow->setEnabled(true);
+    plabel->setGraphicsEffect(_shadow);
 
     plabel = nullptr;
 
     plabel = new QLabel(pparent);
-    plabel->setPixmap(*pic_buffer[enumPixmapIndex::p_Ball]);
-    plabel->setMask(pic_buffer[enumPixmapIndex::p_Ball]->mask());
+    plabel->setPixmap(*_theme_packs[_theme_index]->themePics()[Ball]);
+    plabel->setMask(_theme_packs[_theme_index]->themePics()[Ball]->mask());
     plabel->setGeometry(pb->getx() - 10, pb->gety() - 10, 20, 20);
     plabel->setFixedSize(20, 20);
     plabel->show();
@@ -342,8 +319,7 @@ void map::redraw_map()
     plabel = nullptr;
 
     plabel = new QLabel(pparent);
-    plabel->setPixmap(*pic_buffer[enumPixmapIndex::p_LFlipper]);
-    // plabel->setMask(pic_buffer[enumPixmapIndex::p_LFlipper]->mask());
+    plabel->setPixmap(*_theme_packs[_theme_index]->themePics()[lFlipper]);
     plabel->setGeometry(98, 294, 191, 377);
     plabel->show();
     map_pic_labels.push_back(plabel);
@@ -351,8 +327,7 @@ void map::redraw_map()
     plabel = nullptr;
 
     plabel = new QLabel(pparent);
-    plabel->setPixmap(*pic_buffer[enumPixmapIndex::p_RFlipper]);
-    // plabel->setMask(pic_buffer[enumPixmapIndex::p_RFlipper]->mask());
+    plabel->setPixmap(*_theme_packs[_theme_index]->themePics()[rFlipper]);
     plabel->setGeometry(305, 295, 191, 377);
     plabel->show();
     map_pic_labels.push_back(plabel);
@@ -366,8 +341,8 @@ void map::redraw_map()
         case enumMapElements::LKidney:
         {
             plabel = new QLabel(pparent);
-            plabel->setPixmap(*pic_buffer[enumPixmapIndex::p_LKidney]);
-            plabel->setMask(pic_buffer[enumPixmapIndex::p_LKidney]->mask());
+            plabel->setPixmap(*_theme_packs[_theme_index]->themePics()[lKidney_game]);
+            plabel->setMask(_theme_packs[_theme_index]->themePics()[lKidney_game]->mask());
             plabel->setGeometry(e.m_x - 50, e.m_y - 120, 53, 134);
             plabel->setFixedSize(53, 134);
             plabel->show();
@@ -379,8 +354,8 @@ void map::redraw_map()
         case enumMapElements::RKidney:
         {
             plabel = new QLabel(pparent);
-            plabel->setPixmap(*pic_buffer[enumPixmapIndex::p_RKidney]);
-            plabel->setMask(pic_buffer[enumPixmapIndex::p_RKidney]->mask());
+            plabel->setPixmap(*_theme_packs[_theme_index]->themePics()[rKidney_game]);
+            plabel->setMask(_theme_packs[_theme_index]->themePics()[rKidney_game]->mask());
             plabel->setGeometry(e.m_x - 3, e.m_y - 120, 53, 134);
             plabel->setFixedSize(53, 134);
             plabel->show();
@@ -392,8 +367,8 @@ void map::redraw_map()
         case enumMapElements::Drum:
         {
             plabel = new QLabel(pparent);
-            plabel->setPixmap(*pic_buffer[enumPixmapIndex::p_Drum]);
-            plabel->setMask(pic_buffer[enumPixmapIndex::p_Drum]->mask());
+            plabel->setPixmap(*_theme_packs[_theme_index]->themePics()[Drum_game]);
+            plabel->setMask(_theme_packs[_theme_index]->themePics()[Drum_game]->mask());
             plabel->setGeometry(e.m_x - 20, e.m_y - 20, 40, 40);
             plabel->setFixedSize(40, 40);
             plabel->show();
@@ -405,8 +380,8 @@ void map::redraw_map()
         case enumMapElements::BonusPoint:
         {
             plabel = new QLabel(pparent);
-            plabel->setPixmap(*pic_buffer[enumPixmapIndex::p_BonusPoint]);
-            plabel->setMask(pic_buffer[enumPixmapIndex::p_BonusPoint]->mask());
+            plabel->setPixmap(*_theme_packs[_theme_index]->themePics()[Bonus_Point_game]);
+            plabel->setMask(_theme_packs[_theme_index]->themePics()[Bonus_Point_game]->mask());
             plabel->setGeometry(e.m_x - 10, e.m_y - 10, 20, 20);
             plabel->setFixedSize(20, 20);
             plabel->show();
@@ -428,7 +403,7 @@ void map::updateflipper()
 {
     QLabel* plabel = map_pic_labels[2];
 
-    QPixmap* ppix=pic_buffer[enumPixmapIndex::p_LFlipper];
+    QPixmap* ppix=_theme_packs[_theme_index]->themePics()[lFlipper];
     QPixmap* rotatedPixmap=new QPixmap(ppix->size());
     rotatedPixmap->fill(Qt::transparent);
     QPainter* painter=new QPainter(rotatedPixmap);
@@ -443,7 +418,7 @@ void map::updateflipper()
 
     plabel = map_pic_labels[3];
 
-    ppix=pic_buffer[enumPixmapIndex::p_RFlipper];
+    ppix=_theme_packs[_theme_index]->themePics()[rFlipper];
     rotatedPixmap=new QPixmap(ppix->size());
     rotatedPixmap->fill(Qt::transparent);
     painter=new QPainter(rotatedPixmap);

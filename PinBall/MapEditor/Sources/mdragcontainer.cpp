@@ -1,25 +1,25 @@
 #include "MapEditor/Headers/mdragcontainer.h"
 
-MDragContainer::MDragContainer(int& theme_index,QVector<ThemePack>& themes,QWidget *parent)
+MDragContainer::MDragContainer(int& theme_index,QVector<ThemePack*>& themes,QWidget *parent)
  : QObject(parent), _parent(parent),_theme_index(theme_index),_theme_packs(themes)
 {
     // open pixmap
-    _home_pic = new QPixmap(":/mapeditor/draggables/home_pic.png");
-    _static_pic = new QPixmap(":/mapeditor/draggables/static.png");
-    _dragged_valid = new QPixmap(":/mapeditor/draggables/dragged_valid.png");
-    _dragged_invalid = new QPixmap(":/mapeditor/draggables/dragged_invalid.png");
-    _home_pic_2 = new QPixmap(":/mapeditor/draggables/home_pic_2.png");
-    _static_pic_2 = new QPixmap(":/mapeditor/draggables/static_2.png");
-    _dragged_valid_2 = new QPixmap(":/mapeditor/draggables/dragged_valid_2.png");
-    _dragged_invalid_2 = new QPixmap(":/mapeditor/draggables/dragged_invalid_2.png");
-    _home_pic_3 = new QPixmap(":/mapeditor/draggables/home_pic_3.png");
-    _static_pic_3 = new QPixmap(":/mapeditor/draggables/static_3.png");
-    _dragged_valid_3 = new QPixmap(":/mapeditor/draggables/dragged_valid_3.png");
-    _dragged_invalid_3 = new QPixmap(":/mapeditor/draggables/dragged_invalid_3.png");
-    _home_pic_4 = new QPixmap(":/mapeditor/draggables/home_pic_4.png");
-    _static_pic_4 = new QPixmap(":/mapeditor/draggables/static_4.png");
-    _dragged_valid_4 = new QPixmap(":/mapeditor/draggables/dragged_valid_4.png");
-    _dragged_invalid_4 = new QPixmap(":/mapeditor/draggables/dragged_invalid_4.png");
+    _home_pic = _theme_packs[_theme_index]->themePics()[lKidney_home];
+    _static_pic = _theme_packs[_theme_index]->themePics()[lKidney_placed];
+    _dragged_valid = _theme_packs[_theme_index]->themePics()[lKidney_valid];
+    _dragged_invalid = _theme_packs[_theme_index]->themePics()[lKidney_invalid];
+    _home_pic_2 = _theme_packs[_theme_index]->themePics()[rKidney_home];
+    _static_pic_2 = _theme_packs[_theme_index]->themePics()[rKidney_placed];
+    _dragged_valid_2 = _theme_packs[_theme_index]->themePics()[rKidney_valid];
+    _dragged_invalid_2 = _theme_packs[_theme_index]->themePics()[rKidney_invalid];
+    _home_pic_3 = _theme_packs[_theme_index]->themePics()[Drum_home];
+    _static_pic_3 = _theme_packs[_theme_index]->themePics()[Drum_placed];
+    _dragged_valid_3 = _theme_packs[_theme_index]->themePics()[Drum_valid];
+    _dragged_invalid_3 = _theme_packs[_theme_index]->themePics()[Drum_invalid];
+    _home_pic_4 = _theme_packs[_theme_index]->themePics()[Bonus_Point_home];
+    _static_pic_4 = _theme_packs[_theme_index]->themePics()[Bonus_Point_placed];
+    _dragged_valid_4 = _theme_packs[_theme_index]->themePics()[Bonus_Point_valid];
+    _dragged_invalid_4 = _theme_packs[_theme_index]->themePics()[Bonus_Point_invalid];
 
     _scratch_pic = new QPixmap(":/mapeditor/backgrounds/scratch.png");
     _scratch_shadow = new MDraggableShadow(_scratch_pic);
@@ -67,24 +67,7 @@ MDragContainer::~MDragContainer()
     {
         delete ptr;
     }
-    _map_elements.clear();
-    delete _home_pic;
-    delete _static_pic;
-    delete _dragged_valid;
-    delete _dragged_invalid;
-    delete _home_pic_2;
-    delete _static_pic_2;
-    delete _dragged_valid_2;
-    delete _dragged_invalid_2;
-    delete _home_pic_3;
-    delete _static_pic_3;
-    delete _dragged_valid_3;
-    delete _dragged_invalid_3;
-    delete _home_pic_4;
-    delete _static_pic_4;
-    delete _dragged_valid_4;
-    delete _dragged_invalid_4;
-    
+    _map_elements.clear();   
 }
 
 QVector<EncodedMapElement> MDragContainer::encodeMap(){
@@ -244,5 +227,50 @@ void MDragContainer::handle_remove_element(MDraggable *element_to_remove)
         _map_elements.removeOne(element_to_remove);
         _scene->removeItem(element_to_remove->shadow());
         delete element_to_remove;
+    }
+}
+
+void MDragContainer::updateTheme(){
+    _home_pic = _theme_packs[_theme_index]->themePics()[lKidney_home];
+    _static_pic = _theme_packs[_theme_index]->themePics()[lKidney_placed];
+    _dragged_valid = _theme_packs[_theme_index]->themePics()[lKidney_valid];
+    _dragged_invalid = _theme_packs[_theme_index]->themePics()[lKidney_invalid];
+    _home_pic_2 = _theme_packs[_theme_index]->themePics()[rKidney_home];
+    _static_pic_2 = _theme_packs[_theme_index]->themePics()[rKidney_placed];
+    _dragged_valid_2 = _theme_packs[_theme_index]->themePics()[rKidney_valid];
+    _dragged_invalid_2 = _theme_packs[_theme_index]->themePics()[rKidney_invalid];
+    _home_pic_3 = _theme_packs[_theme_index]->themePics()[Drum_home];
+    _static_pic_3 = _theme_packs[_theme_index]->themePics()[Drum_placed];
+    _dragged_valid_3 = _theme_packs[_theme_index]->themePics()[Drum_valid];
+    _dragged_invalid_3 = _theme_packs[_theme_index]->themePics()[Drum_invalid];
+    _home_pic_4 = _theme_packs[_theme_index]->themePics()[Bonus_Point_home];
+    _static_pic_4 = _theme_packs[_theme_index]->themePics()[Bonus_Point_placed];
+    _dragged_valid_4 = _theme_packs[_theme_index]->themePics()[Bonus_Point_valid];
+    _dragged_invalid_4 = _theme_packs[_theme_index]->themePics()[Bonus_Point_invalid];
+
+    _dragLKidney_home->updatePics(_home_pic,_static_pic,_dragged_valid,_dragged_invalid);
+    _dragRKidney_home->updatePics(_home_pic_2,_static_pic_2,_dragged_valid_2,_dragged_invalid_2);
+    _dragDrum_home->updatePics(_home_pic_3,_static_pic_3,_dragged_valid_3,_dragged_invalid_3);
+    _dragBonusPoint_home->updatePics(_home_pic_4,_static_pic_4,_dragged_valid_4,_dragged_invalid_4);
+
+    for(auto ptr:_map_elements){
+        switch(ptr->type()){
+            case LKidney:{
+                ptr->updatePics(_home_pic,_static_pic,_dragged_valid,_dragged_invalid);
+                break;
+            }
+            case RKidney:{
+                ptr->updatePics(_home_pic_2,_static_pic_2,_dragged_valid_2,_dragged_invalid_2);
+                break;
+            }
+            case Drum:{
+                ptr->updatePics(_home_pic_3,_static_pic_3,_dragged_valid_3,_dragged_invalid_3);
+                break;
+            }
+            case BonusPoint:{
+                ptr->updatePics(_home_pic_4,_static_pic_4,_dragged_valid_4,_dragged_invalid_4);
+                break;
+            }
+        }
     }
 }

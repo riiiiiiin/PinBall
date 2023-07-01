@@ -1,6 +1,6 @@
 #include "Game/Headers/gamemap.h"
 
-GameMap::GameMap(int& theme_index,QVector<ThemePack>& themes,QSoundEffect* music,QVector<QSoundEffect*> se,QWidget *parent)
+GameMap::GameMap(int& theme_index,QVector<ThemePack*>& themes,QSoundEffect* music,QVector<QSoundEffect*> se,QWidget *parent)
  : QWidget(parent),_theme_index(theme_index),_theme_packs(themes),_music(music),_sound_effects(se)
 {
     setGeometry(0, 0, 960, 540);

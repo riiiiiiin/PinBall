@@ -13,7 +13,7 @@ class GameWindow : public QWidget
 
 public:
     int highest;//最高分
-    GameWindow(int&,QVector<ThemePack>&,QWidget *parent = nullptr);
+    GameWindow(int&,QVector<ThemePack*>&,QWidget *parent = nullptr);
     ~GameWindow();
     void stoptime();//两个计时器停止
     void starttime();//两个计时器开始
@@ -42,6 +42,6 @@ private:
     map *leftmap;
 
     int& _theme_index;
-    QVector<ThemePack>& _theme_packs;
+    QVector<ThemePack*>& _theme_packs;
 };
 #endif // MAINWINDOW_H

@@ -29,7 +29,7 @@ private:
     QPixmap* _dragged_invalid_4;
 
     int& _theme_index;
-    QVector<ThemePack>& _theme_packs;
+    QVector<ThemePack*>& _theme_packs;
 
     QPixmap* _scratch_pic;
     MDraggableShadow* _scratch_shadow;
@@ -49,7 +49,7 @@ private:
     QWidget* _parent;
     QGraphicsScene* _scene;
 public:
-    explicit MDragContainer(int&,QVector<ThemePack>&,QWidget* parent = nullptr);
+    explicit MDragContainer(int&,QVector<ThemePack*>&,QWidget* parent = nullptr);
     ~MDragContainer();
     QVector<EncodedMapElement> encodeMap();
     void decodeMap(QVector<EncodedMapElement>);

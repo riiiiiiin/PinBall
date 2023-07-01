@@ -1,6 +1,6 @@
 #include "MapEditor/Headers/mapeditor.h"
 
-MapEditor::MapEditor(int& theme_index,QVector<ThemePack>& themes,QSoundEffect* music,QVector<QSoundEffect*> se,QWidget *parent) 
+MapEditor::MapEditor(int& theme_index,QVector<ThemePack*>& themes,QSoundEffect* music,QVector<QSoundEffect*> se,QWidget *parent) 
 : QWidget(parent),_theme_index(theme_index),_theme_packs(themes),_music(music),_sound_effects(se)
 {
     setGeometry(0, 0, 960, 540);
@@ -56,14 +56,12 @@ MapEditor::MapEditor(int& theme_index,QVector<ThemePack>& themes,QSoundEffect* m
     _draggable_containers[4]->setGeometry(670 - 5, 300 - 5, 230, 110);
 
     // Setup map background
-    QPixmap background(":/mapeditor/backgrounds/mapeditor_background.png");
-    background = background.scaled(600, 540, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     _map_background = new QLabel(this);
     _map_background->setParent(this);
     _map_background->setGeometry(0, 0, 600, 540);
     _map_background->setText("");
-    _map_background->setPixmap(background);
-    _map_background->setMask(background.mask());
+    _map_background->setPixmap(*_theme_packs[_theme_index]->themePics()[BG_Map_Editor]);
+    _map_background->setMask(_theme_packs[_theme_index]->themePics()[BG_Map_Editor]->mask());
 
     _shadow = new QGraphicsDropShadowEffect();
     _shadow->setBlurRadius(70);
@@ -135,23 +133,14 @@ MapEditor::MapEditor(int& theme_index,QVector<ThemePack>& themes,QSoundEffect* m
     _theme_title_display->setStyleSheet("color:honeydew;font-family: \"Segoe UI Variable Display Light\"; font-size: 25px;");
     _theme_title_display->setGeometry(680,360,200,40);
 
-
-    //////////////////////////
-    /////     待重写     /////
-    /////////////////////////
-    // _theme_covers.resize(1);
-    // -warning pic_count=?=theme_count
-    // -default_pic
-    // _theme_covers[0]=new QPixmap(":/mapeditor/themes/Legacy_cover.png");
-    // *_theme_covers[0] = _theme_covers[0]->scaled(175,70, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     _theme_cover_display=new QLabel(this);
     _theme_cover_display->setParent(this);
     _theme_cover_display->setText("");
     _theme_cover_display->setGeometry(695,300,175,70);
     
-    updateTheme();
-
     _container = new MDragContainer(_theme_index,_theme_packs,this);
+
+    updateTheme();
 
     // Setup confirm dialogs
     _switch_confirm = new SwitchToMapConfirm(this);
@@ -261,10 +250,14 @@ void MapEditor::on_themeIndexDecrease(){
 }
 
 void MapEditor::updateTheme(){
-    // _theme_index=_theme_index%_theme_count;
-    // _theme_index=_theme_index>=0?_theme_index:_theme_index+_theme_count;
-    // _theme_title_display->setText(_theme_titles[_theme_index]);
-    // _theme_cover_display->setPixmap(*_theme_covers[_theme_index]);
-    // qDebug()<<_theme_index;
-    //update others
+    _theme_index=_theme_index%_theme_packs.size();
+    _theme_index=_theme_index>=0?_theme_index:_theme_index+_theme_packs.size();
+    
+    _theme_title_display->setText(_theme_packs[_theme_index]->themeTitle());
+    _theme_cover_display->setPixmap(*_theme_packs[_theme_index]->themePics()[Cover]);
+
+    _map_background->setPixmap(*_theme_packs[_theme_index]->themePics()[BG_Map_Editor]);
+    _map_background->setMask(_theme_packs[_theme_index]->themePics()[BG_Map_Editor]->mask());
+    
+    _container->updateTheme();
 }

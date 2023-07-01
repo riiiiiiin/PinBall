@@ -34,15 +34,13 @@ private:
     QSoundEffect* _music;
     
     int& _theme_index;
-    QVector<ThemePack>& _theme_packs;
+    QVector<ThemePack*>& _theme_packs;
 
     QLabel* _theme_title_display;
-    QLabel* _theme_cover_display;
-
-    
+    QLabel* _theme_cover_display; 
     
 public:
-    MapEditor(int&,QVector<ThemePack>&,QSoundEffect*,QVector<QSoundEffect*>,QWidget* parent=nullptr);
+    MapEditor(int&,QVector<ThemePack*>&,QSoundEffect*,QVector<QSoundEffect*>,QWidget* parent=nullptr);
     ~MapEditor();
     void paintEvent(QPaintEvent* event)override;
     void setUpMap(QVector<EncodedMapElement>);

@@ -14,7 +14,7 @@ GameWidgetManager::GameWidgetManager(QWidget* parent)
     _music->setVolume(0.25f);
     _music->play();
     //Setup ThemePacks
-    ThemePack legacy_pack;
+    auto legacy_pack= new ThemePack();
     _theme_packs.push_back(legacy_pack);
     QString executablePath = QCoreApplication::applicationDirPath();
     QString initialDirectory = QDir(executablePath).filePath("Themepacks");
@@ -24,8 +24,8 @@ GameWidgetManager::GameWidgetManager(QWidget* parent)
         QString subdirPath = directory.absoluteFilePath(subdirectory);
         QString filePath = QDir(subdirPath).filePath("theme.json");
         if(QFile::exists(filePath)){
-            ThemePack customized_pack(filePath);
-            if(customized_pack.loadTheme()){
+            auto customized_pack=new ThemePack(subdirPath);
+            if(customized_pack->loadTheme()){
                 _theme_packs.push_back(customized_pack);
             }
         }

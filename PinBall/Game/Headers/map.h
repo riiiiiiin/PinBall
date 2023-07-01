@@ -23,23 +23,12 @@
 #include "Game/Headers/object.h"
 #include "FrameWork/Headers/themepack.h"
 
-enum enumPixmapIndex{
-    p_Background,
-    p_Ball,
-    p_LFlipper,
-    p_RFlipper,
-    p_LKidney,
-    p_RKidney,
-    p_Drum,
-    p_BonusPoint
-};
-
 class map : public QObject
 {
     Q_OBJECT
 
 public:
-    map(int&,QVector<ThemePack>&,QWidget *parent=nullptr);
+    map(int&,QVector<ThemePack*>&,QWidget *parent=nullptr);
     ~map();
     void rebuild_map();
     void redraw_map();
@@ -80,12 +69,11 @@ private:
     QVector<EncodedMapElement> encoded_dynamic_default;
     QVector<EncodedMapElement>& encoded_elements;
 
-    QVector<QPixmap*> pic_buffer;
     QVector<QLabel*> map_pic_labels;
     QGraphicsDropShadowEffect* _shadow;
 
     int& _theme_index;
-    QVector<ThemePack>& _theme_packs;
+    QVector<ThemePack*>& _theme_packs;
 
     void updateball();
     void updateflipper();
