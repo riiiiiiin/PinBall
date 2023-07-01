@@ -20,3 +20,8 @@ Simply include "www.fiftysounds.com" in your project.
 + [Free 'Menu' Icons](https://www.iconfinder.com/search?q=menu&price=free&style=solid)
 + [Free 'Play' Icons](https://www.iconfinder.com/search?q=play&price=free&style=solid)
 + [Free 'Next' Icons](https://www.iconfinder.com/search?q=next&price=free&style=solid)
+
+## The Theme 'Bustling Downtown' From...
+[Bing Image Creator](https://bing.com/create)
+> _It seems Microsoft have not yet declared the authority of these AI-generated pictures..._
+
