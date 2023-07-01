@@ -21,6 +21,7 @@
 
 #include "FrameWork/Headers/encodedmap.h"
 #include "Game/Headers/object.h"
+#include "FrameWork/Headers/themepack.h"
 
 enum enumPixmapIndex{
     p_Background,
@@ -38,7 +39,7 @@ class map : public QObject
     Q_OBJECT
 
 public:
-    map(QWidget *parent=nullptr);
+    map(int&,QVector<ThemePack>&,QWidget *parent=nullptr);
     ~map();
     void rebuild_map();
     void redraw_map();
@@ -82,6 +83,9 @@ private:
     QVector<QPixmap*> pic_buffer;
     QVector<QLabel*> map_pic_labels;
     QGraphicsDropShadowEffect* _shadow;
+
+    int& _theme_index;
+    QVector<ThemePack>& _theme_packs;
 
     void updateball();
     void updateflipper();

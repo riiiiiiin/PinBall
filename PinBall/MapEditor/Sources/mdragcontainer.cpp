@@ -1,6 +1,7 @@
 #include "MapEditor/Headers/mdragcontainer.h"
 
-MDragContainer::MDragContainer(QWidget *parent) : QObject(parent), _parent(parent)
+MDragContainer::MDragContainer(int& theme_index,QVector<ThemePack>& themes,QWidget *parent)
+ : QObject(parent), _parent(parent),_theme_index(theme_index),_theme_packs(themes)
 {
     // open pixmap
     _home_pic = new QPixmap(":/mapeditor/draggables/home_pic.png");

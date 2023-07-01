@@ -1,6 +1,7 @@
 #include "MapEditor/Headers/mapeditor.h"
 
-MapEditor::MapEditor(QWidget *parent) : QWidget(parent)
+MapEditor::MapEditor(int& theme_index,QVector<ThemePack>& themes,QSoundEffect* music,QVector<QSoundEffect*> se,QWidget *parent) 
+: QWidget(parent),_theme_index(theme_index),_theme_packs(themes),_music(music),_sound_effects(se)
 {
     setGeometry(0, 0, 960, 540);
     setWindowFlags(Qt::FramelessWindowHint | windowFlags());
@@ -134,11 +135,15 @@ MapEditor::MapEditor(QWidget *parent) : QWidget(parent)
     _theme_title_display->setStyleSheet("color:honeydew;font-family: \"Segoe UI Variable Display Light\"; font-size: 25px;");
     _theme_title_display->setGeometry(680,360,200,40);
 
-    _theme_covers.resize(_theme_count);
+
+    //////////////////////////
+    /////     待重写     /////
+    /////////////////////////
+    // _theme_covers.resize(1);
     // -warning pic_count=?=theme_count
     // -default_pic
-    _theme_covers[0]=new QPixmap(":/mapeditor/themes/Legacy_cover.png");
-    *_theme_covers[0] = _theme_covers[0]->scaled(175,70, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    // _theme_covers[0]=new QPixmap(":/mapeditor/themes/Legacy_cover.png");
+    // *_theme_covers[0] = _theme_covers[0]->scaled(175,70, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     _theme_cover_display=new QLabel(this);
     _theme_cover_display->setParent(this);
     _theme_cover_display->setText("");
@@ -146,7 +151,7 @@ MapEditor::MapEditor(QWidget *parent) : QWidget(parent)
     
     updateTheme();
 
-    _container = new MDragContainer(this);
+    _container = new MDragContainer(_theme_index,_theme_packs,this);
 
     // Setup confirm dialogs
     _switch_confirm = new SwitchToMapConfirm(this);
@@ -172,9 +177,6 @@ MapEditor::~MapEditor()
     delete _pMask;
     delete _settings_menu;
     delete _blure;
-    for(auto ptr:_theme_covers){
-        delete ptr;
-    }
     delete _theme_title_display;
     delete _theme_cover_display;
 }
@@ -186,13 +188,6 @@ void MapEditor::paintEvent(QPaintEvent *e)
     QPainter painter(this);
     painter.drawPixmap(0, 0, *bg);
     QWidget::paintEvent(e);
-}
-
-void MapEditor::setSounds(QSoundEffect *music, QVector<QSoundEffect *> se)
-{
-    _music = music;
-    _sound_effects = se;
-    _settings_menu->setSounds(music, se);
 }
 
 void MapEditor::on_pauseButtonClicked()
@@ -266,10 +261,10 @@ void MapEditor::on_themeIndexDecrease(){
 }
 
 void MapEditor::updateTheme(){
-    _theme_index=_theme_index%_theme_count;
-    _theme_index=_theme_index>=0?_theme_index:_theme_index+_theme_count;
-    _theme_title_display->setText(_theme_titles[_theme_index]);
-    _theme_cover_display->setPixmap(*_theme_covers[_theme_index]);
+    // _theme_index=_theme_index%_theme_count;
+    // _theme_index=_theme_index>=0?_theme_index:_theme_index+_theme_count;
+    // _theme_title_display->setText(_theme_titles[_theme_index]);
+    // _theme_cover_display->setPixmap(*_theme_covers[_theme_index]);
     // qDebug()<<_theme_index;
     //update others
 }

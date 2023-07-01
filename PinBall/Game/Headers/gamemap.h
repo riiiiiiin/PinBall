@@ -27,12 +27,14 @@ private:
     QGraphicsBlurEffect *_blure;
 
     int _score;
+
+    int& _theme_index;
+    QVector<ThemePack>& _theme_packs;
     
 public:
-    GameMap(QWidget *parent = nullptr);
+    GameMap(int&,QVector<ThemePack>&,QSoundEffect *, QVector<QSoundEffect *>,QWidget *parent = nullptr);
     ~GameMap();
     void paintEvent(QPaintEvent *e) override;
-    void setSounds(QSoundEffect *, QVector<QSoundEffect *>);
 
 private slots:
     void on_pauseButtonClicked();

@@ -5,15 +5,15 @@
 #include "Game/Headers/object.h"
 #include "Game/Headers/map.h"
 
-GameWindow::GameWindow(QWidget *parent)
-    : QWidget(parent)
+GameWindow::GameWindow(int& theme_index,QVector<ThemePack>& themes,QWidget *parent)
+    : QWidget(parent),_theme_index(theme_index),_theme_packs(themes)
 {
     setFocusPolicy(Qt::StrongFocus);
     setGeometry(0, 0, 600, 540);
     setWindowFlags(Qt::FramelessWindowHint | windowFlags());
     setAttribute(Qt::WA_TranslucentBackground);
     //ui->formLayout->set
-    leftmap=new map(this);
+    leftmap=new map(_theme_index,_theme_packs,this);
     setFixedSize(600, 540);
     tim=new QTimer();
     tim->setInterval(2);

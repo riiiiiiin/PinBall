@@ -32,23 +32,21 @@ private:
 
     QVector<QSoundEffect*> _sound_effects;
     QSoundEffect* _music;
-    // 待重写
-    int _theme_index{0};
-    int _theme_count{1};
-    const QVector<QString> _theme_titles{"Legacy"};
-    QVector<QPixmap*> _theme_covers;
+    
+    int& _theme_index;
+    QVector<ThemePack>& _theme_packs;
 
     QLabel* _theme_title_display;
     QLabel* _theme_cover_display;
 
-    void updateTheme();
+    
     
 public:
-    MapEditor(QWidget* parent=nullptr);
+    MapEditor(int&,QVector<ThemePack>&,QSoundEffect*,QVector<QSoundEffect*>,QWidget* parent=nullptr);
     ~MapEditor();
     void paintEvent(QPaintEvent* event)override;
-    void setSounds(QSoundEffect*,QVector<QSoundEffect*>);
     void setUpMap(QVector<EncodedMapElement>);
+    void updateTheme();
 private slots:
     void on_pauseButtonClicked();
     void on_pauseMenuClosed();

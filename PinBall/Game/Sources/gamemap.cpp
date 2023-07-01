@@ -1,12 +1,13 @@
 #include "Game/Headers/gamemap.h"
 
-GameMap::GameMap(QWidget *parent) : QWidget(parent)
+GameMap::GameMap(int& theme_index,QVector<ThemePack>& themes,QSoundEffect* music,QVector<QSoundEffect*> se,QWidget *parent)
+ : QWidget(parent),_theme_index(theme_index),_theme_packs(themes),_music(music),_sound_effects(se)
 {
     setGeometry(0, 0, 960, 540);
     setWindowFlags(Qt::FramelessWindowHint | windowFlags());
     setFixedSize(960, 540);
 
-    _game_window = new GameWindow(this);
+    _game_window = new GameWindow(_theme_index,_theme_packs,this);
     _game_window->setParent(this);
     _game_window->setVisible(true);
 
@@ -124,13 +125,6 @@ void GameMap::paintEvent(QPaintEvent *e)
     QPainter painter(this);
     painter.drawPixmap(0, 0, *bg);
     QWidget::paintEvent(e);
-}
-
-void GameMap::setSounds(QSoundEffect *music, QVector<QSoundEffect *> se)
-{
-    _music = music;
-    _sound_effects = se;
-    _pmenu->setSounds(music, se);
 }
 
 // enables blure while paused

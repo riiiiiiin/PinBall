@@ -1,6 +1,7 @@
 #include "Game/Headers/map.h"
 
-map::map(QWidget *parent) : pparent(parent), encoded_elements(encoded_dynamic)
+map::map(int& theme_index,QVector<ThemePack>& themes,QWidget *parent)
+: pparent(parent),_theme_index(theme_index),_theme_packs(themes), encoded_elements(encoded_dynamic)
 {
     pb=nullptr;
 

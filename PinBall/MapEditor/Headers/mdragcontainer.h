@@ -6,6 +6,7 @@
 
 #include "MapEditor/Headers/mdraggables.h"
 #include "FrameWork/Headers/encodedmap.h"
+#include "FrameWork/Headers/themepack.h"
 
 class MDragContainer : public QObject{
     Q_OBJECT
@@ -27,6 +28,9 @@ private:
     QPixmap* _dragged_valid_4;
     QPixmap* _dragged_invalid_4;
 
+    int& _theme_index;
+    QVector<ThemePack>& _theme_packs;
+
     QPixmap* _scratch_pic;
     MDraggableShadow* _scratch_shadow;
 
@@ -45,11 +49,12 @@ private:
     QWidget* _parent;
     QGraphicsScene* _scene;
 public:
-    explicit MDragContainer(QWidget* parent = nullptr);
+    explicit MDragContainer(int&,QVector<ThemePack>&,QWidget* parent = nullptr);
     ~MDragContainer();
     QVector<EncodedMapElement> encodeMap();
     void decodeMap(QVector<EncodedMapElement>);
     void clear();
+    void updateTheme();
 public slots:
     void create_new_lKidney();
     void create_new_rKidney();

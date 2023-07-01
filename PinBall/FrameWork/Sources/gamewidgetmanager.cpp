@@ -2,9 +2,6 @@
 
 GameWidgetManager::GameWidgetManager(QWidget* parent)
 :QObject(parent){
-    _stacked_widget = new QStackedWidget(parent);
-    _map = new GameMap(parent);
-    _map_editor = new MapEditor(parent);
     //setup se
     auto _se = new QSoundEffect();
     _se->setSource(QUrl::fromLocalFile(":/se/APPLAUSE.WAV"));
@@ -16,9 +13,27 @@ GameWidgetManager::GameWidgetManager(QWidget* parent)
     _music->setLoopCount(QSoundEffect::Infinite);
     _music->setVolume(0.25f);
     _music->play();
-
-    _map->setSounds(_music,_sound_effects);
-    _map_editor->setSounds(_music,_sound_effects);
+    //Setup ThemePacks
+    ThemePack legacy_pack;
+    _theme_packs.push_back(legacy_pack);
+    QString executablePath = QCoreApplication::applicationDirPath();
+    QString initialDirectory = QDir(executablePath).filePath("Themepacks");
+    QDir directory(initialDirectory);
+    QStringList subdirectories = directory.entryList(QDir::Dirs | QDir::NoDotAndDotDot);
+    for (auto const & subdirectory : subdirectories) {
+        QString subdirPath = directory.absoluteFilePath(subdirectory);
+        QString filePath = QDir(subdirPath).filePath("theme.json");
+        if(QFile::exists(filePath)){
+            ThemePack customized_pack(filePath);
+            if(customized_pack.loadTheme()){
+                _theme_packs.push_back(customized_pack);
+            }
+        }
+    }
+    //Setup Widgets
+    _stacked_widget = new QStackedWidget(parent);
+    _map = new GameMap(_theme_index,_theme_packs,_music,_sound_effects,parent);
+    _map_editor = new MapEditor(_theme_index,_theme_packs,_music,_sound_effects,parent);
     _stacked_widget->addWidget(_map);
     _stacked_widget->addWidget(_map_editor);
 
