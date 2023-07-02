@@ -231,6 +231,7 @@ void MDragContainer::handle_remove_element(MDraggable *element_to_remove)
 }
 
 void MDragContainer::updateTheme(){
+    qDebug()<<"update Theme";
     _home_pic = _theme_packs[_theme_index]->themePics()[lKidney_home];
     _static_pic = _theme_packs[_theme_index]->themePics()[lKidney_placed];
     _dragged_valid = _theme_packs[_theme_index]->themePics()[lKidney_valid];

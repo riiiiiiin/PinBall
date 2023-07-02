@@ -64,7 +64,6 @@ void MConfirmation::on_Accepted()
 
 void MConfirmation::keyPressEvent(QKeyEvent *event)
 {
-    // qDebug()<<event->key();
     switch (event->key())
     {
     case Qt::Key_Escape:

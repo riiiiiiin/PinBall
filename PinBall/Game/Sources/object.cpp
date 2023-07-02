@@ -271,7 +271,7 @@ void award::deleteaward()
 {
     ifaward->stop();
     noaward = false;
-    qDebug()<<'b';
+    // qDebug()<<'b';
 }
 void award::dealaward()
 {
@@ -281,7 +281,7 @@ void award::dealaward()
     {
         ifaward->start();
         noaward = true;
-        qDebug()<<'a';
+        // qDebug()<<'a';
     }
 
 } // 后面可做图片消失与重新出现

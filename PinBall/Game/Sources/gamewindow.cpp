@@ -40,6 +40,7 @@ void GameWindow::resume(){
 }
 void GameWindow::keyPressEvent(QKeyEvent* event)
 {
+    // qDebug()<<"KeyPressed";
     switch(event->key()){
         case Qt::Key_Z:{
             emit pressZ();
@@ -55,17 +56,20 @@ void GameWindow::keyPressEvent(QKeyEvent* event)
 }
 
 void GameWindow::keyReleaseEvent(QKeyEvent* event) {
+    // qDebug()<<"KeyReleased";
     if(event->key()==Qt::Key_Z)  emit releaseZ();
     if(event->key()==Qt::Key_M)  emit releaseM();
     QWidget::keyReleaseEvent(event);
 }
 
 void GameWindow::starttime(){
+    qDebug()<<"time started";
     activateWindow();
     tim->start();
     atim->start();
 }
 void GameWindow::stoptime(){
+    qDebug()<<"time stopped";
     tim->stop();
     atim->stop();
 }

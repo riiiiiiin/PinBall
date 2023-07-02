@@ -305,12 +305,12 @@ void map::redraw_map()
     plabel->show();
     map_pic_labels.push_back(plabel);
 
-    _shadow = new QGraphicsDropShadowEffect();
-    _shadow->setBlurRadius(70);
-    _shadow->setColor(QColor("#ffffff"));
-    _shadow->setOffset(0);
-    _shadow->setEnabled(true);
-    plabel->setGraphicsEffect(_shadow);
+    // _shadow = new QGraphicsDropShadowEffect();
+    // _shadow->setBlurRadius(70);
+    // _shadow->setColor(QColor("#ffffff"));
+    // _shadow->setOffset(0);
+    // _shadow->setEnabled(true);
+    // plabel->setGraphicsEffect(_shadow);
 
     plabel = nullptr;
 
@@ -404,13 +404,11 @@ void map::redraw_map()
 
 void map::updateball()
 {
-    qDebug()<<"ball updated";
     map_pic_labels[1]->move(pb->getx() - 10, pb->gety() - 10);
 }
 
 void map::updateflipper()
 {
-    qDebug()<<"flipper updated";
     QLabel* plabel = map_pic_labels[2];
 
     QPixmap rotatedPixmap(_lflipper_pixmap->size());

@@ -195,6 +195,7 @@ void GameMap::on_newGameRequested(){
 }
 
 void GameMap::handle_setScore(int current_score,int maximum_score){
+    qDebug()<<"Handle score";
     _score = current_score;
     _score_display[1]->setText("🎉"+QString::number(current_score)+"🎉");
     _score_display[2]->setText("🎉"+QString::number(maximum_score)+"🎉");

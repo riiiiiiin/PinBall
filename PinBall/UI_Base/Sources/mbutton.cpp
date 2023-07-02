@@ -34,6 +34,7 @@ MButton::~MButton()
 
 void MButton::enterEvent(QEnterEvent *event)
 {
+    // qDebug()<<"enter Event";
     // reset frame
     QFrame::setStyleSheet("#" + QFrame::objectName() + "{ background-color: rgba(255,255,255,1.0);border-radius:3px; }");
     _shadow->setEnabled(true);

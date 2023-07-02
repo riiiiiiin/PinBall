@@ -67,10 +67,12 @@ ThemePack::ThemePack(QString _dir) : m_packDir(_dir)
 ThemePack::ThemePack(ThemePack&& other)
 :m_packDir(std::move(other.m_packDir)),m_ThemeTitle(std::move(other.m_ThemeTitle)),m_Pics(std::move(other.m_Pics))
 {
+    qDebug()<<"moved";
 }
 
 bool ThemePack::loadTheme()
 {
+    qDebug()<<"loadTheme";
     QFile m_jsonSource(QDir(m_packDir).filePath("theme.json"));
     if (!m_jsonSource.open(QIODevice::ReadOnly))
     {
@@ -146,10 +148,12 @@ ThemePack::~ThemePack()
 
 QString const &ThemePack::themeTitle()
 {
+    qDebug()<<"Theme title called";
     return m_ThemeTitle;
 }
 
 QVector<QPixmap *> const &ThemePack::themePics() const
 {
+    qDebug()<<"Theme pic called";
     return m_Pics;
 }
