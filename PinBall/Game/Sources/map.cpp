@@ -90,6 +90,7 @@ map::map(int& theme_index,QVector<ThemePack*>& themes,QWidget *parent)
 
 void map::onestep()
 {
+    qDebug()<<(double)clock()/CLOCKS_PER_SEC;
     int lc = 0, rc = 0;
     moveupleft = false; // 是否在上升
     moveupright = false;
