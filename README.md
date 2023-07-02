@@ -13,18 +13,13 @@
 # 代码结构
 ### outdated
 #### /
-
+      mainwindow.h
+      mainwindow.cpp
       main.cpp
       程序入口
 ##### /FrameWork -程序中枢
       /Resources/FrameWork_pics
       /Resources/Music&SE
-      /Resources/Slogans
-      程序中枢和主窗口使用的素材
-
-      /Headers/mainwindow.h
-      /Sources/mainwindow.cpp
-      程序主窗口
 
       /Headers/confirmations.h
       /Sources/confirmations.cpp

@@ -166,6 +166,7 @@ void map::onestep()
     {
         emit dead();
     }
+    qDebug()<<(double)clock()/CLOCKS_PER_SEC;
 }
 
 void map::oneeffect()
@@ -248,11 +249,6 @@ void map::rebuild_map()
     moveupright = false;
     theleft = 0.24;
     theright = 0.24; // 初始角
-    wup = 3;         // 上升角速度
-    wdo = 1;         // 下降角速度
-    y = 459;
-    leftx = 210;
-    rightx = 390;
 
     if (pb)
     {
@@ -444,7 +440,6 @@ void map::setmap(QVector<EncodedMapElement> newmap, int gg)
             dynamic_elements.push_back(new stwall(e.m_x - 50, e.m_x - 50, e.m_y - 110, e.m_y - 20, 1));
             dynamic_elements.push_back(new kidney(e.m_x - 30, e.m_x, e.m_y - 110, e.m_y, 1.3));
             dynamic_elements.push_back(new stwall(e.m_x - 40, e.m_x - 10, e.m_y, e.m_y + 10, 1));
-            // dynamic_elements.push_back(new cirwall(e._x - 40, e._y - 106, 12, e._x - 50, e._x - 30, e._y - 110, e._y - 110, 1));
             dynamic_elements.push_back(new cirwall(e.m_x - 40, e.m_y - 106, 12, 1));
             dynamic_elements.push_back(new cirwall(e.m_x - 10, e.m_y, 10, e.m_x, e.m_x - 10, e.m_y, e.m_y + 10, 1));
             dynamic_elements.push_back(new cirwall(e.m_x - 20.1, e.m_y - 22.45, 30, e.m_x - 40, e.m_x - 50, e.m_y, e.m_y - 20, 1));
@@ -456,7 +451,6 @@ void map::setmap(QVector<EncodedMapElement> newmap, int gg)
             dynamic_elements.push_back(new stwall(e.m_x + 50, e.m_x + 50, e.m_y - 110, e.m_y - 20, 1));
             dynamic_elements.push_back(new kidney(e.m_x + 30, e.m_x, e.m_y - 110, e.m_y, 1.3));
             dynamic_elements.push_back(new stwall(e.m_x + 50, e.m_x + 10, e.m_y, e.m_y + 10, 1));
-            // dynamic_elements.push_back(new cirwall(e._x + 40, e._y - 106, 12, e._x + 10, e._x + 30, e._y - 110, e._y - 110, 1));
             dynamic_elements.push_back(new cirwall(e.m_x + 40, e.m_y - 106, 12, 1));
             dynamic_elements.push_back(new cirwall(e.m_x + 10, e.m_y, 10, e.m_x, e.m_x + 10, e.m_y, e.m_y+10, 1));
             dynamic_elements.push_back(new cirwall(e.m_x + 20.1, e.m_y - 22.45, 30, e.m_x + 40, e.m_x + 50, e.m_y, e.m_y - 20, 1));

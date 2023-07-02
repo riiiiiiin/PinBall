@@ -1,6 +1,7 @@
 #include "Game/Headers/object.h"
 
 #include <QDebug>
+#include <ctime>
 
 object::object() : coushu(0), ef(false), noaward(false) {}
 void object::jump() {}
@@ -117,7 +118,7 @@ void ball::jump()
         vx /= ((cur_speed - 350) * 0.25 + 350) / 350;
         vy /= ((cur_speed - 350) * 0.25 + 350) / 350;
     }
-    qDebug()<<cur_speed;
+    // qDebug()<<cur_speed;
     if (y > 540 or y < 0 or x > 600 or x < 0)
         alive = 0;
 }
@@ -280,7 +281,7 @@ void award::dealaward()
     {
         ifaward->start();
         noaward = true;
-        // qDebug()<<'a';
+        qDebug()<<'a';
     }
 
 } // 后面可做图片消失与重新出现

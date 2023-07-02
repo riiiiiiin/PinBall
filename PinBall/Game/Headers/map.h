@@ -49,10 +49,10 @@ signals:
     void scorechange(int,int);
 
 private:
-    double wup,wdo;//上行下行角速度
+    double wup{3},wdo{1};//上行下行角速度
     bool upleft,upright,moveupleft,moveupright;
     double theleft,theright;//左右flipper的theta
-    double leftx,rightx,y;
+    const double leftx{210},rightx{390},y{459};
 
     ball* pb;
     double gball=200;

@@ -29,8 +29,6 @@ GameWindow::GameWindow(int& theme_index,QVector<ThemePack*>& themes,QWidget *par
     connect(leftmap,SIGNAL(scorechange(int,int)),this,SLOT(showscore()));
     connect(leftmap,&map::scorechange,this,on_scoreChanged);
     connect(this,&GameWindow::setMap,leftmap,&map::setmap);
-    leftmap->rebuild_map();
-    leftmap->redraw_map();
     starttime();
 }
 

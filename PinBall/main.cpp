@@ -48,8 +48,7 @@ void myMsgOutput(QtMsgType type, const QMessageLogContext &context, const QStrin
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    // 打开一个文件用于重定向调试输出
-    qInstallMessageHandler(myMsgOutput);
+    // qInstallMessageHandler(myMsgOutput);
     
     MainWindow w;
     w.show();
