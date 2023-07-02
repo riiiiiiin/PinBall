@@ -271,7 +271,7 @@ void award::deleteaward()
 {
     ifaward->stop();
     noaward = false;
-    // qDebug()<<'b';
+    qDebug()<<'b';
 }
 void award::dealaward()
 {

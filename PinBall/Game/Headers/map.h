@@ -75,6 +75,9 @@ private:
     int& _theme_index;
     QVector<ThemePack*>& _theme_packs;
 
+    QPixmap* _lflipper_pixmap;
+    QPixmap* _rflipper_pixmap;
+
     void updateball();
     void updateflipper();
 

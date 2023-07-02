@@ -90,7 +90,7 @@ map::map(int& theme_index,QVector<ThemePack*>& themes,QWidget *parent)
 
 void map::onestep()
 {
-    qDebug()<<(double)clock()/CLOCKS_PER_SEC;
+    // qDebug()<<(double)clock()/CLOCKS_PER_SEC;
     int lc = 0, rc = 0;
     moveupleft = false; // 是否在上升
     moveupright = false;
@@ -167,11 +167,12 @@ void map::onestep()
     {
         emit dead();
     }
-    qDebug()<<(double)clock()/CLOCKS_PER_SEC;
+    // qDebug()<<(double)clock()/CLOCKS_PER_SEC;
 }
 
 void map::oneeffect()
 {
+    // qDebug()<<(double)clock()/CLOCKS_PER_SEC;
     for (auto obj : map_eles)
     {
         if (obj->ef)
@@ -182,6 +183,7 @@ void map::oneeffect()
     }
     updateball();
     updateflipper();
+    // qDebug()<<(double)clock()/CLOCKS_PER_SEC;
 }
 
 map::~map()
@@ -210,6 +212,11 @@ map::~map()
     {
         if (e)
         {
+            delete e;
+        }
+    }
+    for(auto &e:map_pic_labels){
+        if(e){
             delete e;
         }
     }
@@ -242,6 +249,7 @@ void map::rightup()
 
 void map::rebuild_map()
 {
+    qDebug()<<"rebuild called";
     score = 0;
     emit scorechange(0, highest);
     upleft = false;     // Z按键状态
@@ -281,6 +289,7 @@ void map::rebuild_map()
 
 void map::redraw_map()
 {
+    qDebug()<<"redraw called";
     for(auto&l:map_pic_labels){
         if(l!=nullptr){
             delete l;
@@ -316,7 +325,8 @@ void map::redraw_map()
     plabel = nullptr;
 
     plabel = new QLabel(pparent);
-    plabel->setPixmap(*_theme_packs[_theme_index]->themePics()[lFlipper]);
+    _lflipper_pixmap=_theme_packs[_theme_index]->themePics()[lFlipper];
+    plabel->setPixmap(*_lflipper_pixmap);
     plabel->setGeometry(98, 294, 191, 377);
     plabel->show();
     map_pic_labels.push_back(plabel);
@@ -324,7 +334,8 @@ void map::redraw_map()
     plabel = nullptr;
 
     plabel = new QLabel(pparent);
-    plabel->setPixmap(*_theme_packs[_theme_index]->themePics()[rFlipper]);
+    _rflipper_pixmap=_theme_packs[_theme_index]->themePics()[rFlipper];
+    plabel->setPixmap(*_rflipper_pixmap);
     plabel->setGeometry(305, 295, 191, 377);
     plabel->show();
     map_pic_labels.push_back(plabel);
@@ -393,41 +404,41 @@ void map::redraw_map()
 
 void map::updateball()
 {
-    map_pic_labels[1]->setGeometry(pb->getx() - 10, pb->gety() - 10, 20, 20);
+    qDebug()<<"ball updated";
+    map_pic_labels[1]->move(pb->getx() - 10, pb->gety() - 10);
 }
 
 void map::updateflipper()
 {
+    qDebug()<<"flipper updated";
     QLabel* plabel = map_pic_labels[2];
 
-    QPixmap* ppix=_theme_packs[_theme_index]->themePics()[lFlipper];
-    QPixmap* rotatedPixmap=new QPixmap(ppix->size());
-    rotatedPixmap->fill(Qt::transparent);
-    QPainter* painter=new QPainter(rotatedPixmap);
-    painter->setRenderHint(QPainter::Antialiasing); // 设置抗锯齿
-    painter->translate(rotatedPixmap->width() / 2, rotatedPixmap->height() / 2);// 将坐标系移动到图像中心
-    painter->rotate(-(0.24-theleft)/pi*180);//旋转
-    painter->drawPixmap(-ppix->width() / 2, -ppix->height() / 2, *ppix);// 绘制旋转后的图像
-    plabel->setPixmap(*rotatedPixmap);
+    QPixmap rotatedPixmap(_lflipper_pixmap->size());
+    rotatedPixmap.fill(Qt::transparent);
+    QPainter painter(&rotatedPixmap);
+    painter.setRenderHint(QPainter::Antialiasing); // 设置抗锯齿
+    painter.translate(rotatedPixmap.width() / 2, rotatedPixmap.height() / 2);// 将坐标系移动到图像中心
+    painter.rotate(-(0.24-theleft)/pi*180);//旋转
+    painter.drawPixmap(-_lflipper_pixmap->width() / 2, -_lflipper_pixmap->height() / 2, *_lflipper_pixmap);// 绘制旋转后的图像
+    plabel->setPixmap(rotatedPixmap);
 
     plabel=nullptr;
-    ppix = nullptr;
 
     plabel = map_pic_labels[3];
 
-    ppix=_theme_packs[_theme_index]->themePics()[rFlipper];
-    rotatedPixmap=new QPixmap(ppix->size());
-    rotatedPixmap->fill(Qt::transparent);
-    painter=new QPainter(rotatedPixmap);
-    painter->setRenderHint(QPainter::Antialiasing); // 设置抗锯齿
-    painter->translate(rotatedPixmap->width() / 2, rotatedPixmap->height() / 2);// 将坐标系移动到图像中心
-    painter->rotate((0.24-theright)/pi*180);//旋转
-    painter->drawPixmap(-ppix->width() / 2, -ppix->height() / 2, *ppix);// 绘制旋转后的图像
-    plabel->setPixmap(*rotatedPixmap);
+    QPixmap rotatedPixmap1(_rflipper_pixmap->size());
+    rotatedPixmap1.fill(Qt::transparent);
+    QPainter painter1(&rotatedPixmap1);
+    painter1.setRenderHint(QPainter::Antialiasing); // 设置抗锯齿
+    painter1.translate(rotatedPixmap1.width() / 2, rotatedPixmap1.height() / 2);// 将坐标系移动到图像中心
+    painter1.rotate((0.24-theright)/pi*180);//旋转
+    painter1.drawPixmap(-_rflipper_pixmap->width() / 2, -_rflipper_pixmap->height() / 2, *_rflipper_pixmap);// 绘制旋转后的图像
+    plabel->setPixmap(rotatedPixmap1);
 }
 
 void map::setmap(QVector<EncodedMapElement> newmap, int gg)
 {
+    qDebug()<<"setmap called";
     highest=0;
     encoded_dynamic = newmap;
     gball=gg;

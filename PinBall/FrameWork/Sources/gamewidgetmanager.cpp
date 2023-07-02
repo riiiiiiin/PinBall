@@ -49,7 +49,10 @@ GameWidgetManager::~GameWidgetManager(){
     delete _map_editor;
     delete _stacked_widget;
     delete _music;
-    for(auto ptr:_sound_effects){
+    for(auto &ptr:_sound_effects){
+        delete ptr;
+    }
+    for(auto &ptr:_theme_packs){
         delete ptr;
     }
 }

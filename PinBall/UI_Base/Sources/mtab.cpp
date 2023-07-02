@@ -13,7 +13,7 @@ MTab::~MTab()
 {
     delete _title;
     delete _white_bar;
-    for (auto ptr : _buttons)
+    for (auto&ptr : _buttons)
     {
         delete ptr;
     }

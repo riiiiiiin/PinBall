@@ -1,10 +1,8 @@
 #include "FrameWork/Headers/mainwindow.h"
 
 MainWindow::MainWindow(QWidget* parent):QMainWindow(parent){
-    _manager = new GameWidgetManager(this);
     setWindowFlags(windowFlags() & ~Qt::WindowMaximizeButtonHint);
     setFixedSize(960,540);
-    setCentralWidget(_manager->StackedWidget());
     setWindowIcon(QIcon(":/window_icons/bing_icon_1.png"));
     QFile slogan_resource(":/slogans/.slogans");
     if(slogan_resource.open(QIODevice::ReadOnly | QIODevice::Text)){
@@ -24,6 +22,8 @@ MainWindow::MainWindow(QWidget* parent):QMainWindow(parent){
     {
         qDebug() << "Failed to open file";
     }
+    _manager = new GameWidgetManager(this);
+    setCentralWidget(_manager->StackedWidget());
 }
 
 MainWindow::~MainWindow(){

@@ -104,26 +104,28 @@ GameMap::GameMap(int& theme_index,QVector<ThemePack*>& themes,QSoundEffect* musi
 
 GameMap::~GameMap()
 {
-    for (auto ptr : _buttons)
+    for (auto&ptr : _buttons)
     {
         delete ptr;
     }
-    for (auto ptr : _score_display)
+    for (auto&ptr : _score_display)
     {
         delete ptr;
     }
     delete _pMask;
     delete _pmenu;
     delete _blure;
+    delete _game_window;
+    delete _switch_confirm;
+    delete _new_game_confirm;
 }
 
 void GameMap::paintEvent(QPaintEvent *e)
 {
-    QPixmap *bg = new QPixmap;
-    bg->load(":/backgrounds/Quasar_Outflows.png");
+    QPixmap bg(":/backgrounds/Quasar_Outflows.png");
 
     QPainter painter(this);
-    painter.drawPixmap(0, 0, *bg);
+    painter.drawPixmap(0, 0, bg);
     QWidget::paintEvent(e);
 }
 
