@@ -25,3 +25,11 @@ Simply include "www.fiftysounds.com" in your project.
 [Bing Image Creator](https://bing.com/create)
 > _It seems Microsoft have not yet declared the authority of these AI-generated pictures..._
 
+## The Theme 'The Old Ones' From...
+[Terraria](https://store.steampowered.com/app/105600/Terraria/)
+>Loki(Former Community Manager):...So just like a presentation for a class? I don't see why this would be an issue if so...
+
+
+Check [EULA|Terraria Community Fourms](https://forums.terraria.org/index.php?threads/eula.21697/#post-601446) for the full conversation    
+Declaration:**All** of the original contents are property of _Re-Logic_.  
+If this Theme violates the interest of _Re-Logic_,please contact us so that it would be removed.
