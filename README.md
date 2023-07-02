@@ -11,7 +11,6 @@
         - [这可能是远期计划了吧...大概率不会去做了](#这可能是远期计划了吧大概率不会去做了)  
 
 # 代码结构
-### outdated
 #### /
       mainwindow.h
       mainwindow.cpp
@@ -37,6 +36,11 @@
       /Sources/settingsmenu.cpp
       地图编辑器的拓展设置菜单
 
+      /Headers/themepack.h
+      /Sources/themepack.cpp
+      游戏风格包的实现类,用于预加载游戏部分可更换的图片
+      具体更换方式...请期待后续文档说明
+
       /Headers/encodedmap.h
       原本设计为在地图编辑器和游戏地图间传送自定义地图的一个抽象
       原本还计划将其作为存储地图设置使用的抽象
@@ -44,7 +48,7 @@
 
 ##### /Game -可游玩的游戏部分
       /Resources
-      实际地图元素图片素材
+      'Legacy'地图风格的图片素材
 
       /Headers/object.h
       /Sources/object.cpp
@@ -65,7 +69,7 @@
 
 ##### /MapEditor -地图编辑器
       /Resources
-      地图编辑器使用的图片素材
+      'Legacy'地图编辑器风格的图片素材
 
       /Headers/madaptablelabel.h
       /Sources/madaptablelabel.cpp
@@ -168,10 +172,10 @@
 + [x] 给主窗口加一个Icon
 + [x] 整理文件系统
 + [x] **非编译式**的主题设置功能!
-+ [ ] 新主题的奖励点实在太丑
-+ [ ] 新主题的flipper太暗了
++ [x] 新主题的奖励点实在太丑
++ [x] 新主题的flipper太暗了
       - 考虑加亮+ps画一个外发光
-+ [ ] 给地图ps一个外发光
++ [x] 给地图ps一个外发光
 
 
 ##### 这部分有待商榷和跟进
