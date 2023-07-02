@@ -19,7 +19,7 @@ GameWindow::GameWindow(int& theme_index,QVector<ThemePack*>& themes,QWidget *par
     tim->setInterval(2);
     connect(tim,SIGNAL(timeout()),leftmap,SLOT(onestep()));
     atim=new QTimer();
-    atim->setInterval(30);
+    atim->setInterval(9);
     connect(atim,SIGNAL(timeout()),leftmap,SLOT(oneeffect()));
     connect(leftmap,SIGNAL(dead()),this,SLOT(youaredead()));
     connect(this,SIGNAL(pressZ()),leftmap,SLOT(leftup()));
