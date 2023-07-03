@@ -15,7 +15,7 @@ public:
     double coushu;//不必在意
     bool ef;//判断是否需要特效
     int bonus=0;//加分
-    bool noaward;
+    bool has_coolingdown;
     virtual void jump();
     virtual bool bounce(ball* a);
     virtual void effect();

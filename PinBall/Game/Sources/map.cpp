@@ -85,7 +85,6 @@ map::map(int& theme_index,QVector<ThemePack*>& themes,QWidget *parent)
     dynamic_elements.clear();
     rebuild_map();
     redraw_map();
-    updateflipper();
 }
 
 void map::onestep()
@@ -149,16 +148,19 @@ void map::onestep()
     }
     for (auto obj : map_eles)
     {
-        if (obj->bounce(pb) and (!obj->noaward))
+        if (obj->bounce(pb))
         { // 发生碰撞
             obj->ef = true;
             // qDebug()<<"bang!!!";
             // qDebug()<<i;
-            if (obj->bonus != 0 and (not obj->noaward))
+            if (obj->bonus != 0)
             {
                 score += obj->bonus;
                 highest = std::max(highest, score);
                 emit scorechange(score, highest);
+                if(obj->has_coolingdown){
+                    obj->bonus=0;
+                }
             }
             break;
         }
@@ -284,6 +286,7 @@ void map::rebuild_map()
     {
         encoded_elements = encoded_dynamic;
     }
+    updateflipper();
     qDebug()<<gball;
 }
 
@@ -400,6 +403,7 @@ void map::redraw_map()
         }
         }
     }
+    map_pic_labels[1]->raise();
 }
 
 void map::updateball()

@@ -3,7 +3,7 @@
 #include <QDebug>
 #include <ctime>
 
-object::object() : coushu(0), ef(false), noaward(false) {}
+object::object() : coushu(0), ef(false), has_coolingdown(false) {}
 void object::jump() {}
 bool object::bounce(ball *a) { return true; }
 void object::effect() {}
@@ -240,7 +240,7 @@ void kidney::effect()
 award::award(double _x, double _y, double _r) : obcircle(_x, _y, _r, true)
 {
     object::bonus = 1999;
-    noaward = false;
+    has_coolingdown=true;
     ifaward = new QTimer();
     ifaward->setInterval(1000);
     connect(ifaward, SIGNAL(timeout()), this, SLOT(deleteaward()));
@@ -270,17 +270,16 @@ bool award::bounce(ball *a)
 void award::deleteaward()
 {
     ifaward->stop();
-    noaward = false;
+    object::bonus=1999;
     // qDebug()<<'b';
 }
 void award::dealaward()
 {
-    if (noaward)
+    if (not bonus)
         return;
     else
     {
         ifaward->start();
-        noaward = true;
         // qDebug()<<'a';
     }
 
