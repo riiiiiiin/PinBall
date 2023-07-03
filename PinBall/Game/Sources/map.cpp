@@ -83,8 +83,7 @@ map::map(int& theme_index,QVector<ThemePack*>& themes,QWidget *parent)
 
     encoded_dynamic.clear();
     dynamic_elements.clear();
-    rebuild_map();
-    redraw_map();
+    updateMap();
 }
 
 void map::onestep()
@@ -249,7 +248,7 @@ void map::rightup()
     upright = true;
 }
 
-void map::rebuild_map()
+void map::_rebuild_map()
 {
     qDebug()<<"rebuild called";
     score = 0;
@@ -286,11 +285,10 @@ void map::rebuild_map()
     {
         encoded_elements = encoded_dynamic;
     }
-    updateflipper();
     qDebug()<<gball;
 }
 
-void map::redraw_map()
+void map::_redraw_map()
 {
     qDebug()<<"redraw called";
     for(auto&l:map_pic_labels){
@@ -485,4 +483,10 @@ void map::setmap(QVector<EncodedMapElement> newmap, int gg)
         }
         }
     }
+}
+
+void map::updateMap(){
+    _rebuild_map();
+    _redraw_map();
+    updateflipper();
 }

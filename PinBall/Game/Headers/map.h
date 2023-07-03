@@ -30,8 +30,7 @@ class map : public QObject
 public:
     map(int&,QVector<ThemePack*>&,QWidget *parent=nullptr);
     ~map();
-    void rebuild_map();
-    void redraw_map();
+    void updateMap();
     int score=0;//游戏中分数
     int highest=0;
 
@@ -80,6 +79,9 @@ private:
 
     void updateball();
     void updateflipper();
+    
+    void _rebuild_map();
+    void _redraw_map();
 
     const double pi = acos(-1);
 };

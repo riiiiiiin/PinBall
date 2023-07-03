@@ -89,8 +89,7 @@ void GameWindow::youaredead(){
 }
 
 void GameWindow::newgame(){
-    leftmap->rebuild_map();
-    leftmap->redraw_map();
+    leftmap->updateMap();
     starttime();
 }
 
@@ -104,7 +103,6 @@ void GameWindow::on_scoreChanged(int cur,int max){
 
 void GameWindow::on_mapSet(QVector<EncodedMapElement> newmap,int gravity){
     leftmap->setmap(newmap,gravity);
-    leftmap->rebuild_map();
-    leftmap->redraw_map();
+    leftmap->updateMap();
     starttime();
 }
