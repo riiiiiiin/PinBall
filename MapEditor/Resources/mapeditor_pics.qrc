@@ -1,0 +1,32 @@
+<RCC>
+    <qresource prefix="/mapeditor/backgrounds">
+        <file>scratch.png</file>
+        <file>mapeditor_background.png</file>
+    </qresource>
+    <qresource prefix="/mapeditor/draggables">
+        <file>home_pic.png</file>
+        <file>static.png</file>
+        <file>dragged_valid.png</file>
+        <file>dragged_invalid.png</file>
+        <file>home_pic_2.png</file>
+        <file>static_2.png</file>
+        <file>dragged_valid_2.png</file>
+        <file>dragged_invalid_2.png</file>
+        <file>home_pic_3.png</file>
+        <file>static_3.png</file>
+        <file>dragged_valid_3.png</file>
+        <file>dragged_invalid_3.png</file>
+        <file>home_pic_4.png</file>
+        <file>static_4.png</file>
+        <file>dragged_valid_4.png</file>
+        <file>dragged_invalid_4.png</file>
+    </qresource>
+    <qresource prefix="/mapeditor/themes">
+        <file>next_page_active.png</file>
+        <file>next_page_inactive.png</file>
+        <file>previous_page_active.png</file>
+        <file>previous_page_inactive.png</file>
+        <file>Legacy_cover.png</file>
+        <file>Bustling_Downtown_cover.png</file>
+    </qresource>
+</RCC>
