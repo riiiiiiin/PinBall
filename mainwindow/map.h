@@ -37,7 +37,6 @@ public:
     void cleardynamic();//清图
     void updateflipper();
 
-
 public slots:
     void onestep();
     void oneeffect();
@@ -45,6 +44,7 @@ public slots:
     void leftdown();
     void rightup();
     void rightdown();
+    void changeballpic();
 //    void setmap(QList<EncodedMapElement> newmap);//transform
 
 signals:
@@ -52,6 +52,8 @@ signals:
     void scorechange(int,int);//现在的分数，最高分
 
 private:
+    QTimer *changeball;
+    bool stateball;
     double wup,wdo;//上行下行角速度
     bool upleft,upright,moveupleft,moveupright;
     double theleft,theright;//左右flipper的theta

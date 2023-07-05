@@ -3,7 +3,7 @@
 
 
 #include <QObject>
-#include <QTimer>
+#include<QTimer>
 class ball;
 class object : public QObject
 {

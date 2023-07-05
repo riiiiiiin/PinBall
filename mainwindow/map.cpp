@@ -12,6 +12,9 @@
 //QMatrix在6.0版本中废弃了
 map::map(QWidget *parent):pparent(parent)
 {
+    changeball=new QTimer();
+    changeball->setInterval(1000);
+    connect(changeball,SIGNAL(timeout()),this,SLOT(changeballpic()));
     highest=0;
     score=0;
     ifsetmap=false;
@@ -82,6 +85,8 @@ void map::onestep(){
             //qDebug()<<"bang!!!";
             //qDebug()<<i;
             if(cobd[i]->bonus!=0){
+                stateball=true;
+                changeball->start();
                 score+=cobd[i]->bonus;
                 emit scorechange(score,highest);
             }
@@ -94,6 +99,10 @@ void map::onestep(){
     }
 }
 
+void map::changeballpic(){
+    stateball=false;
+    changeball->stop();
+}
 void map::oneeffect(){
     int m=cobd.size();
     for(int i=0;i<m;i++){
@@ -131,6 +140,7 @@ void map::rightup(){
 
 void map::rebuildstatic(){
     score=0;
+    stateball=false;
     emit scorechange(score,highest);
     upleft=false;//Z按键状态
     upright=false;//M按键状态
@@ -138,8 +148,8 @@ void map::rebuildstatic(){
     moveupright=false;
     theleft=0.24;
     theright=0.24;//初始角
-    wup=3;//上升角速度
-    wdo=1;//下降角速度
+    wup=4;//上升角速度
+    wdo=2;//下降角速度
     y=459;
     leftx=210;
     rightx=390;
@@ -297,7 +307,15 @@ void map::cleardynamic(){
 
 void map::updateball()
 {
-    which[1]->setGeometry(pb->getx()-10,pb->gety()-10,20, 20);
+    plabel=which[1];
+    if(!stateball) pix.load(":/new/prefix1/ball.png");
+    else pix.load(":/new/prefix1/new_bonus_point.png");
+    pix = pix.scaled( 20,20);
+    plabel->setPixmap(pix);
+    plabel->setMask(pix.mask());
+    plabel->setGeometry(pb->getx()-10,pb->gety()-10,20, 20);
+    plabel->setFixedSize(20,20);
+    plabel->show();
 }
 
 //QPixmap map::rotateImageWithPainter(const QPixmap &src, int angle)
