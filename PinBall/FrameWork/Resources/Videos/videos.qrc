@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/opening_video">
+        <file>opening.mp4</file>
+    </qresource>
+</RCC>

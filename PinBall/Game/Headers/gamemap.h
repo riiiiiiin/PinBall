@@ -35,6 +35,7 @@ public:
     GameMap(int&,QVector<ThemePack*>&,QSoundEffect *, QVector<QSoundEffect *>,QWidget *parent = nullptr);
     ~GameMap();
     void paintEvent(QPaintEvent *e) override;
+    void startGame();
 
 private slots:
     void on_pauseButtonClicked();

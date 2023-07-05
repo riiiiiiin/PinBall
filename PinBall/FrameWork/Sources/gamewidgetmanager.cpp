@@ -32,11 +32,14 @@ GameWidgetManager::GameWidgetManager(QWidget* parent)
     }
     //Setup Widgets
     _stacked_widget = new QStackedWidget(parent);
+    _opening=new SkippableVideoWidget(parent);
     _map = new GameMap(_theme_index,_theme_packs,_music,_sound_effects,parent);
     _map_editor = new MapEditor(_theme_index,_theme_packs,_music,_sound_effects,parent);
+    _stacked_widget->addWidget(_opening);
     _stacked_widget->addWidget(_map);
     _stacked_widget->addWidget(_map_editor);
 
+    connect(_opening,&SkippableVideoWidget::end,this,&GameWidgetManager::on_openingEnds);
     connect(_map,&GameMap::switchRequest,this,&GameWidgetManager::switch_to_mapEditor);
     connect(_map_editor,&MapEditor::switchRequest,this,&GameWidgetManager::switch_to_map);
     connect(_map,&GameMap::exitRequest,this,&GameWidgetManager::on_exit_requested);
@@ -76,6 +79,16 @@ void GameWidgetManager::switch_to_mapEditor(){
     _map_editor->activateWindow();
     _stacked_widget->setCurrentWidget(_map_editor);
     _music->setSource(QUrl::fromLocalFile(":/music/The_Unexplored.wav"));
+    _music->setLoopCount(QSoundEffect::Infinite);
+    _music->setVolume(0.25f);
+    _music->play();
+}
+
+void GameWidgetManager::on_openingEnds(){
+    _stacked_widget->setCurrentWidget(_map);
+    _map->activateWindow();
+    _map->startGame();
+    _music->setSource(QUrl::fromLocalFile(":/music/The_Wild_Side.wav"));
     _music->setLoopCount(QSoundEffect::Infinite);
     _music->setVolume(0.25f);
     _music->play();

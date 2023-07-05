@@ -1,4 +1,4 @@
-QT       += core gui multimedia
+QT       += core gui multimedia multimediawidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -31,6 +31,7 @@ SOURCES += \
     FrameWork/Sources/settingsmenu.cpp \
     FrameWork/Sources/mainwindow.cpp \
     FrameWork/Sources/themepack.cpp \
+    FrameWork/Sources/openingvideowidget.cpp \
     main.cpp 
 
 
@@ -57,7 +58,8 @@ HEADERS += \
     FrameWork/Headers/pausemenu.h \
     FrameWork/Headers/settingsmenu.h \
     FrameWork/Headers/mainwindow.h \
-    FrameWork/HEADERS/themepack.h
+    FrameWork/HEADERS/themepack.h \
+    FrameWork/headers/openingvideowidget.h
 
 FORMS += 
     
@@ -73,4 +75,5 @@ RESOURCES += \
     UI_Base/Resources/UI_pics.qrc \
     FrameWork/Resources/FrameWork_pics/FrameWork_pics.qrc \
     FrameWork/Resources/Music_SE/sounds.qrc \
-    FrameWork/Resources/Slogans/slogans.qrc
+    FrameWork/Resources/Slogans/slogans.qrc \
+    FrameWork/Resources/Videos/videos.qrc

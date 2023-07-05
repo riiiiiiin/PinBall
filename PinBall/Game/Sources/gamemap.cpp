@@ -185,7 +185,7 @@ void GameMap::on_gameOver(){
     _new_game_confirm->setScore(_score);
     _new_game_confirm->move(mapToGlobal(geometry().topLeft()));
     _new_game_confirm->raise();
-   _new_game_confirm->exec();
+    _new_game_confirm->exec();
 }
 
 void GameMap::on_newGameRequested(){
@@ -203,4 +203,8 @@ void GameMap::handle_setScore(int current_score,int maximum_score){
 
 void GameMap::on_newMapSet(QVector<EncodedMapElement> newmap,int gravity){
     emit setMap(newmap,gravity);
+}
+
+void GameMap::startGame(){
+    _game_window->starttime();
 }

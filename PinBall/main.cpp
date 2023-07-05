@@ -3,11 +3,9 @@
 
 #include <QApplication>
 
-#include <qapplication.h>
 #include <QDateTime>
 #include <QFile>
 #include <QTextStream>
-// #include <QMsgHandler>
 #include <QMessageLogContext>
 #include <QMutex>
  

@@ -8,11 +8,14 @@
 #include "Game/Headers/gamemap.h"
 #include "MapEditor/Headers/mapeditor.h"
 #include "FrameWork/Headers/themepack.h"
+#include "FrameWork/Headers/openingvideowidget.h"
 
 class GameWidgetManager : public QObject{
     Q_OBJECT
 private:
     QStackedWidget* _stacked_widget;
+
+    SkippableVideoWidget* _opening;
     GameMap* _map;
     MapEditor* _map_editor;
 
@@ -31,6 +34,7 @@ private slots:
     void switch_to_map(QVector<EncodedMapElement>,int gravity);
     void switch_to_mapEditor();
     void on_exit_requested();
+    void on_openingEnds();
 };
 
 #endif
