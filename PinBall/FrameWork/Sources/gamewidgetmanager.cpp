@@ -3,16 +3,31 @@
 GameWidgetManager::GameWidgetManager(QWidget* parent)
 :QObject(parent){
     //setup se
+    _sound_effects.clear();
     auto _se = new QSoundEffect();
-    _se->setSource(QUrl::fromLocalFile(":/se/APPLAUSE.WAV"));
+    _se->setSource(QUrl::fromLocalFile(":/se/award.wav"));
     _se->setVolume(0.25f);
+    _se->setLoopCount(1);
     _sound_effects.push_back(_se);
+    _se=nullptr;
+    _se=new QSoundEffect();
+    _se->setSource(QUrl::fromLocalFile(":/se/drum.wav"));
+    _se->setVolume(0.25f);
+    _se->setLoopCount(1);
+    _sound_effects.push_back(_se);
+    _se=nullptr;
+    _se=new QSoundEffect();
+    _se->setSource(QUrl::fromLocalFile(":/se/kidney.wav"));
+    _se->setVolume(0.25f);
+    _se->setLoopCount(1);
+    _sound_effects.push_back(_se);
+
     //setup music
     _music = new QSoundEffect();
     _music->setSource(QUrl::fromLocalFile(":/music/The_Wild_Side.wav"));
     _music->setLoopCount(QSoundEffect::Infinite);
     _music->setVolume(0.25f);
-    _music->play();
+
     //Setup ThemePacks
     auto legacy_pack= new ThemePack();
     _theme_packs.push_back(legacy_pack);
@@ -30,6 +45,7 @@ GameWidgetManager::GameWidgetManager(QWidget* parent)
             }
         }
     }
+    
     //Setup Widgets
     _stacked_widget = new QStackedWidget(parent);
     _opening=new SkippableVideoWidget(parent);

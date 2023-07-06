@@ -4,6 +4,8 @@
         <file>The_Wild_Side.wav</file>
     </qresource>
     <qresource prefix="/se">
-        <file>APPLAUSE.WAV</file>
+        <file>award.wav</file>
+        <file>drum.wav</file>
+        <file>kidney.wav</file>
     </qresource>
 </RCC>

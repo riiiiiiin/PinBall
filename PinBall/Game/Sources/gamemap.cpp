@@ -17,6 +17,7 @@ GameMap::GameMap(int& theme_index,QVector<ThemePack*>& themes,QSoundEffect* musi
     connect(_game_window,&GameWindow::gameOverRequest,this,&GameMap::on_gameOver);
     connect(_game_window,&GameWindow::scoreChange,this,&GameMap::handle_setScore);
     connect(this,&GameMap::setMap,_game_window,&GameWindow::on_mapSet);
+    connect(_game_window,&GameWindow::playSERequest,this,on_playSERequested);
 
     // Setup blure effect
     _blure = new QGraphicsBlurEffect;
@@ -207,4 +208,11 @@ void GameMap::on_newMapSet(QVector<EncodedMapElement> newmap,int gravity){
 
 void GameMap::startGame(){
     _game_window->starttime();
+}
+
+void GameMap::on_playSERequested(enumSoundEffect _ese){
+    if(_ese!=NoSe){
+        _sound_effects[_ese]->setLoopCount(1);
+        _sound_effects[_ese]->play();
+    }
 }

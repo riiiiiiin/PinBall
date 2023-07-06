@@ -19,21 +19,28 @@ public:
     void starttime();//两个计时器开始
 public slots:
     void newgame();//恭喜分数窗口click之后开始新游戏
-    
     void youaredead();//即gameover
-    void showscore();//游戏中每次分数变动后的重新显示
+
     void pause();
     void resume();
+
+    void showscore();//游戏中每次分数变动后的重新显示
     void on_scoreChanged(int,int);
+    
     void on_mapSet(QVector<EncodedMapElement> newmap,int);
+
+    void on_playSERequested(enumSoundEffect);
 signals:
     void pressZ();
     void pressM();
     void releaseZ();
     void releaseM();
+
     void gameOverRequest();
     void scoreChange(int,int);
+
     void setMap(QVector<EncodedMapElement> newmap,int);
+    void playSERequest(enumSoundEffect);
 protected:
     void keyPressEvent(QKeyEvent* event) override;
     void keyReleaseEvent(QKeyEvent* event) override;

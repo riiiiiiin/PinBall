@@ -49,6 +49,8 @@ private slots:
     void on_gameOver();
     void handle_setScore(int,int);
     void on_newGameRequested();
+
+    void on_playSERequested(enumSoundEffect);
 public slots:
     void on_newMapSet(QVector<EncodedMapElement> newmap,int);
 

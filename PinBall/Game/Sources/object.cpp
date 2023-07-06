@@ -6,13 +6,12 @@
 object::object() : coushu(0), ef(false), has_coolingdown(false) {}
 void object::jump() {}
 bool object::bounce(ball *a) { return true; }
-void object::effect() {}
 void object::change(double _x1, double _x2, double _y1, double _y2, int _nocoef, bool go) {}
 
-obcircle::obcircle(double _x, double _y, double _r, bool _full, double _x1, double _x2, double _y1, double _y2) : x(_x), y(_y), r(_r), full(_full), x1(_x1), x2(_x2), y1(_y1), y2(_y2) {}
+obcircle::obcircle(double _x, double _y, double _r, bool _full, double _x1, double _x2, double _y1, double _y2)
+ : object(),x(_x), y(_y), r(_r), full(_full), x1(_x1), x2(_x2), y1(_y1), y2(_y2) {}
 void obcircle::jump() {}
 bool obcircle::bounce(ball *a) { return true; }
-void obcircle::effect() {}
 bool obcircle::judge(ball *a)
 {
     double xx = a->getx();
@@ -54,7 +53,8 @@ bool obcircle::judge(ball *a)
 }
 void obcircle::change(double _x1, double _x2, double _y1, double _y2, int _nocoef, bool go) {}
 
-obline::obline(double _x1, double _x2, double _y1, double _y2) : x1(_x1), x2(_x2), y1(_y1), y2(_y2) {}
+obline::obline(double _x1, double _x2, double _y1, double _y2) 
+:object(), x1(_x1), x2(_x2), y1(_y1), y2(_y2) {}
 bool obline::judge(ball *a)
 {
     double x = a->getx(), y = a->gety(), min, max;
@@ -81,12 +81,10 @@ bool obline::judge(ball *a)
 }
 void obline::change(double _x1, double _x2, double _y1, double _y2, int _nocoef, bool go) {}
 bool obline::bounce(ball *a) { return true; }
-void obline::effect() {}
 
 ball::ball(double _x, double _y, double _r, double _vx, double _vy, double _g)
     : obcircle(_x, _y, _r, true), vx(_vx), vy(_vy), g(_g), t(0.002), alive(1) {}
 bool ball::bounce(ball *a) {}
-void ball::effect() {}
 double &ball::getvx() { return vx; }
 double &ball::getvy() { return vy; }
 double &ball::getx() { return x; }
@@ -142,12 +140,11 @@ bool stwall::bounce(ball *a)
 
         a->getvx() = vx;
         a->getvy() = vy - coushu * 90;
-        this->effect();
         return true;
     }
     return false;
 }
-void stwall::effect() {}
+
 void stwall::change(double _x1, double _x2, double _y1, double _y2, int _nocoef, bool go)
 {
     x1 = _x1;
@@ -163,7 +160,6 @@ void stwall::change(double _x1, double _x2, double _y1, double _y2, int _nocoef,
 
 cirwall::cirwall(double _x, double _y, double _r, double _x1, double _x2, double _y1, double _y2, double _coef) : obcircle(_x, _y, _r, 0, _x1, _x2, _y1, _y2), coef(_coef) { object::bonus = 0; }
 cirwall::cirwall(double _x, double _y, double _r, double _coef) : obcircle(_x, _y, _r, 1), coef(_coef) { object::bonus = 0; }
-void cirwall::effect() {}
 bool cirwall::bounce(ball *a)
 {
     if (obcircle::judge(a))
@@ -179,7 +175,6 @@ bool cirwall::bounce(ball *a)
 
         a->getvx() = vx;
         a->getvy() = vy;
-        this->effect();
         return true;
     }
     return false;
@@ -190,8 +185,7 @@ void cirwall::change(double _x1, double _x2, double _y1, double _y2, int _nocoef
     y = _y1;
 }
 
-drum::drum(double _x, double _y, double _r, double _coef) : obcircle(_x, _y, _r, true), coef(_coef) { object::bonus = 99; }
-void drum::effect() {}
+drum::drum(double _x, double _y, double _r, double _coef) : obcircle(_x, _y, _r, true), coef(_coef) { object::bonus = 99;e_obse=Drum_SE; }
 bool drum::bounce(ball *a)
 {
     if (obcircle::judge(a))
@@ -207,13 +201,12 @@ bool drum::bounce(ball *a)
 
         a->getvx() = vx;
         a->getvy() = vy;
-        this->effect();
         return true;
     }
     return false;
 }
 
-kidney::kidney(double _x1, double _x2, double _y1, double _y2, double _coef) : obline(_x1, _x2, _y1, _y2), coef(_coef) { object::bonus = 99; }
+kidney::kidney(double _x1, double _x2, double _y1, double _y2, double _coef) : obline(_x1, _x2, _y1, _y2), coef(_coef) { object::bonus = 99;e_obse=Kidney_SE; }
 bool kidney::bounce(ball *a)
 {
     if (obline::judge(a))
@@ -228,13 +221,9 @@ bool kidney::bounce(ball *a)
 
         a->getvx() = vx;
         a->getvy() = vy;
-        this->effect();
         return true;
     }
     return false;
-}
-void kidney::effect()
-{
 }
 
 award::award(double _x, double _y, double _r) : obcircle(_x, _y, _r, true)
@@ -243,12 +232,9 @@ award::award(double _x, double _y, double _r) : obcircle(_x, _y, _r, true)
     has_coolingdown=true;
     ifaward = new QTimer();
     ifaward->setInterval(1000);
+    e_obse=Bonus_Point_SE;
     connect(ifaward, SIGNAL(timeout()), this, SLOT(deleteaward()));
     connect(this, SIGNAL(getaward()), this, SLOT(dealaward()));
-}
-
-void award::effect()
-{
 }
 
 bool award::judge(ball *a)
@@ -261,7 +247,6 @@ bool award::bounce(ball *a)
 {
     if (judge(a))
     {
-        this->effect();
         emit getaward();
         return true;
     }

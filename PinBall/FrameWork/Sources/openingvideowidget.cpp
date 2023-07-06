@@ -26,7 +26,6 @@ SkippableVideoWidget::SkippableVideoWidget(QWidget *parent)
 
 SkippableVideoWidget::~SkippableVideoWidget()
 {
-
     layout->removeWidget(videoWidget);
     delete videoWidget;
     videoWidget = nullptr;
@@ -43,7 +42,7 @@ void SkippableVideoWidget::closeOpeningVideo()
 
 void SkippableVideoWidget::mousePressEvent(QMouseEvent *event)
 {
-    qDebug()<<clock();
+    player->stop();
     emit end();
     QWidget::mousePressEvent(event);
 }

@@ -46,6 +46,7 @@ public slots:
 signals:
     void dead();//
     void scorechange(int,int);
+    void playse(enumSoundEffect);
 
 private:
     double wup{3},wdo{1};//上行下行角速度

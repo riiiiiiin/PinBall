@@ -29,6 +29,7 @@ GameWindow::GameWindow(int& theme_index,QVector<ThemePack*>& themes,QWidget *par
     connect(leftmap,SIGNAL(scorechange(int,int)),this,SLOT(showscore()));
     connect(leftmap,&map::scorechange,this,on_scoreChanged);
     connect(this,&GameWindow::setMap,leftmap,&map::setmap);
+    connect(leftmap,&map::playse,this,on_playSERequested);
 }
 
 void GameWindow::pause(){
@@ -104,4 +105,8 @@ void GameWindow::on_mapSet(QVector<EncodedMapElement> newmap,int gravity){
     leftmap->setmap(newmap,gravity);
     leftmap->updateMap();
     starttime();
+}
+
+void GameWindow::on_playSERequested(enumSoundEffect _ese){
+    emit playSERequest(_ese);
 }

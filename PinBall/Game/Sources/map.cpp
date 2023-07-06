@@ -178,7 +178,7 @@ void map::oneeffect()
     {
         if (obj->ef)
         {                  // 发生碰撞
-            obj->effect(); // 画面&声音特效+分数变化
+            emit playse(obj->e_obse);
             obj->ef = false;
         }
     }
