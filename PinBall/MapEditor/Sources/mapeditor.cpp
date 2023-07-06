@@ -37,7 +37,7 @@ MapEditor::MapEditor(int& theme_index,QVector<ThemePack*>& themes,QSoundEffect* 
     _container_back->setStyleSheet("background-color:rgba(255,255,255,96);border-radius:15px;border: 1px solid silver;");
 
     _draggable_containers.resize(5);
-    for (int i = 0; i < 5; ++i)
+    for (int i = 0; i < 4; ++i)
     {
         _draggable_containers[i] = new QLabel(this);
         _draggable_containers[i]->setText("");
@@ -177,6 +177,15 @@ void MapEditor::paintEvent(QPaintEvent *e)
     QPainter painter(this);
     painter.drawPixmap(0, 0, *bg);
     QWidget::paintEvent(e);
+}
+
+void MapEditor::keyPressEvent(QKeyEvent* e){
+    switch(e->key()){
+        case Qt::Key_Escape:{
+            on_pauseButtonClicked();
+            break;
+        }
+    }
 }
 
 void MapEditor::on_pauseButtonClicked()

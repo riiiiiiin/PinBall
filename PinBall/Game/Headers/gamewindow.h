@@ -4,6 +4,7 @@
 #include <QWidget>
 #include <QKeyEvent>
 #include <QVector>
+#include <QTimer>
 
 #include <Game/Headers/map.h>
 
@@ -24,7 +25,6 @@ public slots:
     void pause();
     void resume();
 
-    void showscore();//游戏中每次分数变动后的重新显示
     void on_scoreChanged(int,int);
     
     void on_mapSet(QVector<EncodedMapElement> newmap,int);
@@ -38,6 +38,7 @@ signals:
 
     void gameOverRequest();
     void scoreChange(int,int);
+    void gamePauseRequest();
 
     void setMap(QVector<EncodedMapElement> newmap,int);
     void playSERequest(enumSoundEffect);

@@ -1,6 +1,3 @@
-#include <QTimer>
-#include <QKeyEvent>
-
 #include "Game/Headers/gamewindow.h"
 #include "Game/Headers/object.h"
 #include "Game/Headers/map.h"
@@ -26,7 +23,6 @@ GameWindow::GameWindow(int& theme_index,QVector<ThemePack*>& themes,QWidget *par
     connect(this,SIGNAL(pressM()),leftmap,SLOT(rightup()));
     connect(this,SIGNAL(releaseZ()),leftmap,SLOT(leftdown()));
     connect(this,SIGNAL(releaseM()),leftmap,SLOT(rightdown()));
-    connect(leftmap,SIGNAL(scorechange(int,int)),this,SLOT(showscore()));
     connect(leftmap,&map::scorechange,this,on_scoreChanged);
     connect(this,&GameWindow::setMap,leftmap,&map::setmap);
     connect(leftmap,&map::playse,this,on_playSERequested);
@@ -48,6 +44,10 @@ void GameWindow::keyPressEvent(QKeyEvent* event)
         }
         case Qt::Key_M:{
             emit pressM();
+            break;
+        }
+        case Qt::Key_Escape:{
+            emit gamePauseRequest();
             break;
         }
     }
@@ -91,10 +91,6 @@ void GameWindow::youaredead(){
 void GameWindow::newgame(){
     leftmap->updateMap();
     starttime();
-}
-
-void GameWindow::showscore(){
-    
 }
 
 void GameWindow::on_scoreChanged(int cur,int max){

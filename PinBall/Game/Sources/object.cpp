@@ -231,7 +231,7 @@ award::award(double _x, double _y, double _r) : obcircle(_x, _y, _r, true)
     object::bonus = 1999;
     has_coolingdown=true;
     ifaward = new QTimer();
-    ifaward->setInterval(1000);
+    ifaward->setInterval(5000);
     e_obse=Bonus_Point_SE;
     connect(ifaward, SIGNAL(timeout()), this, SLOT(deleteaward()));
     connect(this, SIGNAL(getaward()), this, SLOT(dealaward()));
@@ -240,11 +240,14 @@ award::award(double _x, double _y, double _r) : obcircle(_x, _y, _r, true)
 bool award::judge(ball *a)
 {
     auto distance = sqrt((a->getx() - x) * (a->getx() - x) + (a->gety() - y) * (a->gety() - y));
-    return (distance < r);
+    return (distance < (r*1.5));
 }
 
 bool award::bounce(ball *a)
 {
+    if(ifaward->isActive()){
+        return false;
+    }
     if (judge(a))
     {
         emit getaward();

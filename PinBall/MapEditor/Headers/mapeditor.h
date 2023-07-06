@@ -38,7 +38,10 @@ private:
 
     QLabel* _theme_title_display;
     QLabel* _theme_cover_display; 
-    
+
+protected:
+    void keyPressEvent(QKeyEvent*)override;
+
 public:
     MapEditor(int&,QVector<ThemePack*>&,QSoundEffect*,QVector<QSoundEffect*>,QWidget* parent=nullptr);
     ~MapEditor();
