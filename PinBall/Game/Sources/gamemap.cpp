@@ -1,24 +1,24 @@
 #include "Game/Headers/gamemap.h"
 
-GameMap::GameMap(int& theme_index,QVector<ThemePack*>& themes,QSoundEffect* music,QVector<QSoundEffect*> se,QWidget *parent)
- : QWidget(parent),_theme_index(theme_index),_theme_packs(themes),_music(music),_sound_effects(se)
+GameMap::GameMap(int &theme_index, QVector<ThemePack *> &themes, QSoundEffect *music, QVector<QSoundEffect *> se, QWidget *parent)
+    : QWidget(parent), _theme_index(theme_index), _theme_packs(themes), _music(music), _sound_effects(se)
 {
     setGeometry(0, 0, 960, 540);
     setWindowFlags(Qt::FramelessWindowHint | windowFlags());
     setFixedSize(960, 540);
 
-    _game_window = new GameWindow(_theme_index,_theme_packs,this);
+    _game_window = new GameWindow(_theme_index, _theme_packs, this);
     _game_window->setParent(this);
     _game_window->setVisible(true);
 
-    connect(this,&GameMap::pauseRequest,_game_window,&GameWindow::pause);
-    connect(this,&GameMap::resumeRequest,_game_window,&GameWindow::resume);
-    connect(this,&GameMap::newGameRequest,_game_window,&GameWindow::newgame);
-    connect(_game_window,&GameWindow::gameOverRequest,this,&GameMap::on_gameOver);
-    connect(_game_window,&GameWindow::scoreChange,this,&GameMap::handle_setScore);
-    connect(this,&GameMap::setMap,_game_window,&GameWindow::on_mapSet);
-    connect(_game_window,&GameWindow::playSERequest,this,on_playSERequested);
-    connect(_game_window,&GameWindow::gamePauseRequest,this,on_pauseButtonClicked);
+    connect(this, &GameMap::pauseRequest, _game_window, &GameWindow::pause);
+    connect(this, &GameMap::resumeRequest, _game_window, &GameWindow::resume);
+    connect(this, &GameMap::newGameRequest, _game_window, &GameWindow::newgame);
+    connect(_game_window, &GameWindow::gameOverRequest, this, &GameMap::on_gameOver);
+    connect(_game_window, &GameWindow::scoreChange, this, &GameMap::handle_setScore);
+    connect(this, &GameMap::setMap, _game_window, &GameWindow::on_mapSet);
+    connect(_game_window, &GameWindow::playSERequest, this, on_playSERequested);
+    connect(_game_window, &GameWindow::gamePauseRequest, this, on_pauseButtonClicked);
 
     // Setup blure effect
     _blure = new QGraphicsBlurEffect;
@@ -30,6 +30,7 @@ GameMap::GameMap(int& theme_index,QVector<ThemePack*>& themes,QSoundEffect* musi
     _pmenu = new PauseMenu(_sound_effects, _music, this);
     connect(_pmenu, &PauseMenu::closed, this, &GameMap::on_pauseMenuClosed);
     connect(_pmenu, &PauseMenu::exitRequest, this, &GameMap::on_exitRequested);
+    connect(_pmenu, &PauseMenu::newGameRequest, this, &GameMap::on_newGameRequested);
 
     // Setup Mask
     _pMask = new QWidget(this);
@@ -75,42 +76,42 @@ GameMap::GameMap(int& theme_index,QVector<ThemePack*>& themes,QSoundEffect* musi
     connect(_switch_confirm, &MConfirmation::rejected, this, &GameMap::on_switchConfirmClosed);
 
     _new_game_confirm = new NewGameConfirm(this);
-    connect(_new_game_confirm,&MConfirmation::accepted,this,&GameMap::on_newGameRequested);
-    connect(_new_game_confirm,&MConfirmation::rejected,this,&GameMap::on_exitRequested);
+    connect(_new_game_confirm, &MConfirmation::accepted, this, &GameMap::on_newGameRequested);
+    connect(_new_game_confirm, &MConfirmation::rejected, this, &GameMap::on_exitRequested);
     // setup score
     _score_display.resize(3);
     for (auto &label : _score_display)
     {
         label = new QLabel(this);
     }
-    _score_display[0]->setGeometry(610,50,320,320);
+    _score_display[0]->setGeometry(610, 50, 320, 320);
     QPixmap a(":/backgrounds/score_display.png");
-    a = a.scaled(320,320, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+    a = a.scaled(320, 320, Qt::KeepAspectRatio, Qt::SmoothTransformation);
     _score_display[0]->setPixmap(a);
     _score_display[0]->setMask(a.mask());
     _score_display[0]->setParent(this);
 
     _score_display[1]->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-    _score_display[1]->setGeometry(678,165,200,50);
+    _score_display[1]->setGeometry(678, 165, 200, 50);
     _score_display[1]->setStyleSheet("QLabel{color:gray;font-family: \"Bauhaus 93\"; font-size: 35px;}");
     _score_display[1]->setText("Nan");
     _score_display[1]->setParent(this);
 
     _score_display[2]->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-    _score_display[2]->setGeometry(678,285,200,50);
+    _score_display[2]->setGeometry(678, 285, 200, 50);
     _score_display[2]->setStyleSheet("QLabel{color:red;font-family: \"Bauhaus 93\"; font-size: 35px;}");
     _score_display[2]->setText("Nan");
     _score_display[2]->setParent(this);
-    handle_setScore(0,0);
+    handle_setScore(0, 0);
 }
 
 GameMap::~GameMap()
 {
-    for (auto&ptr : _buttons)
+    for (auto &ptr : _buttons)
     {
         delete ptr;
     }
-    for (auto&ptr : _score_display)
+    for (auto &ptr : _score_display)
     {
         delete ptr;
     }
@@ -161,7 +162,7 @@ void GameMap::on_switchButtonClicked()
     _blure->setEnabled(true);
     _switch_confirm->move(mapToGlobal(geometry().topLeft()));
     _switch_confirm->raise();
-   _switch_confirm->exec();
+    _switch_confirm->exec();
     // pause
 }
 
@@ -181,7 +182,8 @@ void GameMap::on_switchRequested()
     emit pauseRequest();
 }
 
-void GameMap::on_gameOver(){
+void GameMap::on_gameOver()
+{
     _pMask->show();
     _blure->setEnabled(true);
     _new_game_confirm->setScore(_score);
@@ -190,29 +192,35 @@ void GameMap::on_gameOver(){
     _new_game_confirm->exec();
 }
 
-void GameMap::on_newGameRequested(){
+void GameMap::on_newGameRequested()
+{
     _pMask->close();
     _blure->setEnabled(false);
     emit newGameRequest();
 }
 
-void GameMap::handle_setScore(int current_score,int maximum_score){
-    qDebug()<<"Handle score";
+void GameMap::handle_setScore(int current_score, int maximum_score)
+{
+    qDebug() << "Handle score";
     _score = current_score;
-    _score_display[1]->setText("🎉"+QString::number(current_score)+"🎉");
-    _score_display[2]->setText("🎉"+QString::number(maximum_score)+"🎉");
+    _score_display[1]->setText("🎉" + QString::number(current_score) + "🎉");
+    _score_display[2]->setText("🎉" + QString::number(maximum_score) + "🎉");
 }
 
-void GameMap::on_newMapSet(QVector<EncodedMapElement> newmap,int gravity){
-    emit setMap(newmap,gravity);
+void GameMap::on_newMapSet(QVector<EncodedMapElement> newmap, int gravity)
+{
+    emit setMap(newmap, gravity);
 }
 
-void GameMap::startGame(){
+void GameMap::startGame()
+{
     _game_window->starttime();
 }
 
-void GameMap::on_playSERequested(enumSoundEffect _ese){
-    if(_ese!=NoSe){
+void GameMap::on_playSERequested(enumSoundEffect _ese)
+{
+    if (_ese != NoSe)
+    {
         _sound_effects[_ese]->setLoopCount(1);
         _sound_effects[_ese]->play();
     }

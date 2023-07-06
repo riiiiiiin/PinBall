@@ -6,7 +6,7 @@ PauseMenu::PauseMenu(QVector<QSoundEffect *> se, QSoundEffect *msc, QWidget *par
       _sound_effects(se)
 {
     // setup buttons
-    _buttons.resize(4);
+    _buttons.resize(5);
     _buttons[0] = new MCheckButton(125, "Mute_Music", "Mute Music:", this);
     _buttons[0]->setParent(this);
     connect(_buttons[0], SIGNAL(checked(bool)), this, SLOT(on_musicMuteButtonClicked(bool)));
@@ -15,13 +15,17 @@ PauseMenu::PauseMenu(QVector<QSoundEffect *> se, QSoundEffect *msc, QWidget *par
     _buttons[1]->setParent(this);
     connect(_buttons[1], SIGNAL(checked(bool)), this, SLOT(on_seMuteButtonClicked(bool)));
 
-    _buttons[2] = new MPushButton(225, "Resume", "Back To Game", this);
+    _buttons[2] = new MPushButton(225,"New_Game","New Game",this);
     _buttons[2]->setParent(this);
-    connect(_buttons[2], SIGNAL(pushed()), this, SLOT(on_resumeButtonClicked()));
+    connect(_buttons[2],SIGNAL(pushed()),this,SLOT(on_newGameButtonClicked()));
 
-    _buttons[3] = new MPushButton(275, "Exit", "Exit", this);
+    _buttons[3] = new MPushButton(275, "Resume", "Back To Game", this);
     _buttons[3]->setParent(this);
-    connect(_buttons[3], SIGNAL(pushed()), this, SLOT(on_exitButtonClicked()));
+    connect(_buttons[3], SIGNAL(pushed()), this, SLOT(on_resumeButtonClicked()));
+
+    _buttons[4] = new MPushButton(325, "Exit", "Exit", this);
+    _buttons[4]->setParent(this);
+    connect(_buttons[4], SIGNAL(pushed()), this, SLOT(on_exitButtonClicked()));
 
     // setup subdialog
     _exc = new ExitConfirm(this);
@@ -73,6 +77,11 @@ void PauseMenu::on_exitButtonClicked()
 
 void PauseMenu::on_exitConfirmClosed()
 {
+}
+
+void PauseMenu::on_newGameButtonClicked(){
+    emit newGameRequest();
+    hide();
 }
 
 void PauseMenu::on_exitRequested()

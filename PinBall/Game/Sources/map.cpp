@@ -464,10 +464,17 @@ void map::updateflipper()
 void map::setmap(QVector<EncodedMapElement> newmap, int gg)
 {
     qDebug() << "setmap called";
+    for (auto ptr : dynamic_elements)
+    {
+        if (ptr)
+        {
+            delete ptr;
+        }
+    }
+    dynamic_elements.clear();
     highest = 0;
     encoded_dynamic = newmap;
     gball = gg;
-    dynamic_elements.clear();
     for (auto const &e : newmap)
     {
         switch (e.e_element_type)

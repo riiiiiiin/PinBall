@@ -89,6 +89,7 @@ void GameWindow::youaredead(){
 }
 
 void GameWindow::newgame(){
+    stoptime();
     leftmap->updateMap();
     starttime();
 }

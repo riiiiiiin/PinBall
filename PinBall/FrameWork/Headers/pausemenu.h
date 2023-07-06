@@ -17,13 +17,15 @@ private:
     ExitConfirm *_exc;
     QVector<QSoundEffect *> _sound_effects;
 signals:
-
+    void newGameRequest();
 protected:
 private slots:
     void on_resumeButtonClicked();
     void on_exitButtonClicked();
     void on_seMuteButtonClicked(bool checked);
     void on_musicMuteButtonClicked(bool checked);
+    void on_newGameButtonClicked();
+
     void on_exitRequested();
     void on_exitConfirmClosed();
 };
