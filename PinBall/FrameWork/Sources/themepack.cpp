@@ -2,7 +2,7 @@
 
 const QVector<QString> ThemePack::s_PicNames{
     "Cover","BG_Map_Editor","BG_Game",
-    "lFlipper","rFlipper","Ball",
+    "lFlipper","rFlipper","Ball","Ball_alter",
     "lKidney_game","lKidney_home","lKidney_placed","lKidney_valid","lKidney_invalid",
     "rKidney_game","rKidney_home","rKidney_placed","rKidney_valid","rKidney_invalid",
     "Drum_game","Drum_home","Drum_placed","Drum_valid","Drum_invalid",
@@ -11,7 +11,7 @@ const QVector<QString> ThemePack::s_PicNames{
 
 const QVector<QSize> ThemePack::s_PicSizes{
     QSize(175,70),QSize(600,540),QSize(600,540),
-    QSize(191,377),QSize(191,377),QSize(20,20),
+    QSize(191,377),QSize(191,377),QSize(20,20),QSize(20,20),
     QSize(53,134),QSize(100,100),QSize(53,134),QSize(53,134),QSize(53,134),
     QSize(53,134),QSize(100,100),QSize(53,134),QSize(53,134),QSize(53,134),
     QSize(40,40),QSize(100,100),QSize(40,40),QSize(40,40),QSize(40,40),
@@ -26,6 +26,7 @@ const QVector<QString> ThemePack::s_PicPathsLegacy{
     ":/map_items/shifted_left_flipper.png",
     ":/map_items/shifted_right_flipper.png",
     ":/map_items/ball.png",
+    ":/map_items/ball_effect.png",
 
     ":/map_items/shifted_left_kidney.png",
     ":/mapeditor/draggables/home_pic.png",

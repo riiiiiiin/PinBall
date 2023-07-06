@@ -12,7 +12,7 @@
 
 enum enumThemePicIndex{
     Cover,BG_Map_Editor,BG_Game,
-    lFlipper,rFlipper,Ball,
+    lFlipper,rFlipper,Ball,Ball_alter,
     lKidney_game,lKidney_home,lKidney_placed,lKidney_valid,lKidney_invalid,
     rKidney_game,rKidney_home,rKidney_placed,rKidney_valid,rKidney_invalid,
     Drum_game,Drum_home,Drum_placed,Drum_valid,Drum_invalid,

@@ -1,9 +1,12 @@
 #include "Game/Headers/map.h"
 
-map::map(int& theme_index,QVector<ThemePack*>& themes,QWidget *parent)
-: pparent(parent),_theme_index(theme_index),_theme_packs(themes), encoded_elements(encoded_dynamic)
+map::map(int &theme_index, QVector<ThemePack *> &themes, QWidget *parent)
+    : pparent(parent), _theme_index(theme_index), _theme_packs(themes), encoded_elements(encoded_dynamic),
+      _is_ball_alternated(false), _is_ball_alternated_buffer(false)
 {
-    pb=nullptr;
+    pb = nullptr;
+    _ball_alternate_timer.setInterval(1000);
+    connect(&_ball_alternate_timer, &QTimer::timeout, this, handle_ballAlternate);
     //////////////////////////////////
     ////      静态地图元素部分     ////
     /////////////////////////////////
@@ -57,15 +60,15 @@ map::map(int& theme_index,QVector<ThemePack*>& themes,QWidget *parent)
     dynamic_elements_default.push_back(new kidney(190, 220, 290, 400, 1.5));
     dynamic_elements_default.push_back(new stwall(180, 210, 400, 410, 1));
     dynamic_elements_default.push_back(new cirwall(180, 294, 12, 1));
-    dynamic_elements_default.push_back(new cirwall(210, 400, 10,220,210,400,410, 1));
-    dynamic_elements_default.push_back(new cirwall(199.9, 377.55, 30,180,170,400,380, 1));
+    dynamic_elements_default.push_back(new cirwall(210, 400, 10, 220, 210, 400, 410, 1));
+    dynamic_elements_default.push_back(new cirwall(199.9, 377.55, 30, 180, 170, 400, 380, 1));
     // 11-16:RKidney
     dynamic_elements_default.push_back(new stwall(430, 430, 290, 380, 1));
     dynamic_elements_default.push_back(new kidney(410, 380, 290, 400, 1.5));
     dynamic_elements_default.push_back(new stwall(430, 390, 400, 410, 1));
     dynamic_elements_default.push_back(new cirwall(420, 294, 12, 1));
-    dynamic_elements_default.push_back(new cirwall(390, 400, 10,380,390,400,410, 1));
-    dynamic_elements_default.push_back(new cirwall(400.1, 377.55, 30,420,430,400,380, 1));
+    dynamic_elements_default.push_back(new cirwall(390, 400, 10, 380, 390, 400, 410, 1));
+    dynamic_elements_default.push_back(new cirwall(400.1, 377.55, 30, 420, 430, 400, 380, 1));
 
     encoded_dynamic_default.clear();
 
@@ -157,8 +160,14 @@ void map::onestep()
                 score += obj->bonus;
                 highest = std::max(highest, score);
                 emit scorechange(score, highest);
-                if(obj->has_coolingdown){
-                    obj->bonus=0;
+                if (obj->has_coolingdown)
+                {
+                    obj->bonus = 0;
+                }
+                if (not _is_ball_alternated)
+                {
+                    _is_ball_alternated = true;
+                    _ball_alternate_timer.start();
                 }
             }
             break;
@@ -177,7 +186,7 @@ void map::oneeffect()
     for (auto obj : map_eles)
     {
         if (obj->ef)
-        {                  // 发生碰撞
+        { // 发生碰撞
             emit playse(obj->e_obse);
             obj->ef = false;
         }
@@ -216,8 +225,10 @@ map::~map()
             delete e;
         }
     }
-    for(auto &e:map_pic_labels){
-        if(e){
+    for (auto &e : map_pic_labels)
+    {
+        if (e)
+        {
             delete e;
         }
     }
@@ -250,7 +261,7 @@ void map::rightup()
 
 void map::_rebuild_map()
 {
-    qDebug()<<"rebuild called";
+    qDebug() << "rebuild called";
     score = 0;
     emit scorechange(0, highest);
     upleft = false;     // Z按键状态
@@ -285,14 +296,16 @@ void map::_rebuild_map()
     {
         encoded_elements = encoded_dynamic;
     }
-    qDebug()<<gball;
+    qDebug() << gball;
 }
 
 void map::_redraw_map()
 {
-    qDebug()<<"redraw called";
-    for(auto&l:map_pic_labels){
-        if(l!=nullptr){
+    qDebug() << "redraw called";
+    for (auto &l : map_pic_labels)
+    {
+        if (l != nullptr)
+        {
             delete l;
         }
     }
@@ -326,7 +339,7 @@ void map::_redraw_map()
     plabel = nullptr;
 
     plabel = new QLabel(pparent);
-    _lflipper_pixmap=_theme_packs[_theme_index]->themePics()[lFlipper];
+    _lflipper_pixmap = _theme_packs[_theme_index]->themePics()[lFlipper];
     plabel->setPixmap(*_lflipper_pixmap);
     plabel->setGeometry(98, 294, 191, 377);
     plabel->show();
@@ -335,7 +348,7 @@ void map::_redraw_map()
     plabel = nullptr;
 
     plabel = new QLabel(pparent);
-    _rflipper_pixmap=_theme_packs[_theme_index]->themePics()[rFlipper];
+    _rflipper_pixmap = _theme_packs[_theme_index]->themePics()[rFlipper];
     plabel->setPixmap(*_rflipper_pixmap);
     plabel->setGeometry(305, 295, 191, 377);
     plabel->show();
@@ -406,42 +419,54 @@ void map::_redraw_map()
 
 void map::updateball()
 {
+    if (_is_ball_alternated != _is_ball_alternated_buffer)
+    {
+        if (_is_ball_alternated)
+        {
+            map_pic_labels[1]->setPixmap(*_theme_packs[_theme_index]->themePics()[Ball_alter]);
+        }
+        else
+        {
+            map_pic_labels[1]->setPixmap(*_theme_packs[_theme_index]->themePics()[Ball]);
+        }
+        _is_ball_alternated_buffer = _is_ball_alternated;
+    }
     map_pic_labels[1]->move(pb->getx() - 10, pb->gety() - 10);
 }
 
 void map::updateflipper()
 {
-    QLabel* plabel = map_pic_labels[2];
+    QLabel *plabel = map_pic_labels[2];
 
     QPixmap rotatedPixmap(_lflipper_pixmap->size());
     rotatedPixmap.fill(Qt::transparent);
     QPainter painter(&rotatedPixmap);
-    painter.setRenderHint(QPainter::Antialiasing); // 设置抗锯齿
-    painter.translate(rotatedPixmap.width() / 2, rotatedPixmap.height() / 2);// 将坐标系移动到图像中心
-    painter.rotate(-(0.24-theleft)/pi*180);//旋转
-    painter.drawPixmap(-_lflipper_pixmap->width() / 2, -_lflipper_pixmap->height() / 2, *_lflipper_pixmap);// 绘制旋转后的图像
+    painter.setRenderHint(QPainter::Antialiasing);                                                          // 设置抗锯齿
+    painter.translate(rotatedPixmap.width() / 2, rotatedPixmap.height() / 2);                               // 将坐标系移动到图像中心
+    painter.rotate(-(0.24 - theleft) / pi * 180);                                                           // 旋转
+    painter.drawPixmap(-_lflipper_pixmap->width() / 2, -_lflipper_pixmap->height() / 2, *_lflipper_pixmap); // 绘制旋转后的图像
     plabel->setPixmap(rotatedPixmap);
 
-    plabel=nullptr;
+    plabel = nullptr;
 
     plabel = map_pic_labels[3];
 
     QPixmap rotatedPixmap1(_rflipper_pixmap->size());
     rotatedPixmap1.fill(Qt::transparent);
     QPainter painter1(&rotatedPixmap1);
-    painter1.setRenderHint(QPainter::Antialiasing); // 设置抗锯齿
-    painter1.translate(rotatedPixmap1.width() / 2, rotatedPixmap1.height() / 2);// 将坐标系移动到图像中心
-    painter1.rotate((0.24-theright)/pi*180);//旋转
-    painter1.drawPixmap(-_rflipper_pixmap->width() / 2, -_rflipper_pixmap->height() / 2, *_rflipper_pixmap);// 绘制旋转后的图像
+    painter1.setRenderHint(QPainter::Antialiasing);                                                          // 设置抗锯齿
+    painter1.translate(rotatedPixmap1.width() / 2, rotatedPixmap1.height() / 2);                             // 将坐标系移动到图像中心
+    painter1.rotate((0.24 - theright) / pi * 180);                                                           // 旋转
+    painter1.drawPixmap(-_rflipper_pixmap->width() / 2, -_rflipper_pixmap->height() / 2, *_rflipper_pixmap); // 绘制旋转后的图像
     plabel->setPixmap(rotatedPixmap1);
 }
 
 void map::setmap(QVector<EncodedMapElement> newmap, int gg)
 {
-    qDebug()<<"setmap called";
-    highest=0;
+    qDebug() << "setmap called";
+    highest = 0;
     encoded_dynamic = newmap;
-    gball=gg;
+    gball = gg;
     dynamic_elements.clear();
     for (auto const &e : newmap)
     {
@@ -464,7 +489,7 @@ void map::setmap(QVector<EncodedMapElement> newmap, int gg)
             dynamic_elements.push_back(new kidney(e.m_x + 30, e.m_x, e.m_y - 110, e.m_y, 1.3));
             dynamic_elements.push_back(new stwall(e.m_x + 50, e.m_x + 10, e.m_y, e.m_y + 10, 1));
             dynamic_elements.push_back(new cirwall(e.m_x + 40, e.m_y - 106, 12, 1));
-            dynamic_elements.push_back(new cirwall(e.m_x + 10, e.m_y, 10, e.m_x, e.m_x + 10, e.m_y, e.m_y+10, 1));
+            dynamic_elements.push_back(new cirwall(e.m_x + 10, e.m_y, 10, e.m_x, e.m_x + 10, e.m_y, e.m_y + 10, 1));
             dynamic_elements.push_back(new cirwall(e.m_x + 20.1, e.m_y - 22.45, 30, e.m_x + 40, e.m_x + 50, e.m_y, e.m_y - 20, 1));
 
             break;
@@ -485,8 +510,14 @@ void map::setmap(QVector<EncodedMapElement> newmap, int gg)
     }
 }
 
-void map::updateMap(){
+void map::updateMap()
+{
     _rebuild_map();
     _redraw_map();
     updateflipper();
+}
+
+void map::handle_ballAlternate()
+{
+    _is_ball_alternated = false;
 }

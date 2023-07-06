@@ -43,6 +43,9 @@ public slots:
     void rightdown();
     void setmap(QVector<EncodedMapElement> newmap,int);//transform
 
+private slots:
+    void handle_ballAlternate();
+
 signals:
     void dead();//
     void scorechange(int,int);
@@ -77,6 +80,10 @@ private:
 
     QPixmap* _lflipper_pixmap;
     QPixmap* _rflipper_pixmap;
+
+    bool _is_ball_alternated;
+    bool _is_ball_alternated_buffer;
+    QTimer _ball_alternate_timer;
 
     void updateball();
     void updateflipper();

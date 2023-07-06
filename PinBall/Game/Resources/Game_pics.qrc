@@ -1,6 +1,7 @@
 <RCC>
     <qresource prefix="/map_items">
         <file>ball.png</file>
+        <file>ball_effect.png</file>
         <file>new_bonus_point.png</file>
         <file>new_drum.png</file>
         <file>shifted_left_kidney.png</file>

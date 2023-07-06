@@ -43,7 +43,6 @@ void SkippableVideoWidget::closeOpeningVideo()
 void SkippableVideoWidget::mousePressEvent(QMouseEvent *event)
 {
     player->stop();
-    emit end();
     QWidget::mousePressEvent(event);
 }
 
