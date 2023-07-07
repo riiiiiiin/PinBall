@@ -62,7 +62,7 @@ bool obline::judge(ball* a){
     if(cos<0) return false;
     double vx=a->getvx(),vy=a->getvy();
     double yl=y2-y1,xl=x2-x1;
-    if(coushu==0&&(yl*vx-xl*vy)*(yl*(x-x1)-xl*(y-y1))>0) return false;//如果球的法向速度向外，就不进行变换了
+    if((yl*vx-xl*vy)*(yl*(x-x1)-xl*(y-y1))>0) return false;//如果球的法向速度向外，就不进行变换了
     if(sqrt(1-cos*cos)*min<a->getr()) return true;
     else return false;
 }
