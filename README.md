@@ -133,6 +133,4 @@
       /The_Old_Ones
       小组制作的拓展材质包之二
       /Outlines
-      材质包制作的模板
-      /Outlines/readme.md
       材质包制作的指引
