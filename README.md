@@ -4,6 +4,7 @@
         - [/Game -可游玩的游戏部分](#game--可游玩的游戏部分)  
         - [/MapEditor -地图编辑器](#mapeditor--地图编辑器)  
         - [/UI\_Base -自创(?)UI设计](#ui_base--自创ui设计)  
+        - [/Themepacks -地图材质包](#themepacks--地图材质包)
 
 # 代码结构
 #### /
@@ -124,3 +125,14 @@
       /Headers/mtab.h
       /Sources/mtab.cpp
       菜单的基类
+
+##### /Themepacks -地图材质包
+      请将这个文件夹放置在编译出的可执行文件所在的目录下来安装材质包
+      /Bustling_Downtown
+      小组制作的拓展材质包
+      /The_Old_Ones
+      小组制作的拓展材质包之二
+      /Outlines
+      材质包制作的模板
+      /Outlines/readme.md
+      材质包制作的指引
