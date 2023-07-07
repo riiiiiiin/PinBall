@@ -149,18 +149,21 @@ void map::onestep()
             // qDebug()<<i;
             if (obj->bonus != 0)
             {
-                score += obj->bonus;
-                highest = std::max(highest, score);
-                emit scorechange(score, highest);
                 if (obj->has_coolingdown)
                 {
                     obj->bonus = 0;
                 }
                 if (not _is_ball_alternated)
                 {
+                    score += obj->bonus;
                     _is_ball_alternated = true;
                     _ball_alternate_timer.start();
                 }
+                else{
+                    score+=2*obj->bonus;
+                }
+                highest = std::max(highest, score);
+                emit scorechange(score, highest);
             }
             break;
         }
