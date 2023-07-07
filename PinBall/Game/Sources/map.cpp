@@ -12,36 +12,32 @@ map::map(int &theme_index, QVector<ThemePack *> &themes, QWidget *parent)
     /////////////////////////////////
 
     static_elements.clear();
-    // 0-4:左flipper,对应theleft
+    // 0-2:左flipper,对应theleft
     static_elements.push_back(new stwall(210, 234.3, 459, 464.9, 1));
     static_elements.push_back(new stwall(234.3, 258.6, 464.9, 470.9, 1));
     static_elements.push_back(new stwall(282.8, 258.6, 476.8, 470.9, 1));
-    static_elements.push_back(new cirwall(280.8, 484.3, 7.8, 1));
-    static_elements.push_back(new stwall(206, 278.8, 479, 491.8, 1));
-    // 5-9:右flipper,对应theright
+    // 3-5:右flipper,对应theright
     static_elements.push_back(new stwall(390, 365.7, 459, 464.9, 1));
     static_elements.push_back(new stwall(365.7, 341.4, 464.9, 470.9, 1));
     static_elements.push_back(new stwall(317.2, 341.4, 476.8, 470.9, 1));
-    static_elements.push_back(new cirwall(319.2, 484.3, 7.8, 1));
-    static_elements.push_back(new stwall(394, 321.2, 479, 491.8, 1));
-    // 10-13:右上角的四边形墙
+    // 6-9:右上角的四边形墙
     static_elements.push_back(new stwall(453, 390, 74, 117, 1));
     static_elements.push_back(new stwall(430, 390, 150, 117, 1));
     static_elements.push_back(new stwall(430, 484, 150, 114, 1));
     static_elements.push_back(new stwall(484, 453, 114, 74, 1));
-    // 14:左下直线墙
-    static_elements.push_back(new stwall(67, 210, 424, 459, 0.7));
-    // 15:右下直线墙
-    static_elements.push_back(new stwall(533, 390, 424, 459, 0.7));
-    // 16:圆弧顶
-    static_elements.push_back(new cirwall(300, 814.6, 800, 100, 500, 40, 40, 1));
-    // 17-18:轨道
-    static_elements.push_back(new cirwall(343.326, 136.22, 180, 173, 181, 78, 214, 1));
-    static_elements.push_back(new cirwall(339.835, 144.28, 150, 205, 200, 210, 90, 1));
-    // 19:左壁
-    static_elements.push_back(new stwall(100, 67, 40, 424, 1));
-    // 20:右壁
-    static_elements.push_back(new stwall(500, 533, 40, 424, 1));
+    // 10:左下直线墙
+    static_elements.push_back(new stwall(67, 210, 424, 459, 0.8));
+    // 11:右下直线墙
+    static_elements.push_back(new stwall(533, 390, 424, 459, 0.8));
+    // 12:圆弧顶
+    static_elements.push_back(new cirwall(300, 814.6, 800, 100, 500, 40, 40, 0.8));
+    // 13-14:轨道
+    static_elements.push_back(new cirwall(343.326, 136.22, 180, 173, 181, 78, 214, 0.8));
+    static_elements.push_back(new cirwall(339.835, 144.28, 150, 205, 200, 210, 90, 0.8));
+    // 15:左壁
+    static_elements.push_back(new stwall(100, 67, 40, 424, 0.9));
+    // 16:右壁
+    static_elements.push_back(new stwall(500, 533, 40, 424, 0.9));
 
     /////////////////////////////////////
     ////      默认动态地图元素部分     ////
@@ -52,22 +48,22 @@ map::map(int &theme_index, QVector<ThemePack *> &themes, QWidget *parent)
     dynamic_elements_default.push_back(new award(175, 145, 10));
     dynamic_elements_default.push_back(new award(133, 64, 10));
     // 2-4:Drum*3
-    dynamic_elements_default.push_back(new drum(300, 90, 20, 1.5));
-    dynamic_elements_default.push_back(new drum(270, 150, 20, 1.5));
-    dynamic_elements_default.push_back(new drum(330, 150, 20, 1.5));
+    dynamic_elements_default.push_back(new drum(300, 90, 20, 1.3));
+    dynamic_elements_default.push_back(new drum(270, 150, 20, 1.3));
+    dynamic_elements_default.push_back(new drum(330, 150, 20, 1.3));
     // 5-10:LKidney
     dynamic_elements_default.push_back(new stwall(170, 170, 290, 380, 1));
     dynamic_elements_default.push_back(new kidney(190, 220, 290, 400, 1.5));
     dynamic_elements_default.push_back(new stwall(180, 210, 400, 410, 1));
     dynamic_elements_default.push_back(new cirwall(180, 294, 12, 1));
-    dynamic_elements_default.push_back(new cirwall(210, 400, 10, 220, 210, 400, 410, 1));
+    dynamic_elements_default.push_back(new cirwall(210, 400, 10, 1));
     dynamic_elements_default.push_back(new cirwall(199.9, 377.55, 30, 180, 170, 400, 380, 1));
     // 11-16:RKidney
     dynamic_elements_default.push_back(new stwall(430, 430, 290, 380, 1));
     dynamic_elements_default.push_back(new kidney(410, 380, 290, 400, 1.5));
     dynamic_elements_default.push_back(new stwall(430, 390, 400, 410, 1));
     dynamic_elements_default.push_back(new cirwall(420, 294, 12, 1));
-    dynamic_elements_default.push_back(new cirwall(390, 400, 10, 380, 390, 400, 410, 1));
+    dynamic_elements_default.push_back(new cirwall(390, 400, 10, 1));
     dynamic_elements_default.push_back(new cirwall(400.1, 377.55, 30, 420, 430, 400, 380, 1));
 
     encoded_dynamic_default.clear();
@@ -135,18 +131,14 @@ void map::onestep()
         map_eles[0]->change(leftx, leftx + rx, y, y + ry, int(upleft), moveupleft);
         map_eles[1]->change(leftx + rx, leftx + 2 * rx, y + ry, y + 2 * ry, int(upleft) * 2, moveupleft);
         map_eles[2]->change(leftx + 2 * rx, leftx + 3 * rx, y + 2 * ry, y + 3 * ry, int(upleft) * 3, moveupleft);
-        map_eles[3]->change(leftx + 3 * rx - 2, y + 3 * ry + 7.5, 0, 0, int(upleft), moveupleft);
-        map_eles[4]->change(leftx - 4, leftx + 3 * rx - 4, y + 20, y + 3 * ry + 15, 0, moveupleft);
     }
     if (rc)
     {
         rx = 25 * cos(theright);
         ry = 25 * sin(theright);
-        map_eles[5]->change(rightx, rightx - rx, y, y + ry, int(upright), moveupright);
-        map_eles[6]->change(rightx - rx, rightx - 2 * rx, y + ry, y + 2 * ry, int(upright) * 2, moveupright);
-        map_eles[7]->change(rightx - 2 * rx, rightx - 3 * rx, y + 2 * ry, y + 3 * ry, int(upright) * 3, moveupright);
-        map_eles[8]->change(rightx - 3 * rx + 2, y - 3 * ry + 7.5, 0, 0, int(upright), moveupright);
-        map_eles[9]->change(rightx + 4, rightx - 3 * rx + 4, y + 20, y + 3 * ry + 15, 0, moveupright);
+        map_eles[3]->change(rightx, rightx - rx, y, y + ry, int(upright), moveupright);
+        map_eles[4]->change(rightx - rx, rightx - 2 * rx, y + ry, y + 2 * ry, int(upright) * 2, moveupright);
+        map_eles[5]->change(rightx - 2 * rx, rightx - 3 * rx, y + 2 * ry, y + 3 * ry, int(upright) * 3, moveupright);
     }
     for (auto obj : map_eles)
     {
@@ -261,7 +253,7 @@ void map::rightup()
 
 void map::_rebuild_map()
 {
-    qDebug() << "rebuild called";
+    // qDebug() << "rebuild called";
     score = 0;
     emit scorechange(0, highest);
     upleft = false;     // Z按键状态
@@ -296,12 +288,12 @@ void map::_rebuild_map()
     {
         encoded_elements = encoded_dynamic;
     }
-    qDebug() << gball;
+    // qDebug() << gball;
 }
 
 void map::_redraw_map()
 {
-    qDebug() << "redraw called";
+    // qDebug() << "redraw called";
     for (auto &l : map_pic_labels)
     {
         if (l != nullptr)
@@ -463,7 +455,7 @@ void map::updateflipper()
 
 void map::setmap(QVector<EncodedMapElement> newmap, int gg)
 {
-    qDebug() << "setmap called";
+    // qDebug() << "setmap called";
     for (auto ptr : dynamic_elements)
     {
         if (ptr)
@@ -485,7 +477,7 @@ void map::setmap(QVector<EncodedMapElement> newmap, int gg)
             dynamic_elements.push_back(new kidney(e.m_x - 30, e.m_x, e.m_y - 110, e.m_y, 1.3));
             dynamic_elements.push_back(new stwall(e.m_x - 40, e.m_x - 10, e.m_y, e.m_y + 10, 1));
             dynamic_elements.push_back(new cirwall(e.m_x - 40, e.m_y - 106, 12, 1));
-            dynamic_elements.push_back(new cirwall(e.m_x - 10, e.m_y, 10, e.m_x, e.m_x - 10, e.m_y, e.m_y + 10, 1));
+            dynamic_elements.push_back(new cirwall(e.m_x - 10, e.m_y, 10, 1));
             dynamic_elements.push_back(new cirwall(e.m_x - 20.1, e.m_y - 22.45, 30, e.m_x - 40, e.m_x - 50, e.m_y, e.m_y - 20, 1));
 
             break;
@@ -496,7 +488,7 @@ void map::setmap(QVector<EncodedMapElement> newmap, int gg)
             dynamic_elements.push_back(new kidney(e.m_x + 30, e.m_x, e.m_y - 110, e.m_y, 1.3));
             dynamic_elements.push_back(new stwall(e.m_x + 50, e.m_x + 10, e.m_y, e.m_y + 10, 1));
             dynamic_elements.push_back(new cirwall(e.m_x + 40, e.m_y - 106, 12, 1));
-            dynamic_elements.push_back(new cirwall(e.m_x + 10, e.m_y, 10, e.m_x, e.m_x + 10, e.m_y, e.m_y + 10, 1));
+            dynamic_elements.push_back(new cirwall(e.m_x + 10, e.m_y, 10, 1));
             dynamic_elements.push_back(new cirwall(e.m_x + 20.1, e.m_y - 22.45, 30, e.m_x + 40, e.m_x + 50, e.m_y, e.m_y - 20, 1));
 
             break;

@@ -68,16 +68,16 @@ ThemePack::ThemePack(QString _dir) : m_packDir(_dir)
 ThemePack::ThemePack(ThemePack&& other)
 :m_packDir(std::move(other.m_packDir)),m_ThemeTitle(std::move(other.m_ThemeTitle)),m_Pics(std::move(other.m_Pics))
 {
-    qDebug()<<"moved";
+    // qDebug()<<"moved";
 }
 
 bool ThemePack::loadTheme()
 {
-    qDebug()<<"loadTheme";
+    // qDebug()<<"loadTheme";
     QFile m_jsonSource(QDir(m_packDir).filePath("theme.json"));
     if (!m_jsonSource.open(QIODevice::ReadOnly))
     {
-        qWarning() << "Failed to open JSON file";
+        qWarning() << "Failed to open JSON file , file name : "<<m_jsonSource.fileName();
         return false;
     }
 
@@ -106,14 +106,14 @@ bool ThemePack::loadTheme()
     for (int i = 0; i < (int)count; ++i)
     {
         if(not jsonObj.contains(s_PicNames[i])){
-            qWarning()<<"Incomplete theme.json!";
+            qWarning()<<"Incomplete theme.json! File name : "<<m_jsonSource.fileName();
             return false;
         }
         QString picPath = QDir(m_packDir).filePath(jsonObj.value(s_PicNames[i]).toString());
         QFile file(picPath);
         if (!file.open(QIODevice::ReadOnly))
         {
-            qWarning() << "Failed to open image file,file name below:"<<Qt::endl<<picPath;
+            qWarning() << "Failed to open image file , file name :"<<picPath;
             return false;
         }
         // 读取文件数据
@@ -129,7 +129,7 @@ bool ThemePack::loadTheme()
         }
         else
         {
-            qWarning() << "Invalid Image";
+            qWarning() << "Invalid Image , file name :"<<picPath;
             return false;
         }
     }
@@ -149,12 +149,12 @@ ThemePack::~ThemePack()
 
 QString const &ThemePack::themeTitle()
 {
-    qDebug()<<"Theme title called";
+    // qDebug()<<"Theme title called";
     return m_ThemeTitle;
 }
 
 QVector<QPixmap *> const &ThemePack::themePics() const
 {
-    qDebug()<<"Theme pic called";
+    // qDebug()<<"Theme pic called";
     return m_Pics;
 }

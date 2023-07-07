@@ -63,13 +63,13 @@ void GameWindow::keyReleaseEvent(QKeyEvent* event) {
 }
 
 void GameWindow::starttime(){
-    qDebug()<<"time started";
+    // qDebug()<<"time started";
     activateWindow();
     tim->start();
     atim->start();
 }
 void GameWindow::stoptime(){
-    qDebug()<<"time stopped";
+    // qDebug()<<"time stopped";
     tim->stop();
     atim->stop();
 }

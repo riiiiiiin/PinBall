@@ -52,7 +52,7 @@ signals:
     void playse(enumSoundEffect);
 
 private:
-    double wup{3},wdo{1};//上行下行角速度
+    double wup{4},wdo{2};//上行下行角速度
     bool upleft,upright,moveupleft,moveupright;
     double theleft,theright;//左右flipper的theta
     const double leftx{210},rightx{390},y{459};

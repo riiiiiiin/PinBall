@@ -7,5 +7,6 @@
         <file>award.wav</file>
         <file>drum.wav</file>
         <file>kidney.wav</file>
+        <file>victory.wav</file>
     </qresource>
 </RCC>

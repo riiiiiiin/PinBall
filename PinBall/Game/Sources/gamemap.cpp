@@ -184,6 +184,8 @@ void GameMap::on_switchRequested()
 
 void GameMap::on_gameOver()
 {
+    _music->stop();
+    _sound_effects[3]->play();
     _pMask->show();
     _blure->setEnabled(true);
     _new_game_confirm->setScore(_score);
@@ -196,12 +198,13 @@ void GameMap::on_newGameRequested()
 {
     _pMask->close();
     _blure->setEnabled(false);
+    _music->play();
     emit newGameRequest();
 }
 
 void GameMap::handle_setScore(int current_score, int maximum_score)
 {
-    qDebug() << "Handle score";
+    // qDebug() << "Handle score";
     _score = current_score;
     _score_display[1]->setText("🎉" + QString::number(current_score) + "🎉");
     _score_display[2]->setText("🎉" + QString::number(maximum_score) + "🎉");
