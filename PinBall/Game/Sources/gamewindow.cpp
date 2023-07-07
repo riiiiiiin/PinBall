@@ -23,9 +23,9 @@ GameWindow::GameWindow(int& theme_index,QVector<ThemePack*>& themes,QWidget *par
     connect(this,SIGNAL(pressM()),leftmap,SLOT(rightup()));
     connect(this,SIGNAL(releaseZ()),leftmap,SLOT(leftdown()));
     connect(this,SIGNAL(releaseM()),leftmap,SLOT(rightdown()));
-    connect(leftmap,&map::scorechange,this,on_scoreChanged);
+    connect(leftmap,&map::scorechange,this,&GameWindow::on_scoreChanged);
     connect(this,&GameWindow::setMap,leftmap,&map::setmap);
-    connect(leftmap,&map::playse,this,on_playSERequested);
+    connect(leftmap,&map::playse,this,&GameWindow::on_playSERequested);
 }
 
 void GameWindow::pause(){

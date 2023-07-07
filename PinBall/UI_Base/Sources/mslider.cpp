@@ -15,7 +15,7 @@ MSlider::MSlider(int height, QString name, QString text, QDialog *parent)
                            "QSlider::handle:horizontal{ margin:-4px;height:20px ; width:20px;background-color:white;border:0px; }"
                            "QSlider::groove:horizontal:hover{height:5px;background-color:white;border:0px;left: 10px;right:10px;}"
                            "QSlider::handle:horizontal:hover{ margin:-4px;height:20px ; width:20px;background-color:white;border:0px; }");
-    connect(_slider, QSlider::sliderReleased, this, MSlider::handle_number_change);
+    connect(_slider, &QSlider::sliderReleased, this, &MSlider::handle_number_change);
 }
 
 MSlider::~MSlider()

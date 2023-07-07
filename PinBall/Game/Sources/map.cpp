@@ -6,7 +6,7 @@ map::map(int &theme_index, QVector<ThemePack *> &themes, QWidget *parent)
 {
     pb = nullptr;
     _ball_alternate_timer.setInterval(1000);
-    connect(&_ball_alternate_timer, &QTimer::timeout, this, handle_ballAlternate);
+    connect(&_ball_alternate_timer, &QTimer::timeout, this,&map:: handle_ballAlternate);
     //////////////////////////////////
     ////      静态地图元素部分     ////
     /////////////////////////////////

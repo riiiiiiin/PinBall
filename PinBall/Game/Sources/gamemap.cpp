@@ -17,8 +17,8 @@ GameMap::GameMap(int &theme_index, QVector<ThemePack *> &themes, QSoundEffect *m
     connect(_game_window, &GameWindow::gameOverRequest, this, &GameMap::on_gameOver);
     connect(_game_window, &GameWindow::scoreChange, this, &GameMap::handle_setScore);
     connect(this, &GameMap::setMap, _game_window, &GameWindow::on_mapSet);
-    connect(_game_window, &GameWindow::playSERequest, this, on_playSERequested);
-    connect(_game_window, &GameWindow::gamePauseRequest, this, on_pauseButtonClicked);
+    connect(_game_window, &GameWindow::playSERequest, this, &GameMap::on_playSERequested);
+    connect(_game_window, &GameWindow::gamePauseRequest, this, &GameMap::on_pauseButtonClicked);
 
     // Setup blure effect
     _blure = new QGraphicsBlurEffect;
