@@ -8,13 +8,14 @@
 
 # 代码结构
 #### /
-      mainwindow.h
-      mainwindow.cpp
       main.cpp
       程序入口
 ##### /FrameWork -程序中枢
       /Resources/FrameWork_pics
-      /Resources/Music&SE
+      /Resources/Music_SE
+      /Resources/Videos
+      /Resources/Slogans
+      在程序中所使用的部分资源
 
       /Headers/confirmations.h
       /Sources/confirmations.cpp
@@ -39,13 +40,15 @@
 
       /Headers/themepack.h
       /Sources/themepack.cpp
-      游戏风格包的实现类,用于预加载游戏部分可更换的图片
-      具体更换方式...请期待后续文档说明
+      游戏材质包(风格包)的实现类,用于预加载游戏部分可更换的图片
+      具体更换方式请参见Themepacks部分
+
+      /Headers/mainwindow.h
+      /Sources/mainwindow.cpp
+      游戏载体窗口
 
       /Headers/encodedmap.h
-      原本设计为在地图编辑器和游戏地图间传送自定义地图的一个抽象
-      原本还计划将其作为存储地图设置使用的抽象
-      遗憾的是,由于后端队员抽象能力奇差,目前这一抽象也被用在后端地图构建部分
+      在地图编辑器和游戏地图间传送自定义地图的一个抽象
 
 ##### /Game -可游玩的游戏部分
       /Resources
@@ -66,7 +69,6 @@
       /Headers/gamemap.h
       /Sources/gamemap.cpp
       处理游戏的外围事件,包括应用前端ui,与中枢交互
-      我承认,后面这三层包装并不是太好.一部分是后端提供的抽象太抽象（?）,另一部分就是交接的问题
 
 ##### /MapEditor -地图编辑器
       /Resources
@@ -74,8 +76,7 @@
 
       /Headers/madaptablelabel.h
       /Sources/madaptablelabel.cpp
-      毫无卵用地包装了一遍QLabel
-      很难理解我是在什么精神状态下写的这个东西
+      自动适应图片大小的label
 
       /Headers/mdraggable.h
       /Sources/mdraggable.cpp
@@ -104,7 +105,6 @@
       /Headers/mbutton.h
       /Sources/mbutton.cpp
       按钮基类
-      原本计划实现键盘交互,但是现在只实现了鼠标交互
 
       /Headers/mpushbutton.h
       /Sources/mpushbutton.cpp
