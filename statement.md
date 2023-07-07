@@ -1,11 +1,15 @@
 # Statement on Multimedia Contents Usage
 
-## Music&Sounds From...
+## Music From...
 [Royalty Free Music|FiftySounds](www.fiftysounds.com)  
 > Use our music for free, forever, in unlimited projects, without copyright problems.
 Simply include "www.fiftysounds.com" in your project.
 + [The Wild Side](https://www.fiftysounds.com/royalty-free-music/cinematic.html)
 + [The Unexplored](https://www.fiftysounds.com/royalty-free-music/cinematic.html)
+
+## Sound Effects From...
+[Royalty-free sound effects for download|Pixabay](https://pixabay.com/)
+> Subject to the Prohibited Uses described below (which you agree and acknowledge you are not entitled to engage in), when you download any Content that is not CC0 Content from the Services, we grant you an irrevocable, worldwide, non-exclusive and royalty-free right to download, use, copy, modify or adapt the Content for commercial or non-commercial purposes (Content License). 
 
 ## Game Background From...
 [Images|Hubble Home](https://hubblesite.org/images)
