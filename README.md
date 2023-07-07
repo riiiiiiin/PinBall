@@ -31,6 +31,11 @@
       /Sources/settingsmenu.cpp
       地图编辑器的拓展设置菜单
 
+      /Headers/skippablevideowidget.h
+      /Sources/skippablevideowidget.cpp
+      可点击跳过的视频播放类  
+      用来装载开场动画  
+
       /Headers/themepack.h
       /Sources/themepack.cpp
       游戏风格包的实现类,用于预加载游戏部分可更换的图片
