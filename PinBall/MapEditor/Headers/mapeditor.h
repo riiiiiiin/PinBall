@@ -39,6 +39,7 @@ private:
     QLabel* _theme_title_display;
     QLabel* _theme_cover_display; 
 
+    void updateTheme();
 protected:
     void keyPressEvent(QKeyEvent*)override;
 
@@ -47,7 +48,6 @@ public:
     ~MapEditor();
     void paintEvent(QPaintEvent* event)override;
     void setUpMap(QVector<EncodedMapElement>);
-    void updateTheme();
 private slots:
     void on_pauseButtonClicked();
     void on_pauseMenuClosed();

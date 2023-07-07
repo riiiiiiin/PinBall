@@ -117,6 +117,6 @@ void MDraggable::mouseReleaseEvent(QMouseEvent *event)
     {
         _is_set_properly = false;
         emit be_released_invalidly();
-        emit be_removed(this);
+        // emit be_removed(this);
     }
 }
